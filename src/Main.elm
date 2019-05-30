@@ -2,7 +2,7 @@ module Main exposing (main)
 
 import Browser exposing (Document, UrlRequest)
 import Browser.Navigation as Navigation
-import Element exposing (Element, behindContent, centerX, centerY, column, el, fill, fillPortion, height, image, layout, maximum, minimum, modular, none, paddingXY, paragraph, row, spacing, text, textColumn, width)
+import Element exposing (Element, behindContent, centerX, centerY, column, el, fill, fillPortion, height, image, layout, maximum, minimum, modular, none, paddingXY, paragraph, row, spacing, text, textColumn, width, wrappedRow)
 import Element.Background as Background
 import Element.Border exposing (shadow)
 import Element.Font as Font exposing (center)
@@ -63,7 +63,7 @@ view model =
                     , shadow { offset = ( 0, 1 ), size = 1, blur = 5, color = Theme.shadowColor }
                     ]
                 <|
-                    row [ width fill ]
+                    wrappedRow [ width fill ]
                         [ picturePart, biographyPart ]
         ]
     }

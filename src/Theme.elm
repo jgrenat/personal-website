@@ -30,7 +30,7 @@ primaryBackgroundColor =
         { red = 255
         , green = 255
         , blue = 255
-        , alpha = 1
+        , alpha = 0.9
         }
 
 
@@ -58,9 +58,25 @@ spaceScale scaleToApply =
 
 titleFonts : List Font
 titleFonts =
-    [ Font.typeface "Rubik", Font.serif ]
+    [ rubikFont, Font.serif ]
 
 
 standardFonts : List Font
 standardFonts =
-    [ Font.typeface "Noto Sans", Font.serif ]
+    [ notoSansFont, Font.serif ]
+
+
+rubikFont : Font
+rubikFont =
+    Font.external
+        { url = "https://fonts.googleapis.com/css?family=Rubik&display=swap"
+        , name = "Rubik"
+        }
+
+
+notoSansFont : Font
+notoSansFont =
+    Font.external
+        { url = "https://fonts.googleapis.com/css?family=Noto+Sans&display=swap"
+        , name = "Noto Sans"
+        }
