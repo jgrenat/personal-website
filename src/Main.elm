@@ -90,9 +90,10 @@ biographyPart =
         , paddingXY 20 20
         ]
     <|
-        textColumn
+        column
             [ spacing (Theme.spaceScale 4)
             , centerY
+            , width fill
             ]
             [ el [ Font.size (Theme.textScale 6), Font.family Theme.titleFonts, center, width fill ] (text "Jordane Grenat")
             , paragraph [] [ text "Jordane is a developer at Viseo and loves discoveries and everything that seems unusual, which is often in conflict with the pragmatism required for clients' projects." ]

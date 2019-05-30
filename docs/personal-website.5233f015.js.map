@@ -1,1 +1,0 @@
-{"version":3,"sources":["index.js"],"names":["Elm","Main","init","flags"],"mappings":";;;AAGA,aAHA,IAAA,EAAA,QAAA,kBAGAA,EAAIC,IAAAA,KAAKC,KAAK,CAACC,MAAO","file":"personal-website.5233f015.js","sourceRoot":"..","sourcesContent":["import {Elm} from './src/Main.elm';\n\n\nElm.Main.init({flags: null});"]}
