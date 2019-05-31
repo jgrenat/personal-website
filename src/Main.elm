@@ -1,12 +1,13 @@
 module Main exposing (main)
 
-import Browser exposing (Document, UrlRequest)
+import Browser exposing (Document, UrlRequest(..))
 import Browser.Navigation as Navigation
-import Element exposing (Element, behindContent, centerX, centerY, column, el, fill, fillPortion, height, image, layout, maximum, minimum, modular, none, paddingXY, paragraph, row, spacing, text, textColumn, width, wrappedRow)
+import Element exposing (Element, centerX, centerY, column, el, fill, fillPortion, height, html, image, layout, link, maximum, minimum, mouseOver, paddingXY, paragraph, row, spacing, text, width, wrappedRow)
 import Element.Background as Background
 import Element.Border exposing (shadow)
 import Element.Font as Font exposing (center)
 import Json.Decode exposing (Value)
+import Octicons
 import Platform exposing (Program)
 import Theme
 import Url exposing (Url)
@@ -72,15 +73,15 @@ view model =
 picturePart : Element Msg
 picturePart =
     el
-        [ height (minimum 200 fill)
-        , width (minimum 200 fill)
+        [ height (minimum 200 fill |> maximum 500)
+        , width (fillPortion 2 |> minimum 200 |> maximum 500)
         ]
     <|
         image
             [ width fill
             , height fill
             ]
-            { src = "../images/profile.jpeg", description = "Portrait of Jordane Grenat" }
+            { src = "./images/profile.jpeg", description = "Portrait of Jordane Grenat" }
 
 
 biographyPart : Element Msg
@@ -88,6 +89,7 @@ biographyPart =
     el
         [ height fill
         , paddingXY 20 20
+        , width fill
         ]
     <|
         column
@@ -95,13 +97,32 @@ biographyPart =
             , centerY
             , width fill
             ]
-            [ el [ Font.size (Theme.textScale 6), Font.family Theme.titleFonts, center, width fill ] (text "Jordane Grenat")
+            [ el [ Font.size (Theme.textScale 5), Font.family Theme.titleFonts, center, width fill ] (text "Jordane Grenat")
             , paragraph [] [ text "Jordane is a developer at Viseo and loves discoveries and everything that seems unusual, which is often in conflict with the pragmatism required for clients' projects." ]
             , paragraph [] [ text "He then satisfies his passion with never-finished personal projects and by going to conferences to meet other novelty lovers. For example: Elm, F#, new-JS-hyped-framework, ..." ]
             , paragraph [] [ text "He spends the rest of his spare time declining cookies on the websites he visits." ]
+            , row [ centerX, spacing (Theme.spaceScale 5) ]
+                [ link [ mouseOver [ Font.color Theme.activeLinkColor ] ]
+                    { url = "https://twitter.com/JoGrenat"
+                    , label = html (Octicons.markTwitter octiconOptions)
+                    }
+                , link [ mouseOver [ Font.color Theme.activeLinkColor ] ]
+                    { url = "https://github.com/jgrenat"
+                    , label = html (Octicons.markGithub octiconOptions)
+                    }
+                ]
             ]
 
 
-update : msg -> model -> ( model, Cmd Msg )
+octiconOptions =
+    Octicons.defaultOptions |> Octicons.width 50 |> Octicons.height 50
+
+
+update : Msg -> model -> ( model, Cmd Msg )
 update msg model =
-    ( model, Cmd.none )
+    case msg of
+        OnUrlRequest (External url) ->
+            ( model, Navigation.load url )
+
+        _ ->
+            ( model, Cmd.none )

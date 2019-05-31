@@ -1,10 +1,10 @@
-module Theme exposing (primaryBackgroundColor, primaryColor, secondaryColor, shadowColor, spaceScale, standardFonts, textScale, titleFonts)
+module Theme exposing (activeLinkColor, primaryBackgroundColor, primaryColor, secondaryColor, shadowColor, spaceScale, standardFonts, textScale, titleFonts)
 
-import Element exposing (modular)
+import Element exposing (Color, modular)
 import Element.Font as Font exposing (Font)
 
 
-primaryColor : Element.Color
+primaryColor : Color
 primaryColor =
     Element.fromRgb255
         { red = 0
@@ -14,7 +14,7 @@ primaryColor =
         }
 
 
-secondaryColor : Element.Color
+secondaryColor : Color
 secondaryColor =
     Element.fromRgb255
         { red = 0
@@ -24,7 +24,12 @@ secondaryColor =
         }
 
 
-primaryBackgroundColor : Element.Color
+activeLinkColor : Color
+activeLinkColor =
+    primaryColor
+
+
+primaryBackgroundColor : Color
 primaryBackgroundColor =
     Element.fromRgb255
         { red = 255
@@ -34,7 +39,7 @@ primaryBackgroundColor =
         }
 
 
-shadowColor : Element.Color
+shadowColor : Color
 shadowColor =
     Element.fromRgb255
         { red = 0
