@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "build": "rm -rf docs/ && parcel build index.html images/profile.jpeg -d docs"
+    "build": "rm -rf docs/ && parcel build index.html images/profile.jpeg -d docs",
+    "start": "parcel index.html"
   },
   "devDependencies": {
     "elm-hot": "^1.0.1",

@@ -7,9 +7,9 @@ import Element.Font as Font exposing (Font)
 primaryColor : Color
 primaryColor =
     Element.fromRgb255
-        { red = 0
-        , green = 200
-        , blue = 50
+        { red = 245
+        , green = 245
+        , blue = 245
         , alpha = 1
         }
 
@@ -17,16 +17,16 @@ primaryColor =
 secondaryColor : Color
 secondaryColor =
     Element.fromRgb255
-        { red = 0
-        , green = 50
-        , blue = 200
+        { red = 100
+        , green = 180
+        , blue = 250
         , alpha = 1
         }
 
 
 activeLinkColor : Color
 activeLinkColor =
-    primaryColor
+    secondaryColor
 
 
 primaryBackgroundColor : Color
