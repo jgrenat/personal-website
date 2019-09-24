@@ -1,4 +1,4 @@
-module Theme exposing (activeLinkColor, primaryBackgroundColor, primaryColor, secondaryColor, shadowColor, spaceScale, standardFonts, textScale, titleFonts)
+module Theme exposing (activeLinkColor, opaquePanelBackgroundColor, primaryBackgroundColor, primaryColor, secondaryColor, shadowColor, spaceScale, standardFonts, textScale, titleFonts)
 
 import Element exposing (Color, modular)
 import Element.Font as Font exposing (Font)
@@ -37,6 +37,11 @@ primaryBackgroundColor =
         , blue = 255
         , alpha = 0.9
         }
+
+
+opaquePanelBackgroundColor : Color
+opaquePanelBackgroundColor =
+    Element.fromRgb255 { red = 255, green = 255, blue = 255, alpha = 1 }
 
 
 shadowColor : Color
