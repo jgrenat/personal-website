@@ -1,6 +1,7 @@
 module Main exposing (main)
 
 import Articles exposing (Article, Lang(..))
+import Articles.WhatILoveInElm as WhatILoveInElm
 import Browser exposing (Document, UrlRequest(..))
 import Browser.Navigation as Navigation
 import Element exposing (Element, centerX, centerY, clip, column, el, fill, fillPortion, focused, height, html, image, layout, link, maximum, minimum, mouseOver, none, onLeft, padding, paddingXY, paragraph, row, spacing, text, width, wrappedRow)
@@ -23,7 +24,7 @@ import Url.Parser as Parser exposing ((</>), Parser, string)
 
 articles : List (Article msg)
 articles =
-    []
+    [ WhatILoveInElm.article ]
 
 
 type AppModel
