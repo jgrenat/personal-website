@@ -125,6 +125,6 @@ On se pose donc au final très peu de questions en début de projet : on utilise
 
 Comme dit plus tôt, l'une des grandes forces de Elm est son compilateur. La seconde grande force de Elm est son absence d'erreur au runtime, et elle est directement liée à la première. Oui, vous avez bien lu ! En Elm, on considère qu'un code qui compile ne va pas planter en production, et c'est effectivement ce qui se produit en réalité. Voyez par exemple ce graphique, montrant les erreurs en production sur le site de NoRedInk sur 3 ans groupées selon qu'elles proviennent de leur code Elm (200 000 lignes de code) ou de leur code JavaScript (17 000 lignes, soit 11 fois moins !) :
 
-![Ce graphique montre environ 60 000 erreurs JavaScript contre aucune erreur Elm affichée](./images/noredink-js-elm-errors.png)
+![Ce graphique montre environ 60 000 erreurs JavaScript contre aucune erreur Elm affichée](/images/noredink-js-elm-errors.png)
 
 Côté Elm, même si on ne voit pas la courbe, il y a environ une dizaine d'erreurs. En effet, dans les versions précédentes du langage, il était possible pour un cas juger impossible de demander à l'application de se crasher. Et un jour un développeur s'est trompé... Cela n'est aujourd'hui même plus possible avec les nouvelles versions du langage !"""
