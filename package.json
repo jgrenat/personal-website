@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "build": "rm -rf docs/ && parcel build index.html images/* -d docs",
+    "build": "rm -rf docs/ && parcel build index.html images/* -d docs && cp docs/index.html docs/404.html",
     "start": "parcel index.html"
   },
   "devDependencies": {
