@@ -18,3 +18,7 @@ body {
     font-size: 0.95rem;
     line-height: 1.2rem;
 }
+
+.markdown li {
+    line-height: 1.9rem;
+}

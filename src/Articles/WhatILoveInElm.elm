@@ -36,9 +36,9 @@ articleContent =
 
 Développeur JavaScript depuis de nombreuses année lorsque j'ai découvert ce langage, j'ai immédiatement été séduit par le langage mais également par son écosystème. Je vais essayer dans cet article de vous partager certains de ces points.
 
-TL;DR : Parcourez les titres des différentes parties 😉
+**TL;DR :** Parcourez les titres des différentes parties 😉
 
-## Simplicité du langage
+## La simplicité du langage
 
 Elm est simple. Le langage fait une seule chose et le fait bien : des interfaces et applications web. Très spécialisé, il contient donc le minimum d'éléments pour accomplir à bien sa mission et rien d'autre. Les dernières versions du langage ont d'ailleurs supprimé certains éléments jugés redondants, inutiles ou trop complexes. 
 
@@ -52,7 +52,7 @@ Un des effets indirects est qu'il y a en général une seule façon d'effectuer 
 
 Selon mon expérience, **un développeur n'ayant jamais fait de Elm est plus rapidement productif sur une codebase Elm qu'un développeur JavaScript sur un nouveau framework**.
 
-## Simplicité des outils
+## La simplicité des outils
 
 Encore une fois, l'accent est mis sur la facilité pour les nouveaux arrivants. En installant Elm, l'utilisateur bénéficie de toute une gamme d'outils :
 
@@ -117,7 +117,7 @@ From there open a NEW issue at https://github.com/elm/compiler/issues with your 
 This kind of error is usually tied up in larger architectural choices that are hard to change, so even when we have a couple good examples, it can take some time to resolve in a solid way.
 ```
 
-## Simplicité de l'écosystème
+## La simplicité de l'écosystème
 
 Là où *npm* s'impose comme le gestionnaire de paquets contenant le plus de modules, les packages Elm se comptent *uniquement* en centaines. Souvent il y a un module standard pour ce que l'on cherche à faire et le choix est donc rapide. Je n'ai personnellement jamais été bloqué par l'indisponibilité d'un package, notamment parce qu'il est en général facile d'utiliser également des modules JavaScript à travers [les ports en Elm](https://guide.elm-lang.org/interop/ports.html).
 
@@ -125,7 +125,7 @@ Et une catégorie se détache plus particulièrement, celle des packages liés �
 
 On se pose donc au final très peu de questions en début de projet : on utilise ce langage framework et des packages utilisés par quasiment tous les projets Elm, sans devoir choisir entre de nombreuses solutions différentes. C'est pour moi l'un des inconvénients de React pour des équipes peu expérimentées : comme la bibliothèque couvre en elle-même peu de domaines, il faut choisir entre pas mal de solutions des choses comme la gestion d'état, les requêtes HTTP, etc.
 
-## Simplicité du refactoring
+## La simplicité de refactoring
 
 Comme dit plus tôt, l'une des grandes forces de Elm est son compilateur. La seconde grande force de Elm est son absence d'erreur au runtime, et elle est directement liée à la première. Oui, vous avez bien lu ! En Elm, on considère qu'un code qui compile ne va pas planter en production, et c'est effectivement ce qui se produit en réalité. Voyez par exemple ce graphique, montrant les erreurs en production sur le site de NoRedInk sur 3 ans groupées selon qu'elles proviennent de leur code Elm (200 000 lignes de code) ou de leur code JavaScript (17 000 lignes, soit 11 fois moins !) :
 
@@ -143,7 +143,7 @@ De même, pas besoin de se lancer dans des abstractions hasardeuses, on peut dé
 
 Cette sérénité qu'apporte le langage retire toute peur de livrer en production un bug caché parce qu'on a *oublié* de penser à certains cas !
 
-## Simplicité des dépendances
+## La simplicité des dépendances
 
 Régulièrement, on peut voir passer des vulnérabilités dans les packages publiés sur *npm*. D'où que viennent ces failles (*npm*, erreur humaine, faille technique, ...), le fait est qu'il apparaît dangereux d'ajouter une dépendance à son projet sans vérifier très attentivement sa fiabilité. Et pour cela, il n'existe pas de métrique précise : doit-on regarder le nombre de personnes l'utilisant, la fréquence des mises à jour, la célébrité de l'auteur, le code source directement ?
 
@@ -153,4 +153,32 @@ Elm est différent dans le sens où les dépendances présentent bien moins de r
 
 En Elm, si un package installé désire utiliser une de ces fonctionnalités, cela est forcément explicite et le développeur ne peut pas l'ignorer. On sait donc quand il faut se méfier et où regarder précisément. De même, l'arbre de dépendances reste relativement plat et compréhensible.
 
-Un autre aspect qui peut rebuter concerne la taille des dépendances. Un des conseils les plus donnés est de ne "pas ajouter toute une bibliothèque si on n'en utilise qu'une fonction ou deux". En effet, la nature dynamique de JavaScript rend compliqué le *tree-shaking* (la suppression automatique du code non utilisé lors du build), même si cet aspect a été quelque peu amélioré avec les modules ES6 qui peut maintenant le faire à l'échelle du fichier. Elm – lui – bénéficie de sa nature statique et permet d'effectuer du tree-shaking à l'échelle de la fonction. On n'hésite donc pas à rajouter une dépendance lorsqu'on n'en n'utilise qu'une petite partie."""
+Un autre aspect qui peut rebuter concerne la taille des dépendances. Un des conseils les plus donnés est de ne "pas ajouter toute une bibliothèque si on n'en utilise qu'une fonction ou deux". En effet, la nature dynamique de JavaScript rend compliqué le *tree-shaking* (la suppression automatique du code non utilisé lors du build), même si cet aspect a été quelque peu amélioré avec les modules ES6 qui peut maintenant le faire à l'échelle du fichier. Elm – lui – bénéficie de sa nature statique et permet d'effectuer du tree-shaking à l'échelle de la fonction. On n'hésite donc pas à rajouter une dépendance lorsqu'on n'en n'utilise qu'une petite partie.
+
+## La charge cognitive réduite
+
+Comme on le voit dans les sections précédentes, la **simplicité** est le maître mot de Elm. Grâce à ça, les choix incombant au développeur sont réduits : le tooling est standard et bien conçu, pas besoin de mettre en place une chaîne de build complexe manuellement, le choix des bibliothèques à utiliser est relativement simple et la simplicité du langage fait qu'il y a en général une seule façon d'atteindre un but.
+
+De plus, le compilateur assiste le développeur tout au long du développement. En général, l'ajout d'une fonctionnalité se fait en deux temps : on commence par modifier une partie du code, puis les erreurs du compilateur va permettre de cibler les autres modifications nécessaires. La charge cognitive s'en trouve donc fortement réduit pour le développeur qui peut donc se concentrer sur les changements en eux-même plutôt que sur le fait de réfléchir à tout ce qui doit être changé.
+
+Et c'est pareil pour le refactoring ! Ce qui fait que les décisions prises en début de projet peuvent être modifiées plus tard en toute **confiance** (et c'est là le second maître mot de Elm). On peut donc partir sur les choix les plus simples en début de projet et revenir dessus lorsqu'on possède davantage d'informations. 
+
+Le compilateur est donc une source de feedback sur la justesse de notre code. Rappelez-vous : *si ça compile, ça fonctionne* ! Ce feedback est instantané dans nos IDE, un développeur Elm peut donc se concentrer sur le développement et se contenter d'ouvrir le navigateur seulement lorsque le code compile, évitant ainsi beaucoup de temps perdu entre le refresh de la page, la navigation jusqu'à la fonctionnalité à tester, etc.
+
+
+## La philosophie de l'écosystème
+
+J'aime beaucoup l'écosystème Elm dans sa façon de communiquer. Tout d'abord, tout est fait en pensant au développeur en tant qu'humain. Les outils et la documentation ont alors pour but d'accompagner celui-ci dans la découverte et l'utilisation du langage. 
+
+Le langage a un but précis : permettre de réaliser des interfaces et applications web. Cette volonté est présente dans toutes les décisions pour tendre au mieux vers cet objectif. Dans d'autres langages, lors de la release d'une version les annonces se concentrent généralement sur l'aspect technique : quelles sont les nouveautés, les commits, etc. En Elm, les annonces se concentrent sur ce qu'elles apportent en terme de valeur. Voici quelques exemples :
+
+- [Small Assets without the Headache](https://elm-lang.org/news/small-assets-without-the-headache)
+- [The Perfect Bug Report](https://elm-lang.org/news/the-perfect-bug-report)
+- [Compiler as Assistants](https://elm-lang.org/news/compilers-as-assistants)
+
+La communauté est également bienveillante et prompte à aider via Slack ou le Discourse et l'auteur du langage, Evan Czaplicki a donné de nombreux talks centrés non pas sur le langage lui-même, mais sur ses réflexions sur l'animation et les interactions des communautés en ligne.
+
+
+## Le mot de la fin
+
+Elm est un langage qui m'a rapidement séduit, mais il m'a fallu du temps pour comprendre clairement les aspects mentionnés dans cet article. Malgré mes comparaisons peu flatteuses, je tiens également à préciser que JavaScript est un langage que j'adore et que je pratique toujours aujourd'hui. Elm est cependant devenu mon langage de prédilection pour le développement front-end tant les garanties qu'il offre et l'expérience utilisateur sont satisfaisantes."""
