@@ -8,6 +8,10 @@ body {
     background-attachment: fixed;
 }
 
+body > div {
+    height: 100%;
+}
+
 .markdown p {
     white-space: pre-wrap;
     line-height: 2rem;
