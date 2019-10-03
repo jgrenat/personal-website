@@ -19,7 +19,7 @@ all : List Author
 all =
     [ { name = "Jordane Grenat"
       , avatar = Pages.images.author.jordane
-      , bio = "Elm developer and educator. Founder of Incremental Elm Consulting."
+      , bio = "Developer and software craftsman at Viseo"
       }
     ]
 

@@ -1,13 +1,3 @@
----
-{
-  "type": "blog",
-  "author": "Jordane Grenat",
-  "title": "Ce que j'aime en Elm",
-  "description": "Elm est un langage de programmation front-end compilant en JavaScript permettant de réaliser des interfaces et des applications web. Dans cet article, j'expose les forces qui rendent ce langage addictif et surtout très productif.",
-  "image": "/images/article-covers/elm-tree.jpg",
-  "published": "2019-09-26",
-}
----
 
 L'arrivée en 2012 de Elm sur la scène des langages de programmation s'est faite en toute discrétion. Ce langage dédié aux interfaces et applications web et compilant en JavaScript trouve progressivement ses utilisateurs, sans pourtant être autant médiatisé que les alternatives JavaScript telles que React, AngularJS et Vue.js (qui ont bien souvent la puissance marketing d'un GAFAM derrière eux).
 

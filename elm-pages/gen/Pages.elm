@@ -76,8 +76,6 @@ application config =
 allPages : List (PagePath PathKey)
 allPages =
     [ (buildPage [ "blog", "ce-que-jaime-en-elm" ])
-    , (buildPage [ "blog", "draft" ])
-    , (buildPage [ "blog", "hello" ])
     , (buildPage [ "blog" ])
     , (buildPage [  ])
     ]
@@ -85,8 +83,6 @@ allPages =
 pages =
     { blog =
         { ceQueJaimeEnElm = (buildPage [ "blog", "ce-que-jaime-en-elm" ])
-        , draft = (buildPage [ "blog", "draft" ])
-        , hello = (buildPage [ "blog", "hello" ])
         , index = (buildPage [ "blog" ])
         , directory = directoryWithIndex ["blog"]
         }
@@ -96,8 +92,7 @@ pages =
 
 images =
     { articleCovers =
-        { hello = (buildImage [ "article-covers", "hello.jpg" ])
-        , mountains = (buildImage [ "article-covers", "mountains.jpg" ])
+        { elmTree = (buildImage [ "article-covers", "elm-tree.jpg" ])
         , directory = directoryWithoutIndex ["articleCovers"]
         }
     , author =
@@ -105,21 +100,24 @@ images =
         , directory = directoryWithoutIndex ["author"]
         }
     , elmLogo = (buildImage [ "elm-logo.svg" ])
+    , favicon = (buildImage [ "favicon.png" ])
     , github = (buildImage [ "github.svg" ])
     , iconPng = (buildImage [ "icon-png.png" ])
     , icon = (buildImage [ "icon.svg" ])
+    , noredinkJsElmErrors = (buildImage [ "noredink-js-elm-errors.png" ])
     , directory = directoryWithoutIndex []
     }
 
 allImages : List (ImagePath PathKey)
 allImages =
-    [(buildImage [ "article-covers", "hello.jpg" ])
-    , (buildImage [ "article-covers", "mountains.jpg" ])
+    [(buildImage [ "article-covers", "elm-tree.jpg" ])
     , (buildImage [ "author", "jordane.jpeg" ])
     , (buildImage [ "elm-logo.svg" ])
+    , (buildImage [ "favicon.png" ])
     , (buildImage [ "github.svg" ])
     , (buildImage [ "icon-png.png" ])
     , (buildImage [ "icon.svg" ])
+    , (buildImage [ "noredink-js-elm-errors.png" ])
     ]
 
 
@@ -148,19 +146,7 @@ content : List ( List String, { extension: String, frontMatter : String, body : 
 content =
     [ 
   ( ["blog", "ce-que-jaime-en-elm"]
-    , { frontMatter = """{"type":"blog","author":"Jordane Grenat","title":"Ce que j'aime en Elm","description":"Un retour sur les raisons qui font que le langage de programmaation Elm m'a immédiatement séduit.","image":"/images/article-covers/mountains.jpg","published":"2019-09-26"}
-""" , body = Nothing
-    , extension = "md"
-    } )
-  ,
-  ( ["blog", "draft"]
-    , { frontMatter = """{"type":"blog","author":"Jordane Grenat","title":"A Draft Blog Post","description":"I'm not quite ready to share this post with the world","image":"/images/article-covers/mountains.jpg","draft":true,"published":"2019-09-21"}
-""" , body = Nothing
-    , extension = "md"
-    } )
-  ,
-  ( ["blog", "hello"]
-    , { frontMatter = """{"type":"blog","author":"Jordane Grenat","title":"Hello `elm-pages`! 🚀","description":"Here's an intro for my blog post to get you interested in reading more...","image":"/images/article-covers/hello.jpg","published":"2019-09-21"}
+    , { frontMatter = """{"type":"blog","author":"Jordane Grenat","title":"Ce que j'aime en Elm","description":"Elm est un langage de programmation front-end compilant en JavaScript permettant de réaliser des interfaces et des applications web. Dans cet article, j'expose les forces qui rendent ce langage addictif et surtout très productif.","image":"/images/article-covers/elm-tree.jpg","published":"2019-09-26"}
 """ , body = Nothing
     , extension = "md"
     } )

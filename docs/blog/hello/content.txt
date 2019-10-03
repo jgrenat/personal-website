@@ -1,0 +1,9 @@
+
+Welcome to my blog! It was built with `elm-pages`!
+
+
+```elm
+plus : number -> number -> number
+plus m n =
+    m + n
+```

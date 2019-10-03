@@ -13,8 +13,7 @@ import Head.Seo as Seo
 import Home
 import Html exposing (Html)
 import Index
-import Markdown
-import Markdown.Config exposing (HtmlOption(..))
+import Markdown exposing (defaultOptions)
 import Metadata exposing (Metadata)
 import Pages exposing (images, pages)
 import Pages.Document
@@ -39,7 +38,7 @@ manifest =
     , themeColor = Just Color.white
     , startUrl = pages.index
     , shortName = Just "jordane-grenat-website"
-    , sourceIcon = images.iconPng
+    , sourceIcon = images.favicon
     }
 
 
@@ -66,14 +65,9 @@ main =
         }
 
 
-markdownToHtml : String -> List (Html msg)
+markdownToHtml : String -> Html msg
 markdownToHtml =
-    Markdown.toHtml
-        (Just
-            { softAsHardLineBreak = True
-            , rawHtml = ParseUnsafe
-            }
-        )
+    Markdown.toHtmlWith { defaultOptions | sanitize = False, githubFlavored = Just { tables = True, breaks = True } } []
 
 
 markdownDocument : ( String, Pages.Document.DocumentHandler Metadata Rendered )
@@ -83,7 +77,7 @@ markdownDocument =
         , metadata = Metadata.decoder
         , body =
             \markdownBody ->
-                Html.div [] (markdownToHtml markdownBody)
+                markdownToHtml markdownBody
                     |> Element.html
                     |> List.singleton
                     |> Element.paragraph [ Element.width Element.fill ]
@@ -162,31 +156,35 @@ pageView model siteMetadata page =
         Metadata.Article metadata ->
             { title = metadata.title
             , body =
-                Element.column [ Element.width Element.fill, Element.paddingXY 0 20 ]
+                Element.column
+                    [ Element.width Element.fill
+                    , Element.paddingXY 0 20
+                    ]
                     [ opaquePanel <|
                         Element.column
-                            [ Element.paddingXY 20 30
+                            [ Element.paddingXY 20 50
                             , Element.spacing 40
                             , Element.Region.mainContent
                             , Element.width (Element.fill |> Element.maximum 800)
                             , Element.centerX
                             ]
-                            (Element.column [ Element.spacing 10 ]
-                                [ Element.row [ Element.spacing 10 ]
-                                    [ Author.view [] metadata.author
-                                    , Element.column [ Element.spacing 10, Element.width Element.fill ]
-                                        [ Element.paragraph [ Font.bold, Font.size 24 ]
-                                            [ Element.text metadata.author.name
+                            (Element.link [] { url = "/blog", label = Element.text "< Other articles" }
+                                :: Element.column [ Element.spacing 10 ]
+                                    [ Element.row [ Element.spacing 10 ]
+                                        [ Author.view [] metadata.author
+                                        , Element.column [ Element.spacing 10, Element.width Element.fill ]
+                                            [ Element.paragraph [ Font.bold, Font.size 24 ]
+                                                [ Element.text metadata.author.name
+                                                ]
+                                            , Element.paragraph [ Font.size 16 ]
+                                                [ Element.text metadata.author.bio ]
                                             ]
-                                        , Element.paragraph [ Font.size 16 ]
-                                            [ Element.text metadata.author.bio ]
                                         ]
                                     ]
-                                ]
                                 :: (publishedDateView metadata |> Element.el [ Font.size 16, Font.color (Element.rgba255 0 0 0 0.6) ])
                                 :: Palette.blogHeading metadata.title
                                 :: articleImageView metadata.image
-                                :: [ page.view ]
+                                :: [ page.view, Element.link [] { url = "/blog", label = Element.text "< Other articles" } ]
                             )
                     ]
             }
@@ -212,8 +210,10 @@ pageView model siteMetadata page =
             }
 
         Metadata.BlogIndex ->
-            { title = "elm-pages blog"
-            , body = Element.column [ Element.width Element.fill, Element.padding 20, Element.centerX ] [ Index.view siteMetadata ]
+            { title = "Blog | Jordane Grenat"
+            , body =
+                Element.column [ Element.width Element.fill, Element.padding 20, Element.centerX ]
+                    [ Index.view siteMetadata ]
             }
 
 
@@ -255,8 +255,8 @@ head metadata =
                 { canonicalUrlOverride = Nothing
                 , siteName = siteName
                 , image =
-                    { url = images.iconPng
-                    , alt = "elm-pages logo"
+                    { url = images.favicon
+                    , alt = "logo"
                     , dimensions = Nothing
                     , mimeType = Nothing
                     }
@@ -309,13 +309,13 @@ head metadata =
                 , siteName = siteName
                 , image =
                     { url = meta.avatar
-                    , alt = meta.name ++ "'s elm-pages articles."
+                    , alt = meta.name ++ "'s articles."
                     , dimensions = Nothing
                     , mimeType = Nothing
                     }
                 , description = meta.bio
                 , locale = Nothing
-                , title = meta.name ++ "'s elm-pages articles."
+                , title = meta.name ++ "'s articles."
                 }
                 |> Seo.profile
                     { firstName = firstName
@@ -328,8 +328,8 @@ head metadata =
                 { canonicalUrlOverride = Nothing
                 , siteName = siteName
                 , image =
-                    { url = images.iconPng
-                    , alt = "elm-pages logo"
+                    { url = images.favicon
+                    , alt = "logo"
                     , dimensions = Nothing
                     , mimeType = Nothing
                     }
@@ -344,8 +344,8 @@ head metadata =
                 { canonicalUrlOverride = Nothing
                 , siteName = siteName
                 , image =
-                    { url = images.iconPng
-                    , alt = "elm-pages logo"
+                    { url = images.favicon
+                    , alt = "logo"
                     , dimensions = Nothing
                     , mimeType = Nothing
                     }

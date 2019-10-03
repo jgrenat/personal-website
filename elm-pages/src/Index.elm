@@ -41,6 +41,7 @@ view posts =
                             Nothing
                 )
             |> List.map postSummary
+            |> (::) (Element.link [] { url = "/", label = Element.text "< Home" })
         )
 
 

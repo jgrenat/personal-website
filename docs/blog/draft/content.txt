@@ -1,0 +1,2 @@
+
+This blog post is a draft! Check out `Index.elm` to see how it's being skipped in the `/blog/` listing page.
