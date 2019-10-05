@@ -46,4 +46,6 @@ pre code {
   padding: 0.5em;
   background: #282a36;
   color: #f8f8f2;
+  white-space: pre-wrap;
 }
+

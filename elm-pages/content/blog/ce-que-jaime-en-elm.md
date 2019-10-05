@@ -11,7 +11,7 @@
 
 L'arrivée en 2012 de Elm sur la scène des langages de programmation s'est faite en toute discrétion. Ce langage dédié aux interfaces et applications web et compilant en JavaScript trouve progressivement ses utilisateurs, sans pourtant être autant médiatisé que les alternatives JavaScript telles que React, AngularJS et Vue.js (qui ont bien souvent la puissance marketing d'un GAFAM derrière eux).
 
-Développeur JavaScript depuis de nombreuses années lorsque j'ai découvert ce langage, j'ai immédiatement été séduit par le langage mais également par son écosystème. Je vais essayer dans cet article de vous partager certains de ces points.
+Développeur JavaScript depuis de nombreuses années lorsque j'ai découvert Elm, j'ai immédiatement été séduit par le langage mais également par son écosystème. Je vais essayer dans cet article de vous partager certains de ces points.
 
 **TL;DR :** Parcourez les titres des différentes parties 😉
   
@@ -23,13 +23,13 @@ Développeur JavaScript depuis de nombreuses années lorsque j'ai découvert ce 
 
 Elm est simple. Le langage fait une seule chose et le fait bien : des interfaces et applications web. Très spécialisé, il contient donc le minimum d'éléments pour accomplir à bien sa mission et rien d'autre. Les dernières versions du langage ont d'ailleurs supprimé certains éléments jugés redondants, inutiles ou trop complexes. 
 
-Les concepteurs n'hésitent pas à réécrire d'importantes parts du langage si de nouvelles manières de faire semblent plus intuitives et plus logiques. Cela provoque évidemment d'importants *breaking changes* entre les versions, mais cela n'est pas vraiment pénalisant lors des montées de version avec ce langage puisque des scripts automatisant la plus grosse partie du processus sont fournis.
+Les concepteurs n'hésitent pas à réécrire d'importantes parts du langage si de nouvelles manières de faire semblent plus intuitives et plus logiques. Cela provoque évidemment d'importants *breaking changes* entre les versions, mais cela n'est pas vraiment pénalisant lors des montées de version puisque des scripts automatisant la plus grosse partie du processus sont fournis.
 
-L'absence de rupture de compatibilité est l'une des grandes forces de JavaScript : un site web qui fonctionne aujourd'hui est censé toujours fonctionner correctement dans 15 ans ! C'est également malheureusement sa plus grande faiblesse : dès qu'une fonctionnalité est introduite dans le langage, elle l'est *ad vitam eternam* ! Conçu à l'époque pour un web très différent du web que nous connaissons aujourd'hui, le langage comporte aujourd'hui de nombreux défauts (très facilement utilisés par les détracteurs du langage) qui sont malheureusement voués à y rester.
+L'absence de rupture de compatibilité est l'une des grandes forces de JavaScript : un site web qui fonctionne aujourd'hui est censé toujours fonctionner correctement dans 15 ans ! C'est également malheureusement sa plus grande faiblesse : dès qu'une fonctionnalité est introduite dans le langage, elle l'est *ad vitam aeternam* ! Conçu à l'époque pour un web très différent du web que nous connaissons aujourd'hui, le langage comporte aujourd'hui de nombreux défauts (très facilement utilisés par les détracteurs du langage) qui sont malheureusement voués à y rester.
 
-Mais Elm est compilé, et c'est là toute sa force ! Un code qui fonctionne aujourd'hui fonctionnera toujours dans 15 ans si on le compile avec la même version, puisqu'elle produire le même code JavaScript ! Et cela n'empêche pas les versions suivantes de corriger leurs erreurs ! On peut donc facilement retirer des éléments du langage, gardant sa taille minimale. 
+Mais Elm est compilé, et c'est là toute sa force ! Un code qui fonctionne aujourd'hui fonctionnera toujours dans 15 ans si on le compile avec la même version, puisqu'elle produira le même code JavaScript ! Et cela n'empêche pas les versions suivantes de corriger leurs erreurs ! On peut donc facilement retirer des éléments du langage, gardant sa taille minimale. 
 
-Un des effets indirects est qu'il y a en général une seule façon d'effectuer quelque chose et le développeur n'a donc pas à peser les pour et les contre de chacune des alternatives. En JavaScript au contraire, on a souvent plusieurs façons d’atteindre le même but, par exemple la gestion de l'asynchrone (callbacks, promises, observables, async / await, ...).
+Un des effets indirects est qu'il y a en général une seule façon d'effectuer quelque chose et le développeur n'a donc pas à peser les pour et les contre de chacune des alternatives. En JavaScript au contraire, on a souvent plusieurs façons d’atteindre le même but, par exemple pour la gestion de l'asynchrone (callbacks, promises, observables, async / await, ...).
 
 Selon mon expérience, **un développeur n'ayant jamais fait de Elm est plus rapidement productif sur une codebase Elm qu'un développeur JavaScript sur un nouveau framework**.
 
@@ -56,6 +56,8 @@ Check out <https://elm-lang.org/0.19.0/init> for all the answers!
 Knowing all that, would you like me to create an elm.json file now? [Y/n]: y
 Okay, I created it. Now read that link!
 ```
+
+
 C'est souvent ce genre de message qu'on va trouver dans les outils Elm : une volonté d'expliquer ce qu'il se passe et de fournir tous les éléments nécessaires à quelqu'un débutant dans le langage pour apprendre. 
 
 Les erreurs du compilateur sont d'ailleurs très souvent citées pour leur côté simple et didactique :
@@ -72,6 +74,7 @@ The (+) operator only works with Int and Float values.
 
 Hint: Switch to the (++) operator to append strings!
 ```
+
 L'erreur vous indique l'endroit du code concerné, essaye de vous expliquer le plus précisément et humainement l'erreur rencontrée et va souvent vous proposer des pistes pour la corriger. 
 
 Même quand l'erreur est complètement inconnue du compilateur (ce qui vous arrivera extrêmement rarement), l'idée est tout de même d'aider le développeur :
@@ -118,7 +121,7 @@ Comme dit plus tôt, l'une des grandes forces de Elm est son compilateur. La sec
  <img src="/images/noredink-js-elm-errors.png" alt="Ce graphique montre environ 60 000 erreurs JavaScript contre aucune erreur Elm affichée" style="max-width: 100%; width: 600px">  
  </div>
 
-Côté Elm, même si on ne voit pas la courbe, il y a environ une dizaine d'erreurs. En effet, dans les versions précédentes du langage, il était possible pour un cas juger impossible de demander à l'application de se crasher. Et un jour un développeur s'est trompé... Cela n'est aujourd'hui même plus possible avec les nouvelles versions du langage qui vous forcent à gérer tous les cas possibles !
+Côté Elm, même si on ne voit pas la courbe, il y a environ une dizaine d'erreurs. En effet, dans les versions précédentes du langage, il était possible pour un cas jugé impossible de demander à l'application de se crasher. Et un jour un développeur s'est trompé... Cela n'est aujourd'hui même plus possible avec les nouvelles versions du langage qui vous forcent à gérer tous les cas possibles !
 
 Pour en revenir à cette conclusion toute simple : en Elm, quand ça compile, ça marche ! Du coup les refactoring deviennent très agréables : on commence par faire un petit changement dans le code, puis le compilateur va nous guider pour savoir ce que l'on doit changer. Rappelez-vous : ses erreurs sont très facilement compréhensibles. Et une fois que cela compile, notre refactoring est terminé ! 
 
@@ -144,7 +147,7 @@ Un autre aspect qui peut rebuter concerne la taille des dépendances. Un des con
 
 Comme on le voit dans les sections précédentes, la **simplicité** est le maître mot de Elm. Grâce à ça, les choix incombant au développeur sont réduits : le tooling est standard et bien conçu, pas besoin de mettre en place une chaîne de build complexe manuellement, le choix des bibliothèques à utiliser est relativement simple et la simplicité du langage fait qu'il y a en général une seule façon d'atteindre un but.
 
-De plus, le compilateur assiste le développeur tout au long du développement. En général, l'ajout d'une fonctionnalité se fait en deux temps : on commence par modifier une partie du code, puis les erreurs du compilateur va permettre de cibler les autres modifications nécessaires. La charge cognitive s'en trouve donc fortement réduit pour le développeur qui peut donc se concentrer sur les changements en eux-même plutôt que sur le fait de réfléchir à tout ce qui doit être changé.
+De plus, le compilateur assiste le développeur tout au long du développement. En général, l'ajout d'une fonctionnalité se fait en deux temps : on commence par modifier une partie du code, puis les erreurs du compilateur vont permettre de cibler les autres modifications nécessaires. La charge cognitive s'en trouve donc fortement réduite pour le développeur qui peut donc se concentrer sur les changements en eux-mêmes plutôt que sur le fait de réfléchir à tout ce qui doit être changé.
 
 Et c'est pareil pour le refactoring ! Ce qui fait que les décisions prises en début de projet peuvent être modifiées plus tard en toute **confiance** (et c'est là le second maître mot de Elm). On peut donc partir sur les choix les plus simples en début de projet et revenir dessus lorsqu'on possède davantage d'informations. 
 
