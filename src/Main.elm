@@ -1,436 +1,373 @@
 module Main exposing (main)
 
-import Articles exposing (Article, Lang(..))
-import Articles.WhatILoveInElm as WhatILoveInElm
-import Browser exposing (Document, UrlRequest(..))
-import Browser.Navigation as Navigation
-import Element exposing (Element, centerX, centerY, clip, column, el, fill, fillPortion, focused, height, html, image, layout, link, maximum, minimum, mouseOver, none, onLeft, padding, paddingXY, paragraph, row, spacing, text, width, wrappedRow)
-import Element.Background as Background
-import Element.Border as Border exposing (shadow)
-import Element.Font as Font exposing (center, justify)
-import Element.Region as Region
+import Color
+import Data.Author as Author
+import Date
+import Element exposing (Element, html)
+import Element.Background
+import Element.Border
+import Element.Font as Font
+import Element.Region
+import Head
+import Head.Seo as Seo
+import Home
 import Html exposing (Html)
-import Json.Decode exposing (Value)
-import Json.Encode as Encode
-import Octicons
-import Platform exposing (Program)
-import Ports exposing (highlightAll)
-import Task
-import Theme exposing (spaceScale)
-import Time exposing (Posix)
-import Url exposing (Url)
-import Url.Parser as Parser exposing ((</>), Parser, string)
+import Index
+import Markdown exposing (defaultOptions)
+import Metadata exposing (Metadata)
+import Pages exposing (images, pages)
+import Pages.Document
+import Pages.ImagePath as ImagePath exposing (ImagePath)
+import Pages.Manifest as Manifest
+import Pages.Manifest.Category
+import Pages.PagePath exposing (PagePath)
+import Pages.Platform exposing (Page)
+import Palette
+import Theme
 
 
-articles : List (Article msg)
-articles =
-    [ WhatILoveInElm.article ]
-
-
-type AppModel
-    = NotReady Navigation.Key Page
-    | Ready Model
-
-
-type alias Model =
-    { navigationKey : Navigation.Key
-    , zone : Time.Zone
-    , page : Page
+manifest : Manifest.Config Pages.PathKey
+manifest =
+    { backgroundColor = Just Color.white
+    , categories = [ Pages.Manifest.Category.education ]
+    , displayMode = Manifest.Standalone
+    , orientation = Manifest.Portrait
+    , description = "Jordane Grenat | Personal Website"
+    , iarcRatingId = Nothing
+    , name = "jordane-grenat-website"
+    , themeColor = Just Color.white
+    , startUrl = pages.index
+    , shortName = Just "jordane-grenat-website"
+    , sourceIcon = images.favicon
     }
 
 
-type Page
-    = HomePage
-    | TalksPage
-    | ArticlesListPage
-    | ArticlePage (Article Msg)
+type alias Rendered =
+    Element Msg
 
 
-type Msg
-    = OnUrlRequest UrlRequest
-    | OnUrlChange Url
-    | TimeZoneRetrieved Time.Zone
+
+-- the intellij-elm plugin doesn't support type aliases for Programs so we need to use this line
+-- main : Platform.Program Pages.Platform.Flags (Pages.Platform.Model Model Msg Metadata Rendered) (Pages.Platform.Msg Msg Metadata Rendered)
 
 
-main : Program Value AppModel Msg
+main : Pages.Platform.Program Model Msg Metadata Rendered
 main =
-    Browser.application
+    Pages.application
         { init = init
         , view = view
         , update = update
-        , subscriptions = always Sub.none
-        , onUrlRequest = OnUrlRequest
-        , onUrlChange = OnUrlChange
+        , subscriptions = subscriptions
+        , documents = [ markdownDocument ]
+        , head = head
+        , manifest = manifest
+        , canonicalSiteUrl = canonicalSiteUrl
         }
 
 
-init : Value -> Url -> Navigation.Key -> ( AppModel, Cmd Msg )
-init _ url key =
-    let
-        ( page, command ) =
-            pageAndCommandFromUrl url
-    in
-    ( NotReady key page
-    , Cmd.batch [ Time.here |> Task.perform TimeZoneRetrieved, command ]
-    )
+markdownToHtml : String -> Html msg
+markdownToHtml =
+    Markdown.toHtmlWith { defaultOptions | sanitize = False, githubFlavored = Just { tables = True, breaks = True } } []
 
 
-update : Msg -> AppModel -> ( AppModel, Cmd Msg )
-update msg appModel =
-    case ( appModel, msg ) of
-        ( NotReady key page, TimeZoneRetrieved zone ) ->
-            ( Ready (Model key zone page), Cmd.none )
+markdownDocument : ( String, Pages.Document.DocumentHandler Metadata Rendered )
+markdownDocument =
+    Pages.Document.parser
+        { extension = "md"
+        , metadata = Metadata.decoder
+        , body =
+            \markdownBody ->
+                markdownToHtml markdownBody
+                    |> Element.html
+                    |> List.singleton
+                    |> Element.paragraph [ Element.width Element.fill ]
+                    |> Ok
+        }
 
-        ( NotReady key page, _ ) ->
-            ( NotReady key page, Cmd.none )
 
-        ( Ready model, _ ) ->
-            updateModel msg model |> Tuple.mapFirst Ready
+type alias Model =
+    {}
 
 
-updateModel : Msg -> Model -> ( Model, Cmd Msg )
-updateModel msg model =
+init : ( Model, Cmd Msg )
+init =
+    ( Model, Cmd.none )
+
+
+type alias Msg =
+    ()
+
+
+update : Msg -> Model -> ( Model, Cmd Msg )
+update msg model =
     case msg of
-        OnUrlRequest (External url) ->
-            ( model, Navigation.load url )
-
-        OnUrlRequest (Internal url) ->
-            ( model, Navigation.pushUrl model.navigationKey (Url.toString url) )
-
-        OnUrlChange url ->
-            let
-                ( page, command ) =
-                    pageAndCommandFromUrl url
-            in
-            ( { model | page = page }, command )
-
-        TimeZoneRetrieved zone ->
-            ( { model | zone = zone }, Cmd.none )
+        () ->
+            ( model, Cmd.none )
 
 
-pageParser : Parser (( Page, Cmd Msg ) -> a) a
-pageParser =
-    Parser.oneOf
-        [ Parser.map ( HomePage, Cmd.none ) Parser.top
-        , Parser.map ( TalksPage, Cmd.none ) (Parser.s "talks")
-        , Parser.map ( ArticlesListPage, Cmd.none ) (Parser.s "articles")
-        , Parser.map articlePageFromSlug (Parser.s "articles" </> string)
-        ]
+subscriptions : Model -> Sub Msg
+subscriptions _ =
+    Sub.none
 
 
-articlePageFromSlug : String -> ( Page, Cmd Msg )
-articlePageFromSlug slug =
-    ( List.filter (.slug >> (==) slug) articles
-        |> List.head
-        |> Maybe.map ArticlePage
-        |> Maybe.withDefault ArticlesListPage
-    , highlightAll Encode.null
-    )
-
-
-pageAndCommandFromUrl : Url -> ( Page, Cmd Msg )
-pageAndCommandFromUrl url =
-    Parser.parse pageParser url
-        |> Maybe.withDefault ( HomePage, Cmd.none )
-
-
-view : AppModel -> Document Msg
-view appModel =
-    { title = "Jordane Grenat"
-    , body =
-        case appModel of
-            NotReady _ _ ->
-                [ Html.text "" ]
-
-            Ready model ->
-                [ layout [ Font.family Theme.standardFonts ] <|
-                    el
-                        [ width fill, height fill ]
-                        (case model.page of
-                            HomePage ->
-                                homePage
-
-                            TalksPage ->
-                                talksPage
-
-                            ArticlesListPage ->
-                                articlesPage model.zone
-
-                            ArticlePage article ->
-                                articlePage model.zone article
-                        )
-                ]
-    }
-
-
-homePage : Element Msg
-homePage =
-    mainPanel <|
-        wrappedRow [ width fill ]
-            [ picturePart, biographyPart ]
-
-
-talksPage : Element Msg
-talksPage =
-    wrappedRow [ spacing (Theme.spaceScale 2) ]
-        (List.map viewTalk talks)
-
-
-articlesPage : Time.Zone -> Element Msg
-articlesPage zone =
-    mainPanel <|
-        column [ width fill, spacing (spaceScale 3), padding (spaceScale 2), onLeft (backArrow "/" "Home") ]
-            [ el [ Font.size (Theme.textScale 5), Font.family Theme.titleFonts ] (text "Articles")
-            , column [ spacing (spaceScale 1) ] (List.map (viewArticleListItem zone) articles)
-            ]
-
-
-articlePage : Time.Zone -> Article Msg -> Element Msg
-articlePage zone article =
-    el [ center, width fill, paddingXY 0 (spaceScale 4) ] <|
-        opaquePanel <|
-            column [ width fill, spacing (spaceScale 4), padding (spaceScale 2), justify, onLeft (backArrow "/articles" "List") ]
-                [ el [ Font.size (Theme.textScale 5), Font.family Theme.titleFonts ]
-                    (row [ spacing (spaceScale 2), center ]
-                        [ text article.title
-                        , el [ Font.size (Theme.textScale 2), Font.color Theme.secondaryColor ] (text <| getStringDate zone article.publicationDate)
-                        ]
-                    )
-                , article.content
-                ]
-
-
-backArrow : String -> String -> Element msg
-backArrow url label =
-    el [ paddingXY (spaceScale 4) (spaceScale 2) ] (link [] { url = url, label = row [] [ html <| Octicons.arrowLeft octiconOptions, text label ] })
-
-
-viewTalk : TalkData -> Element Msg
-viewTalk talk =
-    el [ paddingXY 5 5, width (fillPortion 1 |> minimum 250 |> maximum 400) ] <|
-        mainPanel <|
-            paragraph [] [ text <| "[" ++ typeToString talk.talkType ++ "] " ++ talk.title ]
-
-
-viewArticleListItem : Time.Zone -> Article msg -> Element Msg
-viewArticleListItem zone article =
-    link
-        [ paddingXY (spaceScale 2) (spaceScale 3)
-        , Border.color Theme.secondaryColor
-        , Border.solid
-        , Border.width 1
-        , Border.rounded 5
-        , mouseOver [ Background.color Theme.activeLinkColor ]
-        ]
-        { url = "/articles/" ++ article.slug
-        , label = el [ center ] (text <| getFlag article.lang ++ " " ++ article.title ++ " " ++ getStringDate zone article.publicationDate)
-        }
-
-
-getFlag : Lang -> String
-getFlag lang =
-    case lang of
-        Fr ->
-            "🇫🇷"
-
-        En ->
-            "🇬🇧"
-
-
-getStringDate : Time.Zone -> Posix -> String
-getStringDate zone posix =
+view : Model -> List ( PagePath Pages.PathKey, Metadata ) -> Page Metadata Rendered Pages.PathKey -> { title : String, body : Html Msg }
+view model siteMetadata page =
     let
-        day =
-            String.padLeft 2 '0' <| String.fromInt (Time.toDay zone posix)
-
-        month =
-            case Time.toMonth zone posix of
-                Time.Jan ->
-                    "01"
-
-                Time.Feb ->
-                    "02"
-
-                Time.Mar ->
-                    "03"
-
-                Time.Apr ->
-                    "04"
-
-                Time.May ->
-                    "05"
-
-                Time.Jun ->
-                    "06"
-
-                Time.Jul ->
-                    "07"
-
-                Time.Aug ->
-                    "08"
-
-                Time.Sep ->
-                    "09"
-
-                Time.Oct ->
-                    "10"
-
-                Time.Nov ->
-                    "11"
-
-                Time.Dec ->
-                    "12"
-
-        year =
-            String.fromInt (Time.toYear zone posix)
+        { title, body } =
+            pageView model siteMetadata page
     in
-    "(" ++ day ++ "/" ++ month ++ "/" ++ year ++ ")"
-
-
-type alias TalkData =
-    { title : String
-    , year : String
-    , talkType : TalkType
-    , imagePath : String
-    , abstract : List String
+    { title = title
+    , body =
+        body
+            |> Element.layout
+                [ Element.width Element.fill
+                , Element.height Element.fill
+                , Font.size 20
+                , Font.family [ Font.typeface "Roboto" ]
+                , Font.color (Element.rgba255 0 0 0 0.8)
+                ]
     }
 
 
-type TalkType
-    = University
-    | Workshop
-    | Conference
+pageView : Model -> List ( PagePath Pages.PathKey, Metadata ) -> Page Metadata Rendered Pages.PathKey -> { title : String, body : Element Msg }
+pageView model siteMetadata page =
+    case page.metadata of
+        Metadata.Home metadata ->
+            { title = metadata.title
+            , body = html Home.view
+            }
 
-
-typeToString : TalkType -> String
-typeToString talkType =
-    case talkType of
-        University ->
-            "University"
-
-        Workshop ->
-            "Workshop"
-
-        Conference ->
-            "Conference"
-
-
-talks : List TalkData
-talks =
-    [ { title = "Highway to Elm!"
-      , year = "2017"
-      , talkType = Conference
-      , imagePath = "unknown.jpg"
-      , abstract = [ "Ahaha!" ]
-      }
-    , { title = "You still ship bugs in 2019? 😱"
-      , year = "2019"
-      , talkType = University
-      , imagePath = "unknown.jpg"
-      , abstract = [ "Ahaha!" ]
-      }
-    , { title = "Highway to Elm!"
-      , year = "2019"
-      , talkType = University
-      , imagePath = "unknown.jpg"
-      , abstract = [ "Ahaha!" ]
-      }
-    , { title = "Highway to Elm!"
-      , year = "2018"
-      , talkType = Workshop
-      , imagePath = "unknown.jpg"
-      , abstract = [ "Ahaha!" ]
-      }
-    ]
-
-
-picturePart : Element Msg
-picturePart =
-    el
-        [ height fill
-        , width (fillPortion 2 |> minimum 200 |> maximum 500)
-        , paddingXY (Theme.spaceScale 3) (Theme.spaceScale 1)
-        ]
-    <|
-        image
-            [ width fill
-            , Border.rounded 10000
-            , clip
-            , centerY
-            ]
-            { src = "./images/profile.jpeg", description = "Portrait of Jordane Grenat" }
-
-
-biographyPart : Element Msg
-biographyPart =
-    el
-        [ height fill
-        , paddingXY 20 20
-        , width fill
-        , justify
-        ]
-    <|
-        column
-            [ spacing (Theme.spaceScale 4)
-            , centerY
-            , width fill
-            , Region.mainContent
-            ]
-            [ el [ Font.size (Theme.textScale 5), Font.family Theme.titleFonts, center, width fill, Region.heading 1 ] (text "Jordane Grenat")
-            , paragraph [] [ text "Jordane is a developer at Viseo and loves discoveries and everything that seems unusual, which is often in conflict with the pragmatism required for clients' projects." ]
-            , paragraph [] [ text "He then satisfies his passion with never-finished personal projects and by going to conferences to meet other novelty lovers. For example: Elm, F#, new-JS-hyped-framework, ..." ]
-            , paragraph [] [ text "He spends the rest of his spare time declining cookies on the websites he visits." ]
-            , row [ centerX, spacing (Theme.spaceScale 5), Region.navigation ]
-                [ if
-                    List.isEmpty
-                        articles
-                  then
-                    none
-
-                  else
-                    iconLink "Articles" "/articles" (Octicons.file octiconOptions)
-                , iconLink "Twitter" "https://twitter.com/JoGrenat" (Octicons.markTwitter octiconOptions)
-                , iconLink "Github" "https://github.com/jgrenat" (Octicons.markGithub octiconOptions)
+        Metadata.Page metadata ->
+            { title = metadata.title
+            , body =
+                [ Element.column
+                    [ Element.padding 50
+                    , Element.spacing 60
+                    , Element.Region.mainContent
+                    ]
+                    [ page.view
+                    ]
                 ]
-            ]
+                    |> Element.textColumn
+                        [ Element.width Element.fill
+                        ]
+            }
 
-
-iconLink : String -> String -> Html Msg -> Element Msg
-iconLink label url icon =
-    el [] <|
-        link [ mouseOver [ Background.color Theme.activeLinkColor ], focused [ Border.glow Theme.activeLinkColor 2 ] ]
-            { url = url
-            , label =
-                column [ centerX, spacing (Theme.spaceScale 1), paddingXY (Theme.spaceScale 1) (Theme.spaceScale 1) ]
-                    [ el [ centerX ] <| html icon
-                    , text label
+        Metadata.Article metadata ->
+            { title = metadata.title
+            , body =
+                Element.column
+                    [ Element.width Element.fill
+                    , Element.paddingXY 0 20
+                    ]
+                    [ opaquePanel <|
+                        Element.column
+                            [ Element.paddingXY 20 50
+                            , Element.spacing 40
+                            , Element.Region.mainContent
+                            , Element.width (Element.fill |> Element.maximum 800)
+                            , Element.centerX
+                            ]
+                            (Element.link [] { url = "/blog", label = Element.text "< Other articles" }
+                                :: Element.column [ Element.spacing 10 ]
+                                    [ Element.row [ Element.spacing 10 ]
+                                        [ Author.view [] metadata.author
+                                        , Element.column [ Element.spacing 10, Element.width Element.fill ]
+                                            [ Element.paragraph [ Font.bold, Font.size 24 ]
+                                                [ Element.text metadata.author.name
+                                                ]
+                                            , Element.paragraph [ Font.size 16 ]
+                                                [ Element.text metadata.author.bio ]
+                                            ]
+                                        ]
+                                    ]
+                                :: (publishedDateView metadata |> Element.el [ Font.size 16, Font.color (Element.rgba255 0 0 0 0.6) ])
+                                :: Palette.blogHeading metadata.title
+                                :: articleImageView metadata.image
+                                :: [ page.view, Element.link [] { url = "/blog", label = Element.text "< Other articles" } ]
+                            )
                     ]
             }
 
+        Metadata.Author author ->
+            { title = author.name
+            , body =
+                Element.column
+                    [ Element.width Element.fill
+                    ]
+                    [ Element.column
+                        [ Element.padding 30
+                        , Element.spacing 20
+                        , Element.Region.mainContent
+                        , Element.width (Element.fill |> Element.maximum 800)
+                        , Element.centerX
+                        ]
+                        [ Palette.blogHeading author.name
+                        , Author.view [] author
+                        , Element.paragraph [ Element.centerX, Font.center ] [ page.view ]
+                        ]
+                    ]
+            }
 
-mainPanel : Element Msg -> Element Msg
-mainPanel element =
-    el
-        [ centerX
-        , centerY
-        , width (maximum 1000 fill)
-        , Background.color Theme.primaryBackgroundColor
-        , shadow { offset = ( 0, 1 ), size = 1, blur = 5, color = Theme.shadowColor }
-        ]
-        element
+        Metadata.BlogIndex ->
+            { title = "Blog | Jordane Grenat"
+            , body =
+                Element.column [ Element.width Element.fill, Element.padding 20, Element.centerX ]
+                    [ Index.view siteMetadata ]
+            }
+
+
+articleImageView : ImagePath Pages.PathKey -> Element msg
+articleImageView articleImage =
+    Element.image [ Element.width Element.fill ]
+        { src = ImagePath.toString articleImage
+        , description = "Article cover photo"
+        }
 
 
 opaquePanel : Element Msg -> Element Msg
 opaquePanel element =
-    el
-        [ centerX
-        , centerY
-        , width (maximum 1000 fill)
-        , Background.color Theme.opaquePanelBackgroundColor
-        , shadow { offset = ( 0, 1 ), size = 1, blur = 5, color = Theme.shadowColor }
+    Element.el
+        [ Element.centerX
+        , Element.centerY
+        , Element.width (Element.maximum 1000 Element.fill)
+        , Element.Background.color Theme.opaquePanelBackgroundColor
+        , Element.Border.shadow { offset = ( 0, 1 ), size = 1, blur = 5, color = Theme.shadowColor }
         ]
         element
 
 
-octiconOptions =
-    Octicons.defaultOptions |> Octicons.width 50 |> Octicons.height 50 |> Octicons.margin "auto"
+siteName : String
+siteName =
+    "Jordane Grenat | Personal Website"
+
+
+{-| <https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/abouts-cards>
+<https://htmlhead.dev>
+<https://html.spec.whatwg.org/multipage/semantics.html#standard-metadata-names>
+<https://ogp.me/>
+-}
+head : Metadata -> List (Head.Tag Pages.PathKey)
+head metadata =
+    case metadata of
+        Metadata.Page meta ->
+            Seo.summaryLarge
+                { canonicalUrlOverride = Nothing
+                , siteName = siteName
+                , image =
+                    { url = images.favicon
+                    , alt = "logo"
+                    , dimensions = Nothing
+                    , mimeType = Nothing
+                    }
+                , description = siteTagline
+                , locale = Nothing
+                , title = meta.title
+                }
+                |> Seo.website
+
+        Metadata.Article meta ->
+            Seo.summaryLarge
+                { canonicalUrlOverride = Nothing
+                , siteName = siteName
+                , image =
+                    { url = meta.image
+                    , alt = meta.description
+                    , dimensions = Nothing
+                    , mimeType = Nothing
+                    }
+                , description = meta.description
+                , locale = Nothing
+                , title = meta.title
+                }
+                |> Seo.article
+                    { tags = []
+                    , section = Nothing
+                    , publishedTime = Just (Date.toIsoString meta.published)
+                    , modifiedTime = Nothing
+                    , expirationTime = Nothing
+                    }
+
+        Metadata.Author meta ->
+            let
+                ( firstName, lastName ) =
+                    case meta.name |> String.split " " of
+                        [ first, last ] ->
+                            ( first, last )
+
+                        [ first, middle, last ] ->
+                            ( first ++ " " ++ middle, last )
+
+                        [] ->
+                            ( "", "" )
+
+                        _ ->
+                            ( meta.name, "" )
+            in
+            Seo.summary
+                { canonicalUrlOverride = Nothing
+                , siteName = siteName
+                , image =
+                    { url = meta.avatar
+                    , alt = meta.name ++ "'s articles."
+                    , dimensions = Nothing
+                    , mimeType = Nothing
+                    }
+                , description = meta.bio
+                , locale = Nothing
+                , title = meta.name ++ "'s articles."
+                }
+                |> Seo.profile
+                    { firstName = firstName
+                    , lastName = lastName
+                    , username = Nothing
+                    }
+
+        Metadata.BlogIndex ->
+            Seo.summaryLarge
+                { canonicalUrlOverride = Nothing
+                , siteName = siteName
+                , image =
+                    { url = images.favicon
+                    , alt = "logo"
+                    , dimensions = Nothing
+                    , mimeType = Nothing
+                    }
+                , description = siteTagline
+                , locale = Nothing
+                , title = "Blog | Jordane Grenat"
+                }
+                |> Seo.website
+
+        Metadata.Home meta ->
+            Seo.summaryLarge
+                { canonicalUrlOverride = Nothing
+                , siteName = siteName
+                , image =
+                    { url = images.favicon
+                    , alt = "logo"
+                    , dimensions = Nothing
+                    , mimeType = Nothing
+                    }
+                , description = siteTagline
+                , locale = Nothing
+                , title = meta.title
+                }
+                |> Seo.website
+
+
+canonicalSiteUrl : String
+canonicalSiteUrl =
+    "https://www.grenat.eu/"
+
+
+siteTagline : String
+siteTagline =
+    "Personal website of Jordane Grenat, developer and software craftsman"
+
+
+publishedDateView metadata =
+    Element.text
+        (metadata.published
+            |> Date.format "MMMM ddd, yyyy"
+        )

@@ -1,5 +1,7 @@
-.cache/
 node_modules/
-dist/
-.idea/
 elm-stuff/
+dist/
+.cache/
+.idea/
+gen/
+build/

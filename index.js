@@ -1,12 +1,17 @@
-import {Elm} from './src/Main.elm';
+import hljs from "highlight.js";
+import elm from "highlight.js/lib/languages/elm.js";
+import "./style.css";
+import "highlight.js/styles/dracula.css";
 
-const app = Elm.Main.init({flags: null});
+// @ts-ignore
+window.hljs = hljs;
+hljs.registerLanguage('elm', elm);
 
-app.ports.highlightAll.subscribe(() => {
-    setTimeout(function() {
-        document.querySelectorAll('pre code').forEach((block) => {
-            hljs.highlightBlock(block);
-        });
-    }, 100);
+const { Elm } = require("./src/Main.elm");
+const pagesInit = require("elm-pages");
+
+pagesInit({
+  mainElmModule: Elm.Main
 });
 
+hljs.initHighlightingOnLoad();
