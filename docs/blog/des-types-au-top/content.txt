@@ -154,7 +154,7 @@ myTenOfClubs = SimpleCard Ten Clubs
 
 Il n'est ainsi plus possible de représenter de valeurs impossibles dans notre programme ! La cardinalité de notre représentation est égale à la cardinalité du problème métier qu'on souhaite représenter. On peut donc éviter partout dans le code des vérifications manuelles : si on possède une valeur de type `Card`, celle-ci est forcément valide. C'est toute une catégorie de bugs évitée !
 
-Les langages supportant les *types algébriques* sont surtout des langages fonctionnels. On peut penser à Rust, Haskell, Scala, OCaml, Haskell, Elm, ReasonML, etc. Certains les utilisent plus ou moins en [*Kotlin*](https://proandroiddev.com/algebraic-data-types-in-kotlin-337f22ef230a) également.
+Les langages supportant les *types algébriques* sont surtout des langages fonctionnels. On peut penser à Rust, Haskell, Scala, OCaml, Elm, ReasonML, etc. Certains les utilisent plus ou moins en [*Kotlin*](https://proandroiddev.com/algebraic-data-types-in-kotlin-337f22ef230a) également.
 
 ## J'ai menti...
 
@@ -223,7 +223,7 @@ try {
 }
 ```
 
-C'est ici acceptable parce que le compilateur force l'utilisateur à gérer cette `IOException` explicitement, soit avec ce bloc `try...catch`, soit en indiquant dans la définition de la fonction que celle-ci peut renvoyer une exception. Cependant, en lisant [la documentation de `Files.readAllLines`](https://docs.oracle.com/javase/7/docs/api/java/nio/file/Files.html#readAllLines(java.nio.file.Path,%20java.nio.charset.Charset)), on se rend compte qu'il existe un second type d'exception, `SecurityException` qui est une `RuntimeException`. 
+C'est ici acceptable parce que le compilateur force l'utilisateur à gérer cette `IOException` explicitement, soit avec ce bloc `try...catch`, soit en indiquant dans la définition de la fonction que celle-ci peut renvoyer une exception. Cependant, en lisant [la documentation de `Files.readAllLines`](https://docs.oracle.com/javase/7/docs/api/java/nio/file/Files.html#readAllLines(java.nio.file.Path,%20java.nio.charset.Charset%29), on se rend compte qu'il existe un second type d'exception, `SecurityException` qui est une `RuntimeException`. 
 
 Pour ceux qui ne font pas de Java, cela veut dire que le développeur n'est pas *obligé* de gérer cette erreur. Et j'irai même plus loin : rien n'est fait pour que le développeur ait *conscience* que cette erreur peut se produire ! Il est dès lors possible que ces erreurs se manifestent en production.
 
@@ -263,7 +263,7 @@ public Order orderProduct(Product product, boolean withGiftWrap) {
 orderProduct(book, true);
 ```
 
-On peut remarquer deux choses : la fonction retourne un `Order`, alors que d'expérience, ce genre de méthode peut sûrement échouer pour de nombreuses raisons différentes. Cela signifie que cette méthode a de grandes chances de lancer des exceptions en cas d'erreur ! Mais passons, c'est le second point qui nous intéresse ici : si on ne voit que l'appel de la fonction, on peut se demander ce que signifie ce `true` passé en second argument.  La seule façon de le savoir est d'aller voir la définition de la fonction pour constater qu'il s'agit de l'ajout ou non de papier cadeau. On appelle cela `boolean blindness`.
+On peut remarquer deux choses : la fonction retourne un `Order`, alors que d'expérience, ce genre de méthode peut sûrement échouer pour de nombreuses raisons différentes. Cela signifie que cette méthode a de grandes chances de lancer des exceptions en cas d'erreur ! Mais passons, c'est le second point qui nous intéresse ici : si on ne voit que l'appel de la fonction, on peut se demander ce que signifie ce `true` passé en second argument.  La seule façon de le savoir est d'aller voir la définition de la fonction pour constater qu'il s'agit de l'ajout ou non de papier cadeau. On appelle cela *boolean blindness*.
 
 Souvent, les booléens sont utilisés par facilité, alors que l'utilisation d'un enum améliorerait de beaucoup la lisibilité :
 
@@ -301,4 +301,4 @@ Mon second conseil est d'éviter au maximum la *primitive obsession* : n'hésite
 
   > Quand vous écrivez qu'une fonction prend un `string` en argument, votre fonction *doit* accepter l'intégralité des oeuvres de Shakespeare en mandarin en paramètre.
 
-Et mon dernier conseil est sans doute le plus important : essayez de rendre possible uniquement les valeurs que votre métier accepte ; éliminez grâce aux types le maximum d'états impossibles. En ce sens, je vous recommande cet excellent talk de Richard Feldman : [Making impossible states impossible](https://www.youtube.com/watch?v=IcgmSRJHu_8).
+Et mon dernier conseil est sans doute le plus important : essayez de rendre possible uniquement les valeurs que votre métier accepte ; éliminez grâce aux types le maximum d'états impossibles. En ce sens, je vous recommande cet excellent talk de Richard Feldman (en anglais) : [Making impossible states impossible](https://www.youtube.com/watch?v=IcgmSRJHu_8).
