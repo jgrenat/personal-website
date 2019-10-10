@@ -40,6 +40,7 @@ view posts =
                         Metadata.BlogIndex ->
                             Nothing
                 )
+            |> List.sortWith (\( _, metadata1 ) ( _, metadata2 ) -> Date.compare metadata2.published metadata1.published)
             |> List.map postSummary
             |> (::) (Element.link [] { url = "/", label = Element.text "< Home" })
         )
