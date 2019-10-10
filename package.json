@@ -5,7 +5,7 @@
   "scripts": {
     "start": "elm-pages develop",
     "serve": "npm run build && http-server ./dist -a localhost -p 3000 -c-1",
-    "build": "elm-pages build && mv dist docs && cp docs/index.html docs/404.html && cp CNAME docs/CNAME"
+    "build": "rm -rf docs/ && elm-pages build && mv dist docs && cp docs/index.html docs/404.html && cp CNAME docs/CNAME"
   },
   "author": "Jordane Grenat",
   "dependencies": {
