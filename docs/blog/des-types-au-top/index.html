@@ -538,7 +538,7 @@ orderProduct(book, <span class="hljs-keyword">true</span>);
 <p>On peut remarquer deux choses : la fonction retourne un <code>Order</code>, alors que d'expérience, ce genre de méthode peut sûrement échouer pour de nombreuses raisons différentes. Cela signifie que cette méthode a de grandes chances de lancer des exceptions en cas d'erreur ! Mais passons, c'est le second point qui nous intéresse ici : si on ne voit que l'appel de la fonction, on peut se demander ce que signifie ce <code>true</code> passé en second argument.  La seule façon de le savoir est d'aller voir la définition de la fonction pour constater qu'il s'agit de l'ajout ou non de papier cadeau. On appelle cela <code>boolean blindness</code>.</p>
 <p>Souvent, les booléens sont utilisés par facilité, alors que l'utilisation d'un enum améliorerait de beaucoup la lisibilité :</p>
 <pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">enum</span> GiftWrap {
-    NO_GITF_WRAP, WITH_GIFT_WRAP;
+    NO_GIFT_WRAP, WITH_GIFT_WRAP;
 }
 
 <span class="hljs-function"><span class="hljs-keyword">public</span> Order <span class="hljs-title">orderProduct</span><span class="hljs-params">(Product product, GiftWrap giftWrap)</span> </span>{
@@ -549,7 +549,7 @@ orderProduct(book, WITH_GIFT_WRAP);
 </code></pre>
 <p>N'est-ce pas plus lisible ? Et surtout cela nous permettra d'évoluer plus facilement : si demain on souhaite laisser le choix entre deux types de papier cadeaux, on peut juste rajouter des éléments à l'enum :</p>
 <pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">enum</span> GiftWrap {
-    NO_GITF_WRAP, CHILD_GIFT_WRAP, ADULT_GIFT_WRAP;
+    NO_GIFT_WRAP, CHILD_GIFT_WRAP, ADULT_GIFT_WRAP;
 }
 </code></pre>
 <p>A chaque fois qu'on se retrouve à utiliser des booléens, il faut se demander si notre intention ne serait pas plus clair avec un enum explicitant vraiment la valeur métier.</p>

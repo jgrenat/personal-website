@@ -269,7 +269,7 @@ Souvent, les booléens sont utilisés par facilité, alors que l'utilisation d'u
 
 ```java
 public enum GiftWrap {
-	NO_GITF_WRAP, WITH_GIFT_WRAP;
+	NO_GIFT_WRAP, WITH_GIFT_WRAP;
 }
 
 public Order orderProduct(Product product, GiftWrap giftWrap) {
@@ -283,7 +283,7 @@ N'est-ce pas plus lisible ? Et surtout cela nous permettra d'évoluer plus facil
 
 ```java
 public enum GiftWrap {
-	NO_GITF_WRAP, CHILD_GIFT_WRAP, ADULT_GIFT_WRAP;
+	NO_GIFT_WRAP, CHILD_GIFT_WRAP, ADULT_GIFT_WRAP;
 }
 ```
 
