@@ -31,9 +31,9 @@ Cette citation issue du [manifeste agile](https://agilemanifesto.org/) stipule q
  
 Dans l'agilité, on considère que l'équipe va progressivement améliorer son mode de fonctionnement. Elle découvre donc de meilleures manières de procéder et on fait confiance aux membres de l'équipe pour chercher à tendre vers cet idéal.
 
-Mais les débuts d'une équipe sont compliqués : les membres ne se connaissent pas et n'ont jamais travaillé ensemble. A l'image d'un enfant qui n'a jamais pratiqué de vélo, on va leur ajouter des *petites roues* : un ensemble de règles très précises à suivre et qui les empêcheront de *tomber*.
+Mais les débuts d'une équipe sont compliqués : les membres ne se connaissent pas et n'ont jamais travaillé ensemble. A l'image d'un enfant qui n'a jamais pratiqué le vélo, on va leur ajouter des *petites roues* : un ensemble de règles très précises à suivre et qui les empêcheront de *tomber*.
 
-Ce cadre de travail permettra à l'équipe de se découvrir durant les premiers sprints. Ils apprendront à travailler ensemble et trouveront progressivement leur équilibre tout en produisant de la valeur. Puis viendra le moment le plus important : celui où l'équipe cherchera d'elle-même à retirer ces petites roues et donc à se libérer de ces règles trop strictes pour évoluer sur un fonctionnement qui leur correspond davantage. 
+Ce cadre de travail permettra à l'équipe de se découvrir durant les premiers sprints. Ils apprendront à travailler ensemble et trouveront progressivement leur équilibre tout en produisant de la valeur. Puis viendra le moment le plus important : celui où l'équipe cherchera d'elle-même à **retirer ces petites roues** et donc à se libérer de ces règles trop strictes pour évoluer sur un fonctionnement qui leur correspond davantage. 
 
 Voici donc pour moi la véritable contribution de Scrum au monde de l'agilité : permettre à des équipes de débuter et produire rapidement un peu de valeur. Puis, une fois que cette équipe a suffisamment mûri, les règles de Scrum sont naturellement remises en question par l'équipe, qui pourra les modifier pour qu'elles lui correspondent parfaitement.
 
