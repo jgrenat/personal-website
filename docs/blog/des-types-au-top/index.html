@@ -51,6 +51,15 @@ li {
   line-height: 1.9rem;
 }
 
+a {
+  color: rgb(100, 180, 250) !important;
+  text-decoration: none !important;
+}
+
+a:hover {
+  text-decoration: underline !important;
+}
+
 
 /* Workaround for hljs */
 
@@ -67,6 +76,13 @@ pre code {
 blockquote  {
   border-left: 5px solid rgba(5, 117, 230, 0.8);
   padding-left: 10px;
+}
+
+figure > figcaption {
+  font-size: 0.8rem;
+  line-height: normal;
+  font-style: italic;
+  text-align: center;
 }</style><style>/*
 
 Dracula Theme v1.2.0
@@ -446,9 +462,9 @@ html,body{height:100%;padding:0;margin:0;}.s.e.ic{display:block;}.s:focus{outlin
 <p>Intuitivement, on comprend donc qu'un "<strong>ou</strong>" revient à <em>additionner</em> les cardinalités, alors qu'un "<strong>et</strong>" revient à <em>multipler</em> les cardinalités !</p>
 <p>Mais alors comment décrire  notre type <code>Card</code> contenant les deux jokers ? Voilà ce que je propose :</p>
 <blockquote>
-<p>Card est un type qui peut voir <code>BLACK_JOKER</code> <strong>ou</strong> <code>RED_JOKER</code> <strong>ou</strong> être composé d'une <code>Value</code> <strong>et</strong> d'une <code>Color</code>.</p>
+<p>Card est un type qui peut valoir <code>BLACK_JOKER</code> <strong>ou</strong> <code>RED_JOKER</code> <strong>ou</strong> être composé d'une <code>Value</code> <strong>et</strong> d'une <code>Color</code>.</p>
 </blockquote>
-<p> On voit donc qu'on souhaite <em>additionner</em> trois éléments différents, donc le dernier est une <em>multiplication</em> de deux éléments. Quelque chose comme ça :</p>
+<p> On voit donc qu'on souhaite <em>additionner</em> trois éléments différents, dont le dernier est une <em>multiplication</em> de deux éléments. Quelque chose comme ça :</p>
 <pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">enum</span> Card {
     BLACK_JOKER, RED_JOKER, SIMPLE_CARD(Value, Color);
 }
@@ -465,7 +481,7 @@ html,body{height:100%;padding:0;margin:0;}.s.e.ic{display:block;}.s:focus{outlin
 <span class="hljs-title">myTenOfClubs</span> = <span class="hljs-type">SimpleCard</span> <span class="hljs-type">Ten</span> <span class="hljs-type">Clubs</span>
 </code></pre>
 <p>Il n'est ainsi plus possible de représenter de valeurs impossibles dans notre programme ! La cardinalité de notre représentation est égale à la cardinalité du problème métier qu'on souhaite représenter. On peut donc éviter partout dans le code des vérifications manuelles : si on possède une valeur de type <code>Card</code>, celle-ci est forcément valide. C'est toute une catégorie de bugs évitée !</p>
-<p>Les langages supportant les <em>types algébriques</em> sont surtout des langages fonctionnels. On peut penser à Rust, Haskell, Scala, OCaml, Elm, ReasonML, etc. Certains les utilisent plus ou moins en <a href="https://proandroiddev.com/algebraic-data-types-in-kotlin-337f22ef230a"><em>Kotlin</em></a> également.</p>
+<p>Les langages supportant les <em>types algébriques</em> sont par exemple Rust, Haskell, Scala, OCaml, Elm, ReasonML, etc. Ce sont surtout des langages fonctionnels. Certains les utilisent plus ou moins en <a href="https://proandroiddev.com/algebraic-data-types-in-kotlin-337f22ef230a"><em>Kotlin</em></a> également.</p>
 <h2 id="j-ai-menti-">J'ai menti...</h2>
 <p>Il faut que je fasse un aveu : je vous ai menti dans les premières parties de cet article. Plus exactement en parlant du code suivant :</p>
 <pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">enum</span> Value {
@@ -489,7 +505,7 @@ html,body{height:100%;padding:0;margin:0;}.s.e.ic{display:block;}.s:focus{outlin
 <blockquote>
 <p>C'est une valeur qui peut valoir <code>null</code> <strong>ou</strong> contenir une <code>String</code></p>
 </blockquote>
-<p>Est-ce que ça ne ressemble pas à un <em>type somme</em> ? Et effectivement, c'est comme ça qu'ils le définissent, petit exemple en Elm :</p>
+<p>Est-ce que ça ne ressemble pas à un <em>type somme</em> ? Et effectivement, c'est comme ça que ces langages le définissent, petit exemple en Elm :</p>
 <pre><code class="lang-elm"><span class="hljs-keyword">type</span> <span class="hljs-type">MaybeString</span> = 
     <span class="hljs-type">Nothing</span>
     | <span class="hljs-type">Just</span> <span class="hljs-type">String</span>
@@ -558,7 +574,7 @@ orderProduct(book, WITH_GIFT_WRAP);
 <p>Si vous avez l'occasion d'utiliser un langage avec des types algébriques qui correspond à votre problème, foncez ! Ce n'est cependant pas toujours le cas, et bien qu'il soit possible d'émuler leur fonctionnement dans certains langages, la création est souvent peu pratique.</p>
 <p>Cependant, on trouve dans tous les langages des bibliothèques d'utilitaires fournissant des éléments comme le <code>Maybe</code> (parfois appelé <code>Option</code> ou <code>Optional</code>) et le <code>Result</code> (parfois appelé <code>Either</code>,  <code>Try</code> s'il est  spécialisé pour des exceptions). C'est le cas en Java notamment avec <a href="https://www.vavr.io/">l'excellente bibliothèque Vavr</a>. En TypeScript, vous pouvez également activer l'option <a href="https://basarat.gitbooks.io/typescript/docs/options/strictNullChecks.html"><code>strictNullChecks</code></a> qui ajoute plus de vérifications sur les <code>null</code> et <code>undefined</code>.</p>
 <p>Dans tous les cas, mon premier conseil est le suivant : débarrassez-vous de <code>null</code>. Rendez  l'absence de valeur explicite et vous éviterez beaucoup de problèmes. Faites de même avec les exceptions.</p>
-<p>Mon second conseil est d'éviter au maximum la <em>primitive obsession</em> : n'hésitez pas à créer des objets / enums plutôt que d'utiliser les types primitifs comme <code>string</code>, <code>bool</code> et <code>number</code>. Il me semble avoir vu un jour cette citation dont je ne connais ni le nom ni l'auteur et que j'ai peut-être involontairement déformée (n'hésitez pas à m'envoyer la référence si vous l'avez) :</p>
+<p>Mon second conseil est d'éviter au maximum la <em>primitive obsession</em> : n'hésitez pas à créer des objets / enums plutôt que d'utiliser les types primitifs comme <code>string</code>, <code>bool</code> et <code>number</code>. Il me semble avoir vu un jour cette citation dont je ne connais ni l'origine ni l'auteur et que j'ai peut-être involontairement déformée (n'hésitez pas à m'envoyer la référence si vous l'avez) :</p>
 <blockquote>
 <p>Quand vous écrivez qu'une fonction prend un <code>string</code> en argument, votre fonction <em>doit</em> accepter l'intégralité des oeuvres de Shakespeare en mandarin en paramètre.</p>
 </blockquote>

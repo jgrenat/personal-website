@@ -1,13 +1,3 @@
----
-{
-  "type": "blog",
-  "author": "Jordane Grenat",
-  "title": "Scrum, les petites roues de l'agilité",
-  "description": "Réflexions personnelles autour du framework agile Scrum et la façon dont il est utilisé / devrait être utilisé aujourd'hui.",
-  "image": "/images/article-covers/post-it.png",
-  "published": "2019-10-22",
-}
----
 
  > Ce qui va suivre est ma vision personnelle du framework agile Scrum. Je ne revendique en aucun cas l'universalité de cette vision :)
 
