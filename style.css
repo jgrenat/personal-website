@@ -57,3 +57,10 @@ blockquote  {
   border-left: 5px solid rgba(5, 117, 230, 0.8);
   padding-left: 10px;
 }
+
+figure > figcaption {
+  font-size: 0.8rem;
+  line-height: normal;
+  font-style: italic;
+  text-align: center;
+}
