@@ -40,6 +40,15 @@ li {
   line-height: 1.9rem;
 }
 
+a {
+  color: rgb(100, 180, 250) !important;
+  text-decoration: none !important;
+}
+
+a:hover {
+  text-decoration: underline !important;
+}
+
 
 /* Workaround for hljs */
 

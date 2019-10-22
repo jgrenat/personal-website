@@ -3,7 +3,7 @@ module Main exposing (main)
 import Color
 import Data.Author as Author
 import Date
-import Element exposing (Element, html)
+import Element exposing (Element, html, paragraph, text)
 import Element.Background
 import Element.Border
 import Element.Font as Font
@@ -184,7 +184,9 @@ pageView model siteMetadata page =
                                 :: (publishedDateView metadata |> Element.el [ Font.size 16, Font.color (Element.rgba255 0 0 0 0.6) ])
                                 :: Palette.blogHeading metadata.title
                                 :: articleImageView metadata.image
-                                :: [ page.view, Element.link [] { url = "/blog", label = Element.text "< Other articles" } ]
+                                :: [ page.view
+                                   , Element.link [] { url = "/blog", label = Element.text "< Other articles" }
+                                   ]
                             )
                     ]
             }
