@@ -134,9 +134,9 @@ Intuitivement, on comprend donc qu'un "**ou**" revient à *additionner* les card
 
 Mais alors comment décrire  notre type `Card` contenant les deux jokers ? Voilà ce que je propose :
 
- > Card est un type qui peut voir `BLACK_JOKER` **ou** `RED_JOKER` **ou** être composé d'une `Value` **et** d'une `Color`.
+ > Card est un type qui peut valoir `BLACK_JOKER` **ou** `RED_JOKER` **ou** être composé d'une `Value` **et** d'une `Color`.
 
- On voit donc qu'on souhaite *additionner* trois éléments différents, donc le dernier est une *multiplication* de deux éléments. Quelque chose comme ça :
+ On voit donc qu'on souhaite *additionner* trois éléments différents, dont le dernier est une *multiplication* de deux éléments. Quelque chose comme ça :
 
 ```java
 public enum Card {
@@ -164,7 +164,7 @@ myTenOfClubs = SimpleCard Ten Clubs
 
 Il n'est ainsi plus possible de représenter de valeurs impossibles dans notre programme ! La cardinalité de notre représentation est égale à la cardinalité du problème métier qu'on souhaite représenter. On peut donc éviter partout dans le code des vérifications manuelles : si on possède une valeur de type `Card`, celle-ci est forcément valide. C'est toute une catégorie de bugs évitée !
 
-Les langages supportant les *types algébriques* sont surtout des langages fonctionnels. On peut penser à Rust, Haskell, Scala, OCaml, Elm, ReasonML, etc. Certains les utilisent plus ou moins en [*Kotlin*](https://proandroiddev.com/algebraic-data-types-in-kotlin-337f22ef230a) également.
+Les langages supportant les *types algébriques* sont par exemple Rust, Haskell, Scala, OCaml, Elm, ReasonML, etc. Ce sont surtout des langages fonctionnels. Certains les utilisent plus ou moins en [*Kotlin*](https://proandroiddev.com/algebraic-data-types-in-kotlin-337f22ef230a) également.
 
 ## J'ai menti...
 
@@ -196,7 +196,7 @@ Mais alors comment représenter une valeur qui peut être définie ou non ? Essa
 
  > C'est une valeur qui peut valoir `null` **ou** contenir une `String`
 
-Est-ce que ça ne ressemble pas à un *type somme* ? Et effectivement, c'est comme ça qu'ils le définissent, petit exemple en Elm :
+Est-ce que ça ne ressemble pas à un *type somme* ? Et effectivement, c'est comme ça que ces langages le définissent, petit exemple en Elm :
 
 ```elm
 type MaybeString = 
@@ -307,7 +307,7 @@ Cependant, on trouve dans tous les langages des bibliothèques d'utilitaires fou
 
 Dans tous les cas, mon premier conseil est le suivant : débarrassez-vous de `null`. Rendez  l'absence de valeur explicite et vous éviterez beaucoup de problèmes. Faites de même avec les exceptions.
 
-Mon second conseil est d'éviter au maximum la *primitive obsession* : n'hésitez pas à créer des objets / enums plutôt que d'utiliser les types primitifs comme `string`, `bool` et `number`. Il me semble avoir vu un jour cette citation dont je ne connais ni le nom ni l'auteur et que j'ai peut-être involontairement déformée (n'hésitez pas à m'envoyer la référence si vous l'avez) :
+Mon second conseil est d'éviter au maximum la *primitive obsession* : n'hésitez pas à créer des objets / enums plutôt que d'utiliser les types primitifs comme `string`, `bool` et `number`. Il me semble avoir vu un jour cette citation dont je ne connais ni l'origine ni l'auteur et que j'ai peut-être involontairement déformée (n'hésitez pas à m'envoyer la référence si vous l'avez) :
 
   > Quand vous écrivez qu'une fonction prend un `string` en argument, votre fonction *doit* accepter l'intégralité des oeuvres de Shakespeare en mandarin en paramètre.
 
