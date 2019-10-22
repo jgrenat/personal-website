@@ -6,6 +6,7 @@ import Element exposing (Element)
 import Element.Background
 import Element.Border
 import Element.Font
+import Html.Attributes exposing (class)
 import Metadata exposing (Metadata)
 import Pages
 import Pages.PagePath as PagePath exposing (PagePath)
@@ -42,7 +43,7 @@ view posts =
                 )
             |> List.sortWith (\( _, metadata1 ) ( _, metadata2 ) -> Date.compare metadata2.published metadata1.published)
             |> List.map postSummary
-            |> (::) (Element.link [] { url = "/", label = Element.text "< Home" })
+            |> (::) (Element.link [ Element.htmlAttribute (class "backLink") ] { url = "/", label = Element.text "< Home" })
         )
 
 
@@ -50,13 +51,15 @@ postSummary :
     ( PagePath Pages.PathKey, Metadata.ArticleMetadata )
     -> Element msg
 postSummary ( postPath, post ) =
-    articleIndex post
-        |> linkToPost postPath
+    articleIndex postPath post
 
 
 linkToPost : PagePath Pages.PathKey -> Element msg -> Element msg
 linkToPost postPath content =
-    Element.link [ Element.width Element.fill ]
+    Element.link
+        [ Element.width Element.fill
+        , Element.padding 40
+        ]
         { url = PagePath.toString postPath, label = content }
 
 
@@ -72,12 +75,11 @@ title text =
             ]
 
 
-articleIndex : Metadata.ArticleMetadata -> Element msg
-articleIndex metadata =
+articleIndex : PagePath Pages.PathKey -> Metadata.ArticleMetadata -> Element msg
+articleIndex postPath metadata =
     Element.el
         [ Element.centerX
         , Element.width (Element.maximum 800 Element.fill)
-        , Element.padding 40
         , Element.spacing 10
         , Element.Border.width 1
         , Element.Border.color (Element.rgba255 0 0 0 0.1)
@@ -86,7 +88,7 @@ articleIndex metadata =
             ]
         , Element.Background.color Theme.primaryBackgroundColor
         ]
-        (postPreview metadata)
+        (linkToPost postPath (postPreview metadata))
 
 
 readMoreLink =

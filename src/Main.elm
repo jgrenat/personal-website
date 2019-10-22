@@ -12,6 +12,7 @@ import Head
 import Head.Seo as Seo
 import Home
 import Html exposing (Html)
+import Html.Attributes exposing (class)
 import Index
 import Markdown exposing (defaultOptions)
 import Metadata exposing (Metadata)
@@ -159,6 +160,7 @@ pageView model siteMetadata page =
                 Element.column
                     [ Element.width Element.fill
                     , Element.paddingXY 0 20
+                    , Element.htmlAttribute (class "articlePage")
                     ]
                     [ opaquePanel <|
                         Element.column

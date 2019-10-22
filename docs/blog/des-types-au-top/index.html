@@ -51,12 +51,12 @@ li {
   line-height: 1.9rem;
 }
 
-a {
+.articlePage a, .backLink {
   color: rgb(100, 180, 250) !important;
   text-decoration: none !important;
 }
 
-a:hover {
+.articlePage a:hover, .backLink:hover {
   text-decoration: underline !important;
 }
 
@@ -378,7 +378,7 @@ html,body{height:100%;padding:0;margin:0;}.s.e.ic{display:block;}.s:focus{outlin
 }.s:focus .focusable, .s.focusable:focus{
   box-shadow: 0px 0px 0px 3px rgba(155,203,255,1);
   outline: none;
-}</style></div><div class="hc p-0-20 s c wf ct cl"><s class="s e ctr accy"><div class="hc ah cx av cy bg-255-255-255-255 box-0px255px1275px255px0-0-0-102 s e max-width-1000 wf"><main class="hc p-20-50 spacing-40-40 ah cx s c max-width-800 wf ct cl"><a class="hc s e wc ccx ccy lnk" href="/blog" rel="noopener noreferrer"><div class="s t wf hf">&lt; Other articles</div></a><div class="hc spacing-10-10 s c wc ct cl"><div class="hc spacing-10-10 s r wc cl ccy"><div class="we width-px-70 s e ic avatar"><img class="we width-px-70 s e" src="/images/author/jordane.jpeg" alt="Jordane Grenat"></div><div class="hc spacing-10-10 s c wf ct cl"><div class="spacing-5-5 w7 font-size-24 s p wf"><div class="s t wc hc">Jordane Grenat</div></div><div class="spacing-5-5 font-size-16 s p wf"><div class="s t wc hc">Developer and software craftsman at Viseo</div></div></div></div></div><div class="hc font-size-16 fc-0-0-0-153 s e wc"><div class="s t wf hf">October 10th, 2019</div></div><h1 class="spacing-5-5 w7 ff-raleway font-size-36 tc s p wf"><div class="s t wc hc">Des types au top</div></h1><div class="s e wf ic"><img class="s e wf" src="/images/article-covers/types.jpg" alt="Article cover photo"></div><div class="spacing-5-5 s p wf"><div><h2 id="le-commencement">Le commencement</h2>
+}</style></div><div class="hc p-0-20 s c wf ct cl articlePage"><s class="s e ctr accy"><div class="hc ah cx av cy bg-255-255-255-255 box-0px255px1275px255px0-0-0-102 s e max-width-1000 wf"><main class="hc p-20-50 spacing-40-40 ah cx s c max-width-800 wf ct cl"><a class="hc s e wc ccx ccy lnk" href="/blog" rel="noopener noreferrer"><div class="s t wf hf">&lt; Other articles</div></a><div class="hc spacing-10-10 s c wc ct cl"><div class="hc spacing-10-10 s r wc cl ccy"><div class="we width-px-70 s e ic avatar"><img class="we width-px-70 s e" src="/images/author/jordane.jpeg" alt="Jordane Grenat"></div><div class="hc spacing-10-10 s c wf ct cl"><div class="spacing-5-5 w7 font-size-24 s p wf"><div class="s t wc hc">Jordane Grenat</div></div><div class="spacing-5-5 font-size-16 s p wf"><div class="s t wc hc">Developer and software craftsman at Viseo</div></div></div></div></div><div class="hc font-size-16 fc-0-0-0-153 s e wc"><div class="s t wf hf">October 10th, 2019</div></div><h1 class="spacing-5-5 w7 ff-raleway font-size-36 tc s p wf"><div class="s t wc hc">Des types au top</div></h1><div class="s e wf ic"><img class="s e wf" src="/images/article-covers/types.jpg" alt="Article cover photo"></div><div class="spacing-5-5 s p wf"><div><h2 id="le-commencement">Le commencement</h2>
 <p>Ayant débuté avec PHP et JavaScript, j'ai longtemps cru que les types se limitaient en programmation à ce que j'en voyais alors : une donnée peut être un <code>number</code>, une <code>string</code>, un <code>bool</code>, une <code>list</code> ou  un <code>object</code>. Toute donnée dans mes programmes était une composition de ces différents éléments.</p>
 <p>Par exemple, la représentation d'un dix de coeur dans un jeu de cartes pouvait être :</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> tenOfHeart = { <span class="hljs-attr">value</span>: <span class="hljs-number">10</span>, <span class="hljs-attr">color</span>: <span class="hljs-string">'hearts'</span> };
