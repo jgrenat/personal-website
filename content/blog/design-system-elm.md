@@ -209,7 +209,7 @@ buttonWithStatus status attributes content =
     Html.button  
         ([ class "button"  
          , classList [ ( "button--loading", RemoteData.isLoading status ) ]  
-         , disabled (status == Loading)  
+         , disabled (RemoteData.isLoading status)  
          ]  ++ attributes  
         )  
         (case status of  
@@ -237,7 +237,7 @@ Une bonne pratique, comme on le voit ci-dessus, est d'utiliser un type opaque : 
 
 Cela signifie qu'en dehors de notre fichier, le développeur n'est pas capable de modifier lui-même cet état ou d'en créer un : le composant est le seul responsable de son état interne. 
 
-Souvent, on voit que dans ces cas là les développeurs Elm vont remettre en place une mini TEA dans le composant en lui créant une fonction `init`, `update`, `view`ainsi que des messages. Or, si effectivement il faut une façon d'initialiser le modèle et une façon de l'afficher, il n'est pas nécessaire d'avoir une fonction d'`update` ou des messages si votre composant n'a pas d'effet secondaire !
+Souvent, on voit que dans ces cas là les développeurs Elm vont remettre en place une mini TEA dans le composant en lui créant une fonction `init`, `update`, `view` ainsi que des messages. Or, si effectivement il faut une façon d'initialiser le modèle et une façon de l'afficher, il n'est pas nécessaire d'avoir une fonction d'`update` ou des messages si votre composant n'a pas d'effet secondaire !
 
 Pour cela, on va renvoyer le nouveau modèle directement dans le message généré, en demandant en argument supplémentaire un message dans lequel le stocker. Voici l'exemple :
 
@@ -249,7 +249,7 @@ input inputName (InputModel model) toMsg attributes =
         , type_ "text"  
         , name inputName
         , Attributes.value model.value
-        , onInput (\newValue -> toMsg (SearchInputModel { model | value = newValue }))
+        , onInput (\newValue -> toMsg (InputModel { model | value = newValue }))
         ]  
         []
 ```
@@ -340,7 +340,7 @@ subscriptions model =
         |> Sub.map MessageFromSlider
 ```
 
-On enveloppe ainsi les messages du slider dans un message personnalisé grâce aux fonctions `Cmd.map`, `Html.map` et `Sub.map`. On obtiendra ainsi un message `MessageFromSlider` qui contient le message du slider. On se charge nous-même de transmettre ce message ainsi que le modèle à la fonction d'`update` du slider.
+On enveloppe les messages du slider dans un message personnalisé grâce aux fonctions `Cmd.map`, `Html.map` et `Sub.map`. On obtiendra ainsi un message `MessageFromSlider` qui contient le message du slider. On se charge nous-même de transmettre ce message ainsi que le modèle à la fonction d'`update` du slider.
 
 Comme on peut le voir, c'est une approche qui nécessite pas mal de code et qui est donc assez lourde. C'est pourquoi il est souvent recommandé de simplifier au maximum ses composants quand c'est possible. C'est un réflexe parfois dur à prendre quand on vient des frameworks JavaScript qui ont tendance à considérer que tout est un composant indépendant.
 
