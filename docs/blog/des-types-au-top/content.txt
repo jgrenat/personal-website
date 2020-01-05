@@ -114,7 +114,7 @@ Sa cardinalité devient donc `4 + 1 = 5`. Eh oui, ajouter 1 membre à un enum é
 
 Prenons maintenant un peu de recul. Pour décrire le type `Color` en toutes lettres, on pourrait dire ceci :
 
- > `Color` est un type qui peut valoir `HEARTS` **ou** `CLUBS` **ou** `SPADES` **ou** `DIAMONDS` **ou** `NEW_COLORS`.
+ > `Color` est un type qui peut valoir `HEARTS` **ou** `CLUBS` **ou** `SPADES` **ou** `DIAMONDS` **ou** `NEW_COLOR`.
 
 A l'inverse, on constate que notre type `Card` serait plutôt décrit de la façon suivante :
 

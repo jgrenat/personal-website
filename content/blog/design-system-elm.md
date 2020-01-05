@@ -13,7 +13,7 @@ Dans ma boîte, nous avons récemment démarré notre premier projet Elm pour un
 
 L'idée est simple : plutôt que de travailler sur des pages entières, on va travailler sur les différents composants de nos pages. Ces composants sont développés indépendamment les uns des autres avec une collaboration forte entre un designer et un développeur. Le design system centralise ensuite toutes les règles et propriétés du projet (couleurs, espacements, typographies, etc.) ainsi que les composants sous leurs différents états.
 
-Cet article n'étant pas destiné à rentrer dans les détails de la méthodologie en elle-même, je vous redirige vers cet excellent talk où Cécile Freyd-Foucault et Florent Berthelot l'expliquent point par point : [Designers, développeurs, créons la différence !](https://www.youtube.com/watch?v=jXcO7Qu1Gjs).
+Cet article n'étant pas destiné à rentrer dans les détails de la méthodologie en elle-même, je vous redirige vers cet excellent talk où Cécile Freyd-Foucault et Florent Berthelot l'expliquent point par point : [Designers, développeurs, créons la différence !](https://www.youtube.com/watch?v=jXcO7Qu1Gjs)
 
 Ce qu'il faut retenir pour la suite de cet article, c'est qu'on essaye de centraliser au maximum les règles et composants graphiques de notre site pour l'exposer dans un endroit facilement accessible.
 
@@ -56,10 +56,10 @@ button buttonType buttonSize attributes content =
 
 styles : List Css.Snippet  
 styles =  
-    [ Css.class "button"  
+    [ Css.Global.class "button"  
         [ borderRadius (px 3)  
         , textTransform uppercase  
-        , cursor pointer  
+        , cursor pointer    
         , textAlign center  
         , withClass "button--primary"  
             [ backgroundColor Colors.primary  
@@ -209,7 +209,7 @@ buttonWithStatus status attributes content =
     Html.button  
         ([ class "button"  
          , classList [ ( "button--loading", RemoteData.isLoading status ) ]  
-         , disabled (RemoteData.isLoading status)  
+         , disabled ( RemoteData.isLoading status )  
          ]  ++ attributes  
         )  
         (case status of  
@@ -249,7 +249,7 @@ input inputName (InputModel model) toMsg attributes =
         , type_ "text"  
         , name inputName
         , Attributes.value model.value
-        , onInput (\newValue -> toMsg (InputModel { model | value = newValue }))
+        , onInput (\newValue -> toMsg ( InputModel { model | value = newValue } ))
         ]  
         []
 ```
