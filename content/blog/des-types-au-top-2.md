@@ -220,4 +220,4 @@ On note cependant depuis peu une émergence de langages au *type system* plus av
 
 On voit qu'il est bien souvent possible d'inscrire dans nos types nos exigences et règles métiers. Le code s'en retrouve plus lisible et plus cohérent. Améliorer sa modélisation permet d'améliorer la compréhension qu'on a de son code et diminue du même coup la charge cognitive nécessaire pour le comprendre.
 
-Chaque `Maybe` et `Either`, par exemple, peuvent représenter de l'incertitude. Et quand on commence à modéliser son incertitude, on réalise rapidement que nos codebases en sont remplies. C'est à ce moment précis qu'on peut alors chercher à la réduire, en utilisant au maximum nos types.
+Chaque `Maybe` et `Either`, par exemple, peut représenter de l'incertitude. Et quand on commence à modéliser son incertitude, on réalise rapidement que nos codebases en sont remplies. C'est à ce moment précis qu'on peut alors chercher à la réduire, en utilisant au maximum nos types.
