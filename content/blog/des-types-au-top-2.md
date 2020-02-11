@@ -3,7 +3,7 @@
   "type": "blog",
   "author": "Jordane Grenat",
   "title": "Des types au top (2)",
-  "description": "En programmation, les types sont bien plus puissants que ce que peuvent nous laisser croire les types primitifs. Venez découvrir avec moi les super pouvoirs des types !",
+  "description": "Après ce premier article sur les types, découvrons maintenant les possibilités plus avancées d'un système de types : du type unitaire aux dependents types, tout en passant par les phantom types, voyons ensemble leurs avantages !",
   "image": "/images/article-covers/types-2.jpg",
   "published": "2020-02-11",
 }

@@ -159,6 +159,425 @@ figure > figcaption {
   line-height: normal;
   font-style: italic;
   text-align: center;
-}</style><meta name="generator" content="elm-pages v1.0.36"><link rel="canonical" href="https://www.grenat.eu/blog/des-types-au-top"><meta name="description" content="En programmation, les types sont bien plus puissants que ce que peuvent nous laisser croire les types primitifs. Venez découvrir avec moi les super pouvoirs des types !"><meta property="og:image" content="https://www.grenat.eu/images/article-covers/types.jpg"><meta property="og:image:secure_url" content="https://www.grenat.eu/images/article-covers/types.jpg"><meta property="og:image:alt" content="En programmation, les types sont bien plus puissants que ce que peuvent nous laisser croire les types primitifs. Venez découvrir avec moi les super pouvoirs des types !"><meta property="og:title" content="Des types au top"><meta property="og:url" content="https://www.grenat.eu/blog/des-types-au-top"><meta property="og:description" content="En programmation, les types sont bien plus puissants que ce que peuvent nous laisser croire les types primitifs. Venez découvrir avec moi les super pouvoirs des types !"><meta property="og:site_name" content="Jordane Grenat | Personal Website"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Des types au top"><meta property="twitter:description" content="En programmation, les types sont bien plus puissants que ce que peuvent nous laisser croire les types primitifs. Venez découvrir avec moi les super pouvoirs des types !"><meta property="twitter:image" content="https://www.grenat.eu/images/article-covers/types.jpg"><meta property="twitter:image:alt" content="En programmation, les types sont bien plus puissants que ce que peuvent nous laisser croire les types primitifs. Venez découvrir avec moi les super pouvoirs des types !"><meta property="og:type" content="article"><meta property="article:published_time" content="2019-10-10"></head>
+}</style><meta name="generator" content="elm-pages v1.0.36"><link rel="canonical" href="https://www.grenat.eu/blog/des-types-au-top"><meta name="description" content="En programmation, les types sont bien plus puissants que ce que peuvent nous laisser croire les types primitifs. Venez découvrir avec moi les super pouvoirs des types !"><meta property="og:image" content="https://www.grenat.eu/images/article-covers/types.jpg"><meta property="og:image:secure_url" content="https://www.grenat.eu/images/article-covers/types.jpg"><meta property="og:image:alt" content="En programmation, les types sont bien plus puissants que ce que peuvent nous laisser croire les types primitifs. Venez découvrir avec moi les super pouvoirs des types !"><meta property="og:title" content="Des types au top"><meta property="og:url" content="https://www.grenat.eu/blog/des-types-au-top"><meta property="og:description" content="En programmation, les types sont bien plus puissants que ce que peuvent nous laisser croire les types primitifs. Venez découvrir avec moi les super pouvoirs des types !"><meta property="og:site_name" content="Jordane Grenat | Personal Website"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Des types au top"><meta property="twitter:description" content="En programmation, les types sont bien plus puissants que ce que peuvent nous laisser croire les types primitifs. Venez découvrir avec moi les super pouvoirs des types !"><meta property="twitter:image" content="https://www.grenat.eu/images/article-covers/types.jpg"><meta property="twitter:image:alt" content="En programmation, les types sont bien plus puissants que ce que peuvent nous laisser croire les types primitifs. Venez découvrir avec moi les super pouvoirs des types !"><meta property="og:type" content="article"><meta property="article:published_time" content="2019-10-10"><title>Des types au top</title></head>
 
-  <body><div data-url="http://localhost:8000/blog/des-types-au-top"></div></body></html>
+  <body><div data-url="http://localhost:8000/blog/des-types-au-top"><div class="bg-255-255-255-0 hf font-size-20 ff-roboto fc-0-0-0-204 s e wf ui s e"><div><style>@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {.s.r > .s { flex-basis: auto !important; } .s.r > .s.ctr { flex-basis: auto !important; }}
+input[type="search"],
+input[type="search"]::-webkit-search-decoration,
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-results-button,
+input[type="search"]::-webkit-search-results-decoration {
+  -webkit-appearance:none;
+}
+
+input[type=range] {
+  -webkit-appearance: none; 
+  background: transparent;
+  position:absolute;
+  left:0;
+  top:0;
+  z-index:10;
+  width: 100%;
+  outline: dashed 1px;
+  height: 100%;
+  opacity: 0;
+}
+
+input[type=range]::-moz-range-track {
+    background: transparent;
+    cursor: pointer;
+}
+input[type=range]::-ms-track {
+    background: transparent;
+    cursor: pointer;
+}
+input[type=range]::-webkit-slider-runnable-track {
+    background: transparent;
+    cursor: pointer;
+}
+
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    opacity: 0.5;
+    width: 80px;
+    height: 80px;
+    background-color: black;
+    border:none;
+    border-radius: 5px;
+}
+input[type=range]::-moz-range-thumb {
+    opacity: 0.5;
+    width: 80px;
+    height: 80px;
+    background-color: black;
+    border:none;
+    border-radius: 5px;
+}
+input[type=range]::-ms-thumb {
+    opacity: 0.5;
+    width: 80px;
+    height: 80px;
+    background-color: black;
+    border:none;
+    border-radius: 5px;
+}
+input[type=range][orient=vertical]{
+    writing-mode: bt-lr; /* IE */
+    -webkit-appearance: slider-vertical;  /* WebKit */
+}
+
+.explain {
+    border: 6px solid rgb(174, 121, 15) !important;
+}
+.explain > .s {
+    border: 4px dashed rgb(0, 151, 167) !important;
+}
+
+.ctr {
+    border: none !important;
+}
+.explain > .ctr > .s {
+    border: 4px dashed rgb(0, 151, 167) !important;
+}
+
+html,body{height:100%;padding:0;margin:0;}.s.e.ic{display:block;}.s:focus{outline:none;}.ui{width:100%;height:auto;min-height:100%;z-index:0;}.ui.s.hf{height:100%;}.ui.s.hf > .hf{height:100%;}.ui > .fr.nb{position:fixed;}.nb{position:relative;border:none;display:flex;flex-direction:row;flex-basis:auto;}.nb.e{display:flex;flex-direction:column;white-space:pre;}.nb.e.hbh{z-index:0;}.nb.e.hbh > .bh{z-index:-1;}.nb.e.sbt > .t.hf{flex-grow:0;}.nb.e.sbt > .t.wf{align-self:auto !important;}.nb.e > .hc{height:auto;}.nb.e > .hf{flex-grow:100000;}.nb.e > .wf{width:100%;}.nb.e > .wfp{width:100%;}.nb.e > .wc{align-self:flex-start;}.nb.e.ct{justify-content:flex-start;}.nb.e > .s.at{margin-bottom:auto !important;margin-top:0 !important;}.nb.e.cb{justify-content:flex-end;}.nb.e > .s.ab{margin-top:auto !important;margin-bottom:0 !important;}.nb.e.cr{align-items:flex-end;}.nb.e > .s.ar{align-self:flex-end;}.nb.e.cl{align-items:flex-start;}.nb.e > .s.al{align-self:flex-start;}.nb.e.ccx{align-items:center;}.nb.e > .s.cx{align-self:center;}.nb.e.ccy > .s{margin-top:auto;margin-bottom:auto;}.nb.e > .s.cy{margin-top:auto !important;margin-bottom:auto !important;}.nb.a{position:absolute;bottom:100%;left:0;width:100%;z-index:20;margin:0 !important;pointer-events:none;}.nb.a > .hf{height:auto;}.nb.a > .wf{width:100%;}.nb.a > *{pointer-events:auto;}.nb.b{position:absolute;bottom:0;left:0;height:0;width:100%;z-index:20;margin:0 !important;pointer-events:none;}.nb.b > *{pointer-events:auto;}.nb.b > .hf{height:auto;}.nb.or{position:absolute;left:100%;top:0;height:100%;margin:0 !important;z-index:20;pointer-events:none;}.nb.or > *{pointer-events:auto;}.nb.ol{position:absolute;right:100%;top:0;height:100%;margin:0 !important;z-index:20;pointer-events:none;}.nb.ol > *{pointer-events:auto;}.nb.fr{position:absolute;width:100%;height:100%;left:0;top:0;margin:0 !important;pointer-events:none;}.nb.fr > *{pointer-events:auto;}.nb.bh{position:absolute;width:100%;height:100%;left:0;top:0;margin:0 !important;z-index:0;pointer-events:none;}.nb.bh > *{pointer-events:auto;}.s{position:relative;border:none;flex-shrink:0;display:flex;flex-direction:row;flex-basis:auto;resize:none;font-feature-settings:inherit;box-sizing:border-box;margin:0;padding:0;border-width:0;border-style:solid;font-size:inherit;color:inherit;font-family:inherit;line-height:1;font-weight:inherit;text-decoration:none;font-style:inherit;}.s.wrp{flex-wrap:wrap;}.s.notxt{-moz-user-select:none;-webkit-user-select:none;-ms-user-select:none;user-select:none;}.s.cptr{cursor:pointer;}.s.ctxt{cursor:text;}.s.ppe{pointer-events:none !important;}.s.cpe{pointer-events:auto !important;}.s.clr{opacity:0;}.s.oq{opacity:1;}.s.hvclr:hover{opacity:0;}.s.hvoq:hover{opacity:1;}.s.fcsclr:focus{opacity:0;}.s.fcsoq:focus{opacity:1;}.s.atvclr:active{opacity:0;}.s.atvoq:active{opacity:1;}.s.ts{transition:transform 160ms, opacity 160ms, filter 160ms, background-color 160ms, color 160ms, font-size 160ms;}.s.sb{overflow:auto;flex-shrink:1;}.s.sbx{overflow-x:auto;}.s.sbx.r{flex-shrink:1;}.s.sby{overflow-y:auto;}.s.sby.c{flex-shrink:1;}.s.sby.e{flex-shrink:1;}.s.cp{overflow:hidden;}.s.cpx{overflow-x:hidden;}.s.cpy{overflow-y:hidden;}.s.wc{width:auto;}.s.bn{border-width:0;}.s.bd{border-style:dashed;}.s.bdt{border-style:dotted;}.s.bs{border-style:solid;}.s.t{white-space:pre;display:inline-block;}.s.it{line-height:1.05;background:transparent;}.s.e{display:flex;flex-direction:column;white-space:pre;}.s.e.hbh{z-index:0;}.s.e.hbh > .bh{z-index:-1;}.s.e.sbt > .t.hf{flex-grow:0;}.s.e.sbt > .t.wf{align-self:auto !important;}.s.e > .hc{height:auto;}.s.e > .hf{flex-grow:100000;}.s.e > .wf{width:100%;}.s.e > .wfp{width:100%;}.s.e > .wc{align-self:flex-start;}.s.e.ct{justify-content:flex-start;}.s.e > .s.at{margin-bottom:auto !important;margin-top:0 !important;}.s.e.cb{justify-content:flex-end;}.s.e > .s.ab{margin-top:auto !important;margin-bottom:0 !important;}.s.e.cr{align-items:flex-end;}.s.e > .s.ar{align-self:flex-end;}.s.e.cl{align-items:flex-start;}.s.e > .s.al{align-self:flex-start;}.s.e.ccx{align-items:center;}.s.e > .s.cx{align-self:center;}.s.e.ccy > .s{margin-top:auto;margin-bottom:auto;}.s.e > .s.cy{margin-top:auto !important;margin-bottom:auto !important;}.s.r{display:flex;flex-direction:row;}.s.r > .s{flex-basis:0%;}.s.r > .s.we{flex-basis:auto;}.s.r > .s.lnk{flex-basis:auto;}.s.r > .hf{align-self:stretch !important;}.s.r > .hfp{align-self:stretch !important;}.s.r > .wf{flex-grow:100000;}.s.r > .ctr{flex-grow:0;flex-basis:auto;align-self:stretch;}.s.r > u:first-of-type.acr{flex-grow:1;}.s.r > s:first-of-type.accx{flex-grow:1;}.s.r > s:first-of-type.accx > .cx{margin-left:auto !important;}.s.r > s:last-of-type.accx{flex-grow:1;}.s.r > s:last-of-type.accx > .cx{margin-right:auto !important;}.s.r > s:only-of-type.accx{flex-grow:1;}.s.r > s:only-of-type.accx > .cy{margin-top:auto !important;margin-bottom:auto !important;}.s.r > s:last-of-type.accx ~ u{flex-grow:0;}.s.r > u:first-of-type.acr ~ s.accx{flex-grow:0;}.s.r.ct{align-items:flex-start;}.s.r > .s.at{align-self:flex-start;}.s.r.cb{align-items:flex-end;}.s.r > .s.ab{align-self:flex-end;}.s.r.cr{justify-content:flex-end;}.s.r.cl{justify-content:flex-start;}.s.r.ccx{justify-content:center;}.s.r.ccy{align-items:center;}.s.r > .s.cy{align-self:center;}.s.r.sev{justify-content:space-between;}.s.c{display:flex;flex-direction:column;}.s.c > .s{flex-basis:0%;}.s.c > .s.he{flex-basis:auto;}.s.c > .s.c{flex-basis:auto;}.s.c > .hf{flex-grow:100000;}.s.c > .wf{width:100%;}.s.c > .wfp{width:100%;}.s.c > .wc{align-self:flex-start;}.s.c > u:first-of-type.acb{flex-grow:1;}.s.c > s:first-of-type.accy{flex-grow:1;}.s.c > s:first-of-type.accy > .cy{margin-top:auto !important;margin-bottom:0 !important;}.s.c > s:last-of-type.accy{flex-grow:1;}.s.c > s:last-of-type.accy > .cy{margin-bottom:auto !important;margin-top:0 !important;}.s.c > s:only-of-type.accy{flex-grow:1;}.s.c > s:only-of-type.accy > .cy{margin-top:auto !important;margin-bottom:auto !important;}.s.c > s:last-of-type.accy ~ u{flex-grow:0;}.s.c > u:first-of-type.acb ~ s.accy{flex-grow:0;}.s.c.ct{justify-content:flex-start;}.s.c > .s.at{margin-bottom:auto;}.s.c.cb{justify-content:flex-end;}.s.c > .s.ab{margin-top:auto;}.s.c.cr{align-items:flex-end;}.s.c > .s.ar{align-self:flex-end;}.s.c.cl{align-items:flex-start;}.s.c > .s.al{align-self:flex-start;}.s.c.ccx{align-items:center;}.s.c > .s.cx{align-self:center;}.s.c.ccy{justify-content:center;}.s.c > .ctr{flex-grow:0;flex-basis:auto;width:100%;align-self:stretch !important;}.s.c.sev{justify-content:space-between;}.s.g{display:-ms-grid;}.s.g > .gp > .s{width:100%;}@supports (display:grid) {.s.g{display:grid;
+}}.s.g > .s.at{justify-content:flex-start;}.s.g > .s.ab{justify-content:flex-end;}.s.g > .s.ar{align-items:flex-end;}.s.g > .s.al{align-items:flex-start;}.s.g > .s.cx{align-items:center;}.s.g > .s.cy{justify-content:center;}.s.pg{display:block;}.s.pg > .s:first-child{margin:0 !important;}.s.pg > .s.al:first-child + .s{margin:0 !important;}.s.pg > .s.ar:first-child + .s{margin:0 !important;}.s.pg > .s.ar{float:right;}.s.pg > .s.ar::after{content:"";display:table;clear:both;}.s.pg > .s.al{float:left;}.s.pg > .s.al::after{content:"";display:table;clear:both;}.s.iml{white-space:pre-wrap;height:100%;width:100%;background-color:transparent;}.s.implw.e{flex-basis:auto;}.s.imlp{white-space:pre-wrap;cursor:text;}.s.imlp > .imlf{white-space:pre-wrap;color:transparent;}.s.p{display:block;white-space:normal;}.s.p.hbh{z-index:0;}.s.p.hbh > .bh{z-index:-1;}.s.p > .t{display:inline;white-space:normal;}.s.p > .e{display:inline;white-space:normal;}.s.p > .e.fr{display:flex;}.s.p > .e.bh{display:flex;}.s.p > .e.a{display:flex;}.s.p > .e.b{display:flex;}.s.p > .e.or{display:flex;}.s.p > .e.ol{display:flex;}.s.p > .e > .t{display:inline;white-space:normal;}.s.p > .e > .e > .t{display:inline;white-space:normal;}.s.p > .r{display:inline-flex;}.s.p > .c{display:inline-flex;}.s.p > .g{display:inline-grid;}.s.p > .s.ar{float:right;}.s.p > .s.al{float:left;}.s.hidden{display:none;}.s.w1{font-weight:100;}.s.w2{font-weight:200;}.s.w3{font-weight:300;}.s.w4{font-weight:400;}.s.w5{font-weight:500;}.s.w6{font-weight:600;}.s.w7{font-weight:700;}.s.w8{font-weight:800;}.s.w9{font-weight:900;}.s.i{font-style:italic;}.s.sk{text-decoration:line-through;}.s.u{text-decoration:underline;text-decoration-skip-ink:auto;text-decoration-skip:ink;}.s.u.sk{text-decoration:line-through underline;text-decoration-skip-ink:auto;text-decoration-skip:ink;}.s.tun{font-style:normal;}.s.tj{text-align:justify;}.s.tja{text-align:justify-all;}.s.tc{text-align:center;}.s.tr{text-align:right;}.s.tl{text-align:left;}.s.modal{position:fixed;left:0;top:0;width:100%;height:100%;pointer-events:none;}.border-0{border-width:0px;}.border-1{border-width:1px;}.border-2{border-width:2px;}.border-3{border-width:3px;}.border-4{border-width:4px;}.border-5{border-width:5px;}.border-6{border-width:6px;}.font-size-8{font-size:8px;}.font-size-9{font-size:9px;}.font-size-10{font-size:10px;}.font-size-11{font-size:11px;}.font-size-12{font-size:12px;}.font-size-13{font-size:13px;}.font-size-14{font-size:14px;}.font-size-15{font-size:15px;}.font-size-16{font-size:16px;}.font-size-17{font-size:17px;}.font-size-18{font-size:18px;}.font-size-19{font-size:19px;}.font-size-20{font-size:20px;}.font-size-21{font-size:21px;}.font-size-22{font-size:22px;}.font-size-23{font-size:23px;}.font-size-24{font-size:24px;}.font-size-25{font-size:25px;}.font-size-26{font-size:26px;}.font-size-27{font-size:27px;}.font-size-28{font-size:28px;}.font-size-29{font-size:29px;}.font-size-30{font-size:30px;}.font-size-31{font-size:31px;}.font-size-32{font-size:32px;}.p-0{padding:0px;}.p-1{padding:1px;}.p-2{padding:2px;}.p-3{padding:3px;}.p-4{padding:4px;}.p-5{padding:5px;}.p-6{padding:6px;}.p-7{padding:7px;}.p-8{padding:8px;}.p-9{padding:9px;}.p-10{padding:10px;}.p-11{padding:11px;}.p-12{padding:12px;}.p-13{padding:13px;}.p-14{padding:14px;}.p-15{padding:15px;}.p-16{padding:16px;}.p-17{padding:17px;}.p-18{padding:18px;}.p-19{padding:19px;}.p-20{padding:20px;}.p-21{padding:21px;}.p-22{padding:22px;}.p-23{padding:23px;}.p-24{padding:24px;}.v-smcp{font-variant:small-caps;}.v-smcp-off{font-variant:normal;}.v-zero{font-feature-settings:"zero";}.v-zero-off{font-feature-settings:"zero" 0;}.v-onum{font-feature-settings:"onum";}.v-onum-off{font-feature-settings:"onum" 0;}.v-liga{font-feature-settings:"liga";}.v-liga-off{font-feature-settings:"liga" 0;}.v-dlig{font-feature-settings:"dlig";}.v-dlig-off{font-feature-settings:"dlig" 0;}.v-ordn{font-feature-settings:"ordn";}.v-ordn-off{font-feature-settings:"ordn" 0;}.v-tnum{font-feature-settings:"tnum";}.v-tnum-off{font-feature-settings:"tnum" 0;}.v-afrc{font-feature-settings:"afrc";}.v-afrc-off{font-feature-settings:"afrc" 0;}.v-frac{font-feature-settings:"frac";}.v-frac-off{font-feature-settings:"frac" 0;}</style></div><div><style>
+.ff-roboto.cap, .ff-roboto .cap {line-height: 1;} .ff-roboto.cap> .t, .ff-roboto .cap > .t {vertical-align: 0;line-height: 1;}.ff-raleway .ff-roboto.cap, .ff-raleway .ff-roboto .cap {line-height: 1;} .ff-raleway .ff-roboto.cap> .t, .ff-raleway .ff-roboto .cap > .t {vertical-align: 0;line-height: 1;}
+.ff-roboto .ff-raleway.cap, .ff-roboto .ff-raleway .cap {line-height: 1;} .ff-roboto .ff-raleway.cap> .t, .ff-roboto .ff-raleway .cap > .t {vertical-align: 0;line-height: 1;}.ff-raleway.cap, .ff-raleway .cap {line-height: 1;} .ff-raleway.cap> .t, .ff-raleway .cap > .t {vertical-align: 0;line-height: 1;}.font-size-36{
+  font-size: 36px;
+}.ff-raleway{
+  font-family: "Raleway";
+  font-feature-settings: ;
+  font-variant: normal;
+}.fc-0-0-0-153{
+  color: rgba(0,0,0,0.6);
+}.spacing-5-5.r > .s + .s{
+  margin-left: 5px;
+}.spacing-5-5.wrp.r > .s{
+  margin: 2.5px 2.5px;
+}.spacing-5-5.c > .s + .s{
+  margin-top: 5px;
+}.spacing-5-5.pg > .s + .s{
+  margin-top: 5px;
+}.spacing-5-5.pg > .al{
+  margin-right: 5px;
+}.spacing-5-5.pg > .ar{
+  margin-left: 5px;
+}.spacing-5-5.p{
+  line-height: calc(1em + 5px);
+}textarea.s.spacing-5-5{
+  line-height: calc(1em + 5px);
+  height: calc(100% + 5px);
+}.spacing-5-5.p > .al{
+  margin-right: 5px;
+}.spacing-5-5.p > .ar{
+  margin-left: 5px;
+}.spacing-5-5.p::after{
+  content: '';
+  display: block;
+  height: 0;
+  width: 0;
+  margin-top: -2px;
+}.spacing-5-5.p::before{
+  content: '';
+  display: block;
+  height: 0;
+  width: 0;
+  margin-bottom: -2px;
+}.width-px-70{
+  width: 70px;
+}.spacing-10-10.r > .s + .s{
+  margin-left: 10px;
+}.spacing-10-10.wrp.r > .s{
+  margin: 5px 5px;
+}.spacing-10-10.c > .s + .s{
+  margin-top: 10px;
+}.spacing-10-10.pg > .s + .s{
+  margin-top: 10px;
+}.spacing-10-10.pg > .al{
+  margin-right: 10px;
+}.spacing-10-10.pg > .ar{
+  margin-left: 10px;
+}.spacing-10-10.p{
+  line-height: calc(1em + 10px);
+}textarea.s.spacing-10-10{
+  line-height: calc(1em + 10px);
+  height: calc(100% + 10px);
+}.spacing-10-10.p > .al{
+  margin-right: 10px;
+}.spacing-10-10.p > .ar{
+  margin-left: 10px;
+}.spacing-10-10.p::after{
+  content: '';
+  display: block;
+  height: 0;
+  width: 0;
+  margin-top: -5px;
+}.spacing-10-10.p::before{
+  content: '';
+  display: block;
+  height: 0;
+  width: 0;
+  margin-bottom: -5px;
+}.max-width-800{
+  max-width: 800px;
+}.spacing-40-40.r > .s + .s{
+  margin-left: 40px;
+}.spacing-40-40.wrp.r > .s{
+  margin: 20px 20px;
+}.spacing-40-40.c > .s + .s{
+  margin-top: 40px;
+}.spacing-40-40.pg > .s + .s{
+  margin-top: 40px;
+}.spacing-40-40.pg > .al{
+  margin-right: 40px;
+}.spacing-40-40.pg > .ar{
+  margin-left: 40px;
+}.spacing-40-40.p{
+  line-height: calc(1em + 40px);
+}textarea.s.spacing-40-40{
+  line-height: calc(1em + 40px);
+  height: calc(100% + 40px);
+}.spacing-40-40.p > .al{
+  margin-right: 40px;
+}.spacing-40-40.p > .ar{
+  margin-left: 40px;
+}.spacing-40-40.p::after{
+  content: '';
+  display: block;
+  height: 0;
+  width: 0;
+  margin-top: -20px;
+}.spacing-40-40.p::before{
+  content: '';
+  display: block;
+  height: 0;
+  width: 0;
+  margin-bottom: -20px;
+}.p-20-50{
+  padding: 50px 20px 50px 20px;
+}.box-0px255px1275px255px0-0-0-102{
+  box-shadow: 0px 1px 5px 1px rgba(0,0,0,0.4);
+}.bg-255-255-255-255{
+  background-color: rgba(255,255,255,1);
+}.max-width-1000{
+  max-width: 1000px;
+}.p-0-20{
+  padding: 20px 0px 20px 0px;
+}.fc-0-0-0-204{
+  color: rgba(0,0,0,0.8);
+}.ff-roboto{
+  font-family: "Roboto";
+  font-feature-settings: ;
+  font-variant: normal;
+}.bg-255-255-255-0{
+  background-color: rgba(255,255,255,0);
+}.focus-within:focus-within{
+  box-shadow: 0px 0px 0px 3px rgba(155,203,255,1);
+  outline: none;
+}.s:focus .focusable, .s.focusable:focus{
+  box-shadow: 0px 0px 0px 3px rgba(155,203,255,1);
+  outline: none;
+}</style></div><div class="hc p-0-20 s c wf ct cl articlePage"><s class="s e ctr accy"><div class="hc ah cx av cy bg-255-255-255-255 box-0px255px1275px255px0-0-0-102 s e max-width-1000 wf"><main class="hc p-20-50 spacing-40-40 ah cx s c max-width-800 wf ct cl"><a class="hc s e wc ccx ccy lnk" href="/blog" rel="noopener noreferrer"><div class="s t wf hf">&lt; Other articles</div></a><div class="hc spacing-10-10 s c wc ct cl"><div class="hc spacing-10-10 s r wc cl ccy"><div class="we width-px-70 s e ic avatar"><img class="we width-px-70 s e" src="/images/author/jordane.jpeg" alt="Jordane Grenat"></div><div class="hc spacing-10-10 s c wf ct cl"><div class="spacing-5-5 w7 font-size-24 s p wf"><div class="s t wc hc">Jordane Grenat</div></div><div class="spacing-5-5 font-size-16 s p wf"><div class="s t wc hc">Developer and software craftsman at Viseo</div></div></div></div></div><div class="hc font-size-16 fc-0-0-0-153 s e wc"><div class="s t wf hf">October 10th, 2019</div></div><h1 class="spacing-5-5 w7 ff-raleway font-size-36 tc s p wf"><div class="s t wc hc">Des types au top</div></h1><div class="s e wf ic"><img class="s e wf" src="/images/article-covers/types.jpg" alt="Article cover photo"></div><div class="spacing-5-5 s p wf"><div><h2 id="le-commencement">Le commencement</h2>
+<p>Ayant débuté avec PHP et JavaScript, j'ai longtemps cru que les types se limitaient en programmation à ce que j'en voyais alors : une donnée peut être un <code>number</code>, une <code>string</code>, un <code>bool</code>, une <code>list</code> ou  un <code>object</code>. Toute donnée dans mes programmes était une composition de ces différents éléments.</p>
+<p>Par exemple, la représentation d'un dix de coeur dans un jeu de cartes pouvait être :</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> tenOfHeart = { <span class="hljs-attr">value</span>: <span class="hljs-number">10</span>, <span class="hljs-attr">color</span>: <span class="hljs-string">'hearts'</span> };
+</code></pre>
+<p>Mais alors comment représenter un valet de coeur ? Tout simplement en considérant qu'un valet vaut <code>11</code> !</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> jackOfHeart = { <span class="hljs-attr">value</span>: <span class="hljs-number">11</span>, <span class="hljs-attr">color</span>: <span class="hljs-string">'hearts'</span> };
+</code></pre>
+<p>Cela ne me choquait pas à l'époque. En regardant ce type de code aujourd'hui, deux considérations me viennent immédiatement à l'esprit. La première est que ce modèle va nous obliger à avoir une traduction mentale de nos valeurs : partout où on veut représenter un valet, on doit se souvenir qu'il correspond au <code>11</code>,  puis la dame au <code>12</code>, etc. C'est un effort cognitif à produire en plus et une chance de plus de commettre une erreur. Donc un bug !</p>
+<p>L'autre considération est plus préoccupante : si la dame vaut <code>12</code>, le roi <code>13</code> et l'as <code>1</code>, que valent ces cartes ?</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> wtfOfHeart = { <span class="hljs-attr">value</span>: <span class="hljs-number">199</span>, <span class="hljs-attr">color</span>: <span class="hljs-string">'hearts'</span> };
+<span class="hljs-keyword">const</span> what = { <span class="hljs-attr">value</span>: <span class="hljs-number">2.6</span>, <span class="hljs-attr">color</span>: <span class="hljs-string">'hearts'</span> };
+<span class="hljs-keyword">const</span> areYouKidding = { <span class="hljs-attr">value</span>: <span class="hljs-literal">NaN</span>, <span class="hljs-attr">color</span>: <span class="hljs-string">'green'</span> };
+</code></pre>
+<p>Et c'est là l'un des principaux problèmes des types basiques : mis à part le type <code>bool</code> qui peut avoir deux valeurs (<code>true</code> et <code>false</code>), tous les autres types peuvent avoir virtuellement une infinité de valeurs possibles ! Or, il n'existe que 52 cartes dans le jeu classique qu'on souhaite représenter ! </p>
+<p>Notre représentation d'une carte peut donc avoir une infinité de valeurs possibles alors qu'on souhaite en gérer 52 au maximum. Il s'ensuit qu'il existe une <code>infinité - 52 = toujours une infinité</code> de valeurs absurdes qui peuvent perturber l'exécution de notre programme ! Ce qui va nous obliger aux emplacements stratégiques à effectuer des vérifications :</p>
+<pre><code class="lang-javascript"><span class="hljs-keyword">const</span> validColors = [<span class="hljs-string">'hearts'</span>, <span class="hljs-string">'spades'</span>, <span class="hljs-string">'clubs'</span>, <span class="hljs-string">'diamonds'</span>];
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">playCard</span>(<span class="hljs-params">card</span>) </span>{
+    <span class="hljs-keyword">if</span> (card.value &lt; <span class="hljs-number">1</span> || card.value &gt; <span class="hljs-number">13</span> 
+        || !validColors.includes(card.colors)) {
+        <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Error</span>(<span class="hljs-string">'Invalid card!'</span>)
+    }
+    <span class="hljs-comment">// ...</span>
+}
+</code></pre>
+<h2 id="java-la-rescousse">Java à la rescousse</h2>
+<p>J'ai plus tard appris Java, découvrant au passage les <code>enum</code>s. C'est une façon bien pratique de représenter un nombre fini de valeurs, ce qui nous donne au final :</p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">enum</span> Value {
+    ACE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, 
+    EIGHT, NINE, TEN, JACK, QUEEN, KING;
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">enum</span> Color {
+    HEARTS, CLUBS, SPADES, DIAMONDS;
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Card</span> </span>{
+    <span class="hljs-keyword">public</span> Value value;
+    <span class="hljs-keyword">public</span> Color color;
+}
+</code></pre>
+<p>Les choses s'améliorent ! Si on regarde le type <code>Value</code>, on se rend compte qu'il contient seulement 13 valeurs possibles et le type <code>Color</code> peut prendre 4 valeurs différentes. Le type <code>Card</code> étant composé d'une <code>Value</code> et d'une <code>Color</code>, on peut donc représenter la combinaison des deux, c'est-à-dire <code>13 * 4 = 52</code> valeurs différentes. Voyez comme les possibilités des types se <em>multiplient</em> quand on les combine !</p>
+<p>Et ça tombe bien, notre jeu contient 52 cartes différentes, on peut donc uniquement modéliser des cartes valides ! Cela signifie qu'il n'est pas nécessaire de vérifier par la suite que notre carte est valide, comme c'était le cas avant. On gagne en sécurité dans notre code en ne permettant pas de représenter des états non cohérents, que nous appellerons <strong>états impossibles</strong>.</p>
+<p>On gagne aussi en clarté en lisant le code : plus besoin de faire un effort mental pour convertir <code>11</code> en <code>Jack</code>, puisque dans le code nous utilisons directement <code>JACK</code>.</p>
+<h2 id="le-joker-pas-celui-de-joaquin-phoenix-">Le joker (pas celui de Joaquin Phoenix)</h2>
+<p>Tout va bien jusqu'à ce qu'on se rappelle un petit élément d'importance : notre jeu de 52 cartes en contient en vérité 54, puisqu'il y a les deux jokers (le rouge et le noir). Et comme je veux jouer au <a href="https://www.maison-facile.com/magazine/multimedia/se-divertir/jouer-entre-amis/188-jeux-de-cartes-le-8-americain/">8 américain</a>, j'en ai besoin ! Modifions donc notre modèle :</p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">enum</span> Value {
+    ACE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, 
+    EIGHT, NINE, TEN, JACK, QUEEN, KING, JOKER;
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">enum</span> Color {
+    HEARTS, CLUBS, SPADES, DIAMONDS, RED, BLACK;
+}
+</code></pre>
+<p>Avez-vous remarqué ce qu'il vient de se passer ? Notre type <code>Value</code> contient maintenant <code>14</code> valeurs possibles, et le type <code>Color</code> en contient 6. Si on les combine, on se rend compte que notre type <code>Card</code> peut représenter <code>14 * 6 = 84</code> valeurs ! On a donc 30 valeurs impossibles qui se sont glissés avec nos <code>52 + 2 = 54</code> valeurs possibles. Encore une fois, il faudra faire des vérifications dans le code...</p>
+<p>Ou peut-être que non ?</p>
+<h2 id="les-types-alg-briques">Les types algébriques</h2>
+<p>Rappelez-vous : combiner deux valeurs dans un objet revient à multiplier les cas possibles de chacune de ces valeurs :</p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Card</span> </span>{
+    <span class="hljs-keyword">public</span> Value value;
+    <span class="hljs-keyword">public</span> Color color;
+}
+<span class="hljs-comment">// Value * Color = 13 * 4 = 52</span>
+</code></pre>
+<p>Le nombre de valeurs possibles d'un type s'appelle la <strong>cardinalité</strong>. Ici, la cardinalité du type <code>Value</code> est 13 (= il peut avoir 13 valeurs différentes), celle du type <code>Color</code> est 4 et celle du type <code>Card</code> est 52.</p>
+<p>Pour obtenir 54 valeurs possibles et représenter nos deux jokers, on aimerait idéalement pouvoir avoir une cardinalité de <code>52 + 2 = 54</code>. Or, nous savons uniquement <em>multipler</em> les cardinalités des types, pas les additionner ! Vraiment ? Ce n'est pas si sûr !</p>
+<p>Si on ajoutait simplement une nouvelle couleur, notre type <code>Color</code> deviendrait ainsi :</p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">enum</span> Color {
+    HEARTS, CLUBS, SPADES, DIAMONDS, NEW_COLOR;
+}
+</code></pre>
+<p>Sa cardinalité devient donc <code>4 + 1 = 5</code>. Eh oui, ajouter 1 membre à un enum équivaut à ajouter 1 à sa cardinalité !</p>
+<p>Prenons maintenant un peu de recul. Pour décrire le type <code>Color</code> en toutes lettres, on pourrait dire ceci :</p>
+<blockquote>
+<p><code>Color</code> est un type qui peut valoir <code>HEARTS</code> <strong>ou</strong> <code>CLUBS</code> <strong>ou</strong> <code>SPADES</code> <strong>ou</strong> <code>DIAMONDS</code> <strong>ou</strong> <code>NEW_COLOR</code>.</p>
+</blockquote>
+<p>A l'inverse, on constate que notre type <code>Card</code> serait plutôt décrit de la façon suivante :</p>
+<blockquote>
+<p><code>Card</code> est un type composé d'une <code>Value</code> <strong>et</strong> d'une <code>Color</code>. </p>
+</blockquote>
+<p>Intuitivement, on comprend donc qu'un "<strong>ou</strong>" revient à <em>additionner</em> les cardinalités, alors qu'un "<strong>et</strong>" revient à <em>multipler</em> les cardinalités !</p>
+<p>Mais alors comment décrire  notre type <code>Card</code> contenant les deux jokers ? Voilà ce que je propose :</p>
+<blockquote>
+<p>Card est un type qui peut valoir <code>BLACK_JOKER</code> <strong>ou</strong> <code>RED_JOKER</code> <strong>ou</strong> être composé d'une <code>Value</code> <strong>et</strong> d'une <code>Color</code>.</p>
+</blockquote>
+<p> On voit donc qu'on souhaite <em>additionner</em> trois éléments différents, dont le dernier est une <em>multiplication</em> de deux éléments. Quelque chose comme ça :</p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">enum</span> Card {
+    BLACK_JOKER, RED_JOKER, SIMPLE_CARD(Value, Color);
+}
+</code></pre>
+<p>Sauf qu'évidemment, cette syntaxe n'est pas du Java valide ! Il s'agit d'un <strong>type algébrique</strong>, c'est-à-dire un type composé d'autres types, soit en les additionnant (on parle alors de <code>types somme</code>), soit en les multipliant (on parle alors de <code>types produit</code>). </p>
+<p>Ils ne sont malheureusement pas supportés dans tous les langages. Voilà comment on pourrait le représenter en <a href="./ce-que-jaime-en-elm">Elm, un langage front-end compilant en JavaScript</a> :</p>
+<pre><code class="lang-elm"><span class="hljs-keyword">type</span> <span class="hljs-type">Card</span> =
+    <span class="hljs-type">BlackJoker</span> 
+    | <span class="hljs-type">RedJoker</span>
+    | <span class="hljs-type">SimpleCard</span> <span class="hljs-type">Value</span> <span class="hljs-type">Color</span>
+</code></pre>
+<p>On peut ensuite utiliser ce type :</p>
+<pre><code class="lang-elm"><span class="hljs-title">myBlackJoker</span> = <span class="hljs-type">BlackJoker</span>
+<span class="hljs-title">myTenOfClubs</span> = <span class="hljs-type">SimpleCard</span> <span class="hljs-type">Ten</span> <span class="hljs-type">Clubs</span>
+</code></pre>
+<p>Il n'est ainsi plus possible de représenter de valeurs impossibles dans notre programme ! La cardinalité de notre représentation est égale à la cardinalité du problème métier qu'on souhaite représenter. On peut donc éviter partout dans le code des vérifications manuelles : si on possède une valeur de type <code>Card</code>, celle-ci est forcément valide. C'est toute une catégorie de bugs évitée !</p>
+<p>Les langages supportant les <em>types algébriques</em> sont par exemple Rust, Haskell, Scala, OCaml, Elm, ReasonML, etc. Ce sont surtout des langages fonctionnels. Certains les utilisent plus ou moins en <a href="https://proandroiddev.com/algebraic-data-types-in-kotlin-337f22ef230a"><em>Kotlin</em></a> également.</p>
+<h2 id="j-ai-menti-">J'ai menti...</h2>
+<p>Il faut que je fasse un aveu : je vous ai menti dans les premières parties de cet article. Plus exactement en parlant du code suivant :</p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">enum</span> Value {
+    ACE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, 
+    EIGHT, NINE, TEN, JACK, QUEEN, KING;
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-keyword">enum</span> Color {
+    HEARTS, CLUBS, SPADES, DIAMONDS;
+}
+
+<span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Card</span> </span>{
+    <span class="hljs-keyword">public</span> Value value;
+    <span class="hljs-keyword">public</span> Color color;
+}
+</code></pre>
+<p>Je vous ai affirmé que la cardinalité du type <code>Card</code> était de <code>13 * 4 = 52</code>, mais ce n'est pas le cas. En effet, nous sommes en Java et il faut donc compter avec la possibilité que les valeurs soient <code>null</code>. On a donc 5 valeurs possibles pour la <code>Color</code> (<code>HEARTS</code>, <code>CLUBS</code>, <code>SPADES</code>, <code>DIAMONDS</code> et <code>null</code>) et 14 valeurs possibles pour la <code>Value</code>, ce qui nous fait une cardinalité de <code>14 * 5 = 70</code>, bien au-delà de la cardinalité qu'on cherchait à représenter !</p>
+<p><code>null</code> est censé représenter une valeur qui n'est pas présente, souvent parce qu'elle n'a pas été initialisée. Mais cette valeur est un peu magique : <code>null</code> peut être de n'importe quel type et on doit donc le compter dans toutes nos cardinalités. </p>
+<p>Beaucoup d'exceptions et de bugs sont dus à ces valeurs <code>null</code> en Java, parce que le développeur oublie de les gérer. En JavaScript, c'est même pire, puisqu'on a <code>null</code> et <code>undefined</code> à prendre en compte ! A tel point que des langages ont décidé de ne pas avoir cette <em>valeur joker</em> dans le langage. </p>
+<p>Mais alors comment représenter une valeur qui peut être définie ou non ? Essayons en toutes lettres de définir une chaine de caractères qui peut ne pas être définie :</p>
+<blockquote>
+<p>C'est une valeur qui peut valoir <code>null</code> <strong>ou</strong> contenir une <code>String</code></p>
+</blockquote>
+<p>Est-ce que ça ne ressemble pas à un <em>type somme</em> ? Et effectivement, c'est comme ça que ces langages le définissent, petit exemple en Elm :</p>
+<pre><code class="lang-elm"><span class="hljs-keyword">type</span> <span class="hljs-type">MaybeString</span> = 
+    <span class="hljs-type">Nothing</span>
+    | <span class="hljs-type">Just</span> <span class="hljs-type">String</span>
+</code></pre>
+<p>On voit que la valeur est soit <code>Nothing</code>, soit un <code>Just</code> contenant notre chaine de caractères. Et ça fait toute la différence avec le <code>null</code> de Java : partout où une valeur peut ne pas être définie, le développeur doit l'indiquer dans son type (en utilisant <code>MaybeString</code> au lieu de <code>String</code> par exemple). Comme c'est <em>explicite</em>, le compilateur peut donc vous forcer à gérer le cas, évitant un bug dû à l'inattention d'un développeur !</p>
+<p>J'ai également menti une seconde fois : le type <code>MaybeString</code> n'existe pas en Elm. Il s'agit en fait d'un type <code>Maybe</code> générique qui prend en argument un type (<code>a</code> dans l'exemple ci-dessous) pour retourner un <code>Maybe a</code>. Cela évite de redéfinir un <code>MaybeInt</code>, un <code>MaybeString</code>, un <code>MaybeCard</code>... Voyez le <code>a</code> comme une variable représentant un type.</p>
+<pre><code class="lang-elm"><span class="hljs-keyword">type</span> <span class="hljs-type">Maybe</span> a =
+    <span class="hljs-type">Nothing</span>
+    | <span class="hljs-type">Just</span> a
+
+<span class="hljs-title">myCard</span> : <span class="hljs-type">Maybe</span> <span class="hljs-type">Card</span> <span class="hljs-comment">-- indique le type de myCard</span>
+<span class="hljs-title">myCard</span> = <span class="hljs-type">Just</span> <span class="hljs-type">RedJoker</span>
+</code></pre>
+<p>C'est fini, plus de mensonges entre nous !</p>
+<h2 id="des-applications-d-exception">Des applications d'exception</h2>
+<p>La grande force des types algébriques, c'est qu'ils vous donnent les moyens de modéliser votre modèle de façon beaucoup plus précise ! Nous l'avons vu pour le cas des valeurs qui peuvent être non définies, mais les applications sont très nombreuses.</p>
+<p>Par exemple, prenons une opération qui peut échouer : nous essayons de lire le contenu d'un fichier. Cette requête peut échouer de différentes manières : le fichier n'existe pas, le programme n'a pas les droits en lecture, le fichier est bloqué par une autre ressource, .... Dans certains langages, la façon de gérer ces erreurs est toute trouvée : les <em>exceptions</em>. En Java notamment, il faut <em>penser</em> à gérer ces exceptions avec un bloc <code>try...catch</code> :</p>
+<pre><code class="lang-java"><span class="hljs-keyword">try</span> {
+    Files.readAllLines(filePath, UTF_8);`
+} <span class="hljs-keyword">catch</span> (IOException e) {
+    <span class="hljs-comment">// gestion de l'erreur</span>
+}
+</code></pre>
+<p>C'est ici acceptable parce que le compilateur force l'utilisateur à gérer cette <code>IOException</code> explicitement, soit avec ce bloc <code>try...catch</code>, soit en indiquant dans la définition de la fonction que celle-ci peut renvoyer une exception. Cependant, en lisant <a href="https://docs.oracle.com/javase/7/docs/api/java/nio/file/Files.html#readAllLines(java.nio.file.Path,%20java.nio.charset.Charset%29">la documentation de <code>Files.readAllLines</code></a>, on se rend compte qu'il existe un second type d'exception, <code>SecurityException</code> qui est une <code>RuntimeException</code>. </p>
+<p>Pour ceux qui ne font pas de Java, cela veut dire que le développeur n'est pas <em>obligé</em> de gérer cette erreur. Et j'irai même plus loin : rien n'est fait pour que le développeur ait <em>conscience</em> que cette erreur peut se produire ! Il est dès lors possible que ces erreurs se manifestent en production.</p>
+<p>Une exception va remonter la pile d'appels jusqu'à ce qu'elle soit attrapée par un <code>try...catch</code> ou remonter jusqu'à l'utilisateur le cas échéant. Dans de plus en plus de langages, on a tendance à ne plus utiliser d'exceptions à cause de ce côté <em>magique</em> et implicite. Pour rendre cela explicite, on fait porter cette information par le type de retour de notre fonction, comme on pouvait le faire plus haut avec un <code>Maybe String</code> pour une valeur pouvant être non définie.</p>
+<p>En Rust par exemple, il existe un type <code>Result</code>  défini comme ceci :</p>
+<pre><code class="lang-rust"><span class="hljs-class"><span class="hljs-keyword">enum</span> <span class="hljs-title">Result</span></span>&lt;T, E&gt; {
+   <span class="hljs-literal">Ok</span>(T),
+   <span class="hljs-literal">Err</span>(E),
+}
+</code></pre>
+<p><code>T</code> et <code>E</code> sont des variables de types, cela signifie donc que notre valeur de type <code>Result</code> est soit un <code>Ok</code> contenant une valeur de type <code>T</code>, soit un <code>Err</code> de  type <code>E</code>. Dès lors, le développeur est obligé d'extraire cette valeur et donc de considérer et gérer le cas d'erreur de façon explicite.</p>
+<p>La signature de la fonction <code>read</code> en Rust est du coup la suivante :</p>
+<pre><code class="lang-rust"><span class="hljs-function"><span class="hljs-keyword">fn</span> <span class="hljs-title">read</span></span>(&amp;<span class="hljs-keyword">mut</span> <span class="hljs-keyword">self</span>, buf: &amp;<span class="hljs-keyword">mut</span> [<span class="hljs-built_in">u8</span>]) -&gt; <span class="hljs-built_in">Result</span>&lt;<span class="hljs-built_in">usize</span>, io::Error&gt;
+</code></pre>
+<p>La seule partie importante pour nous est le retour : on reçoit un <code>Result</code> qui, en cas de succès va être un <code>Ok</code> contenant un <code>usize</code> (un pointeur en mémoire vers le résultat) et en cas d'échec va être un <code>Err</code> contenant la cause de l'erreur de type <code>io::Error</code>.</p>
+<p>On voit ici qu'en plus de sécuriser le développement de l'application en forçant le développeur à gérer les cas d'erreur, le type <code>Result</code> joue le rôle de <strong>documentation</strong> du code : on <em>sait</em> que cette méthode peut échouer en lisant la signature.</p>
+<h2 id="je-perds-la-bool-">Je perds la <em>bool</em></h2>
+<p>Mais pas besoin d'avoir des <em>types algébriques</em> pour améliorer son code grâce aux types, on peut déjà aller loin avec des <em>enum</em>s. Regardons cette fonction en Java, permettant de commander un produit en ligne :</p>
+<pre><code class="lang-java"><span class="hljs-function"><span class="hljs-keyword">public</span> Order <span class="hljs-title">orderProduct</span><span class="hljs-params">(Product product, <span class="hljs-keyword">boolean</span> withGiftWrap)</span> </span>{
+    <span class="hljs-comment">// ...</span>
+}
+
+orderProduct(book, <span class="hljs-keyword">true</span>);
+</code></pre>
+<p>On peut remarquer deux choses : la fonction retourne un <code>Order</code>, alors que d'expérience, ce genre de méthode peut sûrement échouer pour de nombreuses raisons différentes. Cela signifie que cette méthode a de grandes chances de lancer des exceptions en cas d'erreur ! Mais passons, c'est le second point qui nous intéresse ici : si on ne voit que l'appel de la fonction, on peut se demander ce que signifie ce <code>true</code> passé en second argument.  La seule façon de le savoir est d'aller voir la définition de la fonction pour constater qu'il s'agit de l'ajout ou non de papier cadeau. On appelle cela <em>boolean blindness</em>.</p>
+<p>Souvent, les booléens sont utilisés par facilité, alors que l'utilisation d'un enum améliorerait de beaucoup la lisibilité :</p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">enum</span> GiftWrap {
+    NO_GIFT_WRAP, WITH_GIFT_WRAP;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">public</span> Order <span class="hljs-title">orderProduct</span><span class="hljs-params">(Product product, GiftWrap giftWrap)</span> </span>{
+    <span class="hljs-comment">// ...</span>
+}
+
+orderProduct(book, WITH_GIFT_WRAP);
+</code></pre>
+<p>N'est-ce pas plus lisible ? Et surtout cela nous permettra d'évoluer plus facilement : si demain on souhaite laisser le choix entre deux types de papier cadeaux, on peut juste rajouter des éléments à l'enum :</p>
+<pre><code class="lang-java"><span class="hljs-keyword">public</span> <span class="hljs-keyword">enum</span> GiftWrap {
+    NO_GIFT_WRAP, CHILD_GIFT_WRAP, ADULT_GIFT_WRAP;
+}
+</code></pre>
+<p>A chaque fois qu'on se retrouve à utiliser des booléens, il faut se demander si notre intention ne serait pas plus clair avec un enum explicitant vraiment la valeur métier.</p>
+<h2 id="l-appliquer-d-s-aujourd-hui">L'appliquer dès aujourd'hui</h2>
+<p>Si vous avez l'occasion d'utiliser un langage avec des types algébriques qui correspond à votre problème, foncez ! Ce n'est cependant pas toujours le cas, et bien qu'il soit possible d'émuler leur fonctionnement dans certains langages, la création est souvent peu pratique.</p>
+<p>Cependant, on trouve dans tous les langages des bibliothèques d'utilitaires fournissant des éléments comme le <code>Maybe</code> (parfois appelé <code>Option</code> ou <code>Optional</code>) et le <code>Result</code> (parfois appelé <code>Either</code>,  <code>Try</code> s'il est  spécialisé pour des exceptions). C'est le cas en Java notamment avec <a href="https://www.vavr.io/">l'excellente bibliothèque Vavr</a>. En TypeScript, vous pouvez également activer l'option <a href="https://basarat.gitbooks.io/typescript/docs/options/strictNullChecks.html"><code>strictNullChecks</code></a> qui ajoute plus de vérifications sur les <code>null</code> et <code>undefined</code>.</p>
+<p>Dans tous les cas, mon premier conseil est le suivant : débarrassez-vous de <code>null</code>. Rendez  l'absence de valeur explicite et vous éviterez beaucoup de problèmes. Faites de même avec les exceptions.</p>
+<p>Mon second conseil est d'éviter au maximum la <em>primitive obsession</em> : n'hésitez pas à créer des objets / enums plutôt que d'utiliser les types primitifs comme <code>string</code>, <code>bool</code> et <code>number</code>. Il me semble avoir vu un jour cette citation dont je ne connais ni l'origine ni l'auteur et que j'ai peut-être involontairement déformée (n'hésitez pas à m'envoyer la référence si vous l'avez) :</p>
+<blockquote>
+<p>Quand vous écrivez qu'une fonction prend un <code>string</code> en argument, votre fonction <em>doit</em> accepter l'intégralité des oeuvres de Shakespeare en mandarin en paramètre.</p>
+</blockquote>
+<p>Et mon dernier conseil est sans doute le plus important : essayez de rendre possible uniquement les valeurs que votre métier accepte ; éliminez grâce aux types le maximum d'états impossibles. En ce sens, je vous recommande cet excellent talk de Richard Feldman (en anglais) : <a href="https://www.youtube.com/watch?v=IcgmSRJHu_8">Making impossible states impossible</a>.</p>
+<p><strong><a href="./des-types-au-top-2">Cet article possède une seconde partie, cliquez ici pour lire la suite.</a></strong></p>
+</div></div><a class="hc s e wc ccx ccy lnk" href="/blog" rel="noopener noreferrer"><div class="s t wf hf">&lt; Other articles</div></a></main></div></s></div></div></div></body></html>
