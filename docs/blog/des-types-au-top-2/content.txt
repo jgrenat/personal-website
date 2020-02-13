@@ -1,5 +1,5 @@
 
-Dans [mon premier article sur les types](./des-types-au-top), nous avons vu plusieurs notions : la **cardinalité** d'un type correspond au nombre de valeurs possibles de ce type, les **types algébriques** correspondent au fait de pouvoir *multipler* et *additionner* les types entre eux (et donc leur cardinalité). 
+Dans [mon premier article sur les types](/blog/des-types-au-top), nous avons vu plusieurs notions : la **cardinalité** d'un type correspond au nombre de valeurs possibles de ce type, les **types algébriques** correspondent au fait de pouvoir *multipler* et *additionner* les types entre eux (et donc leur cardinalité). 
 
 Nous allons voir dans cet article des notions plus avancées pour voir comment on peut jouer avec les types dans nos programmes.
 
