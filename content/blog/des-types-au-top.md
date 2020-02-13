@@ -314,4 +314,4 @@ Mon second conseil est d'éviter au maximum la *primitive obsession* : n'hésite
 Et mon dernier conseil est sans doute le plus important : essayez de rendre possible uniquement les valeurs que votre métier accepte ; éliminez grâce aux types le maximum d'états impossibles. En ce sens, je vous recommande cet excellent talk de Richard Feldman (en anglais) : [Making impossible states impossible](https://www.youtube.com/watch?v=IcgmSRJHu_8).
 
 
-**[Cet article possède une seconde partie, cliquez ici pour lire la suite.](./des-types-au-top-2)**
+**[Cet article possède une seconde partie, cliquez ici pour lire la suite.](/blog/des-types-au-top-2)**
