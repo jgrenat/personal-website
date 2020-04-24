@@ -147,15 +147,6 @@ a {
 }
 
 
-.markdown p {
-  white-space: pre-wrap;
-  line-height: 2rem;
-}
-
-code {
-  font-size: 0.98rem;
-}
-
 pre code {
   max-width: 100%;
   overflow-y: auto;
@@ -181,7 +172,6 @@ body {
 
 /* Workaround for hljs */
 
-
 pre code {
   display: block;
   overflow-x: auto;
@@ -189,11 +179,6 @@ pre code {
   background: #282a36;
   color: #f8f8f2;
   white-space: pre-wrap;
-}
-
-blockquote  {
-  border-left: 5px solid rgba(5, 117, 230, 0.8);
-  padding-left: 10px;
 }
 
 figure > figcaption {
@@ -243,7 +228,118 @@ h2 {
     .opaquePanel {
         width:100%;
     }
-}</style><div class="opaquePanel"><a href="/blog">&lt; Other articles</a><img src="images/author/jordane.jpeg" alt="Jordane Grenat" class="author">February 11th, 2020<h1>Des types au top (2)</h1><img src="images/article-covers/types-2.jpg" alt="Article cover photo" class="coverPhoto"><div><div><p>Dans <a href="/blog/des-types-au-top">mon premier article sur les types</a>, nous avons vu plusieurs notions : la <strong>cardinalité</strong> d'un type correspond au nombre de valeurs possibles de ce type, les <strong>types algébriques</strong> correspondent au fait de pouvoir <em>multipler</em> et <em>additionner</em> les types entre eux (et donc leur cardinalité). </p>
+}</style><div class="article"><style>.article {
+    margin-top:20px;
+}
+
+.article  .article-header {
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:2vh;
+}
+
+.article  .authorCard {
+    display:flex;
+    align-items:center;
+    flex-grow:1;
+    justify-content:flex-end;
+}
+
+.article  .authorCard-name {
+    text-align:right;
+    font-size:1.5rem;
+    margin-bottom:1vh;
+}
+
+.article  .authorCard-biography {
+    text-align:right;
+    font-size:1rem;
+    color:rgba(0, 0, 0, 0.7);
+}
+
+.article  .authorCard-picture {
+    width:5rem;
+    border-radius:50%;
+    margin-left:0.9vw;
+}
+
+.article  .backLink {
+    display:inline-flex;
+    align-items:center;
+    padding:5px;
+}
+
+.article  .backLink:hover {
+    background-color:#64b4fa;
+}
+
+.article  .article-title {
+    margin-bottom:2vh;
+}
+
+.article  .article-publicationDate {
+    display:block;
+    font-size:0.95rem;
+    color:rgba(0, 0, 0, 0.8);
+    text-align:center;
+    margin-bottom:3vh;
+}
+
+.article  .article-coverPhoto {
+    width:calc(100% + 6vw);
+    margin:0 -3vw 2vh;
+}
+
+.article  .markdown {
+    margin-bottom:5vh;
+}
+
+.article  .markdown  h2 {
+    font-size:2.5rem;
+    font-weight:900;
+    text-align:left;
+    margin:4vh 0 2vh;
+}
+
+.article  .markdown  h3 {
+    font-size:1.8rem;
+    font-weight:600;
+    text-align:left;
+    margin:3vh 0 1vh;
+    color:rgba(0, 0, 0, 0.8);
+}
+
+.article  .markdown  p {
+    margin:2.5vh 0;
+    line-height:1.7rem;
+    white-space:pre-wrap;
+}
+
+.article  .markdown  p > code {
+    background-color:rgba(225, 225, 255, 0.7);
+    padding:1px 3px;
+    font-size:0.7em;
+}
+
+.article  .markdown  blockquote {
+    border-left:5px solid rgba(5, 117, 230, 0.8);
+    background-color:rgba(5, 117, 230, 0.1);
+    padding:0.01vh 1vw;
+    margin-left:0.5vw;
+    margin-right:0.5vw;
+}
+
+.article  .markdown  ul {
+    list-style-type:disc;
+    padding-left:1rem;
+    margin-left:2vh;
+}
+
+.article  .markdown  ul > li + li {
+    margin-top:2vh;
+}</style><div class="opaquePanel"><div class="article-header"><a class="backLink" href="/blog"><svg version="1.1" class="octicon arrowLeft" width="30" height="30" viewBox="0 0 10 16"><polygon points="6 3 0 8 6 13 6 10 10 10 10 6 6 6" fill-rule="evenodd" fill="black"></polygon></svg>Other articles</a><aside class="authorCard"><div><div class="authorCard-name">Jordane Grenat</div><p class="authorCard-biography">Web developer and software craftsman</p></div><img src="images/author/jordane.jpeg" alt="Jordane Grenat" class="authorCard-picture"></aside></div><h1 class="article-title">Des types au top (2)</h1><time class="article-publicationDate" datetime="2020-02-11">February 11th, 2020</time><img src="images/article-covers/types-2.jpg" alt="Article cover photo" class="article-coverPhoto"><div class="markdown"><div><div><p>Dans <a href="/blog/des-types-au-top">mon premier article sur les types</a>, nous avons vu plusieurs notions : la <strong>cardinalité</strong> d'un type correspond au nombre de valeurs possibles de ce type, les <strong>types algébriques</strong> correspondent au fait de pouvoir <em>multipler</em> et <em>additionner</em> les types entre eux (et donc leur cardinalité). </p>
 <p>Nous allons voir dans cet article des notions plus avancées pour voir comment on peut jouer avec les types dans nos programmes.</p>
 <h2 id="le-type-unitaire">Le type unitaire</h2>
 <p>Jusqu'à maintenant, on a réussi à créer des types avec un nombre précis de valeurs possibles grâce aux enums. Par exemple, notre type <code>CardValue</code> contenait 13 valeurs possibles :</p>
@@ -367,4 +463,4 @@ my5Elements = <span class="hljs-type">One</span> :: <span class="hljs-type">Two<
 <p>On note cependant depuis peu une émergence de langages au <em>type system</em> plus avancé, comme TypeScript (même s'il est très facile de tricher dans ce langage), Swift, Kotlin et Rust. Et c'est à mon sens une très bonne chose ! </p>
 <p>On voit qu'il est bien souvent possible d'inscrire dans nos types nos exigences et règles métiers. Le code s'en retrouve plus lisible et plus cohérent. Améliorer sa modélisation permet d'améliorer la compréhension qu'on a de son code et diminue du même coup la charge cognitive nécessaire pour le comprendre.</p>
 <p>Chaque <code>Maybe</code> et <code>Either</code>, par exemple, peut représenter de l'incertitude. Et quand on commence à modéliser son incertitude, on réalise rapidement que nos codebases en sont remplies. C'est à ce moment précis qu'on peut alors chercher à la réduire, en utilisant au maximum nos types.</p>
-</div></div><a href="/blog">&lt; Other articles</a></div></div></body></html>
+</div></div></div><a class="backLink" href="/blog"><svg version="1.1" class="octicon arrowLeft" width="30" height="30" viewBox="0 0 10 16"><polygon points="6 3 0 8 6 13 6 10 10 10 10 6 6 6" fill-rule="evenodd" fill="black"></polygon></svg>Other articles</a></div></div></div></body></html>

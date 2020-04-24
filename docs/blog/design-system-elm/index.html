@@ -147,15 +147,6 @@ a {
 }
 
 
-.markdown p {
-  white-space: pre-wrap;
-  line-height: 2rem;
-}
-
-code {
-  font-size: 0.98rem;
-}
-
 pre code {
   max-width: 100%;
   overflow-y: auto;
@@ -181,7 +172,6 @@ body {
 
 /* Workaround for hljs */
 
-
 pre code {
   display: block;
   overflow-x: auto;
@@ -189,11 +179,6 @@ pre code {
   background: #282a36;
   color: #f8f8f2;
   white-space: pre-wrap;
-}
-
-blockquote  {
-  border-left: 5px solid rgba(5, 117, 230, 0.8);
-  padding-left: 10px;
 }
 
 figure > figcaption {
@@ -243,7 +228,118 @@ h2 {
     .opaquePanel {
         width:100%;
     }
-}</style><div class="opaquePanel"><a href="/blog">&lt; Other articles</a><img src="images/author/jordane.jpeg" alt="Jordane Grenat" class="author">December 10th, 2019<h1>Un design system en Elm</h1><img src="images/article-covers/legos.png" alt="Article cover photo" class="coverPhoto"><div><div><p>Dans ma boîte, nous avons récemment démarré notre premier projet Elm pour un client. Je ne l'avais jusqu'à présent utilisé que pour des projets personnels ou des projets internes. Collaborant avec un graphiste et fort de mes expériences précédentes dans le monde JavaScript, j'ai tout de suite opté pour la méthodologie du Design System. </p>
+}</style><div class="article"><style>.article {
+    margin-top:20px;
+}
+
+.article  .article-header {
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:2vh;
+}
+
+.article  .authorCard {
+    display:flex;
+    align-items:center;
+    flex-grow:1;
+    justify-content:flex-end;
+}
+
+.article  .authorCard-name {
+    text-align:right;
+    font-size:1.5rem;
+    margin-bottom:1vh;
+}
+
+.article  .authorCard-biography {
+    text-align:right;
+    font-size:1rem;
+    color:rgba(0, 0, 0, 0.7);
+}
+
+.article  .authorCard-picture {
+    width:5rem;
+    border-radius:50%;
+    margin-left:0.9vw;
+}
+
+.article  .backLink {
+    display:inline-flex;
+    align-items:center;
+    padding:5px;
+}
+
+.article  .backLink:hover {
+    background-color:#64b4fa;
+}
+
+.article  .article-title {
+    margin-bottom:2vh;
+}
+
+.article  .article-publicationDate {
+    display:block;
+    font-size:0.95rem;
+    color:rgba(0, 0, 0, 0.8);
+    text-align:center;
+    margin-bottom:3vh;
+}
+
+.article  .article-coverPhoto {
+    width:calc(100% + 6vw);
+    margin:0 -3vw 2vh;
+}
+
+.article  .markdown {
+    margin-bottom:5vh;
+}
+
+.article  .markdown  h2 {
+    font-size:2.5rem;
+    font-weight:900;
+    text-align:left;
+    margin:4vh 0 2vh;
+}
+
+.article  .markdown  h3 {
+    font-size:1.8rem;
+    font-weight:600;
+    text-align:left;
+    margin:3vh 0 1vh;
+    color:rgba(0, 0, 0, 0.8);
+}
+
+.article  .markdown  p {
+    margin:2.5vh 0;
+    line-height:1.7rem;
+    white-space:pre-wrap;
+}
+
+.article  .markdown  p > code {
+    background-color:rgba(225, 225, 255, 0.7);
+    padding:1px 3px;
+    font-size:0.7em;
+}
+
+.article  .markdown  blockquote {
+    border-left:5px solid rgba(5, 117, 230, 0.8);
+    background-color:rgba(5, 117, 230, 0.1);
+    padding:0.01vh 1vw;
+    margin-left:0.5vw;
+    margin-right:0.5vw;
+}
+
+.article  .markdown  ul {
+    list-style-type:disc;
+    padding-left:1rem;
+    margin-left:2vh;
+}
+
+.article  .markdown  ul > li + li {
+    margin-top:2vh;
+}</style><div class="opaquePanel"><div class="article-header"><a class="backLink" href="/blog"><svg version="1.1" class="octicon arrowLeft" width="30" height="30" viewBox="0 0 10 16"><polygon points="6 3 0 8 6 13 6 10 10 10 10 6 6 6" fill-rule="evenodd" fill="black"></polygon></svg>Other articles</a><aside class="authorCard"><div><div class="authorCard-name">Jordane Grenat</div><p class="authorCard-biography">Web developer and software craftsman</p></div><img src="images/author/jordane.jpeg" alt="Jordane Grenat" class="authorCard-picture"></aside></div><h1 class="article-title">Un design system en Elm</h1><time class="article-publicationDate" datetime="2019-12-10">December 10th, 2019</time><img src="images/article-covers/legos.png" alt="Article cover photo" class="article-coverPhoto"><div class="markdown"><div><div><p>Dans ma boîte, nous avons récemment démarré notre premier projet Elm pour un client. Je ne l'avais jusqu'à présent utilisé que pour des projets personnels ou des projets internes. Collaborant avec un graphiste et fort de mes expériences précédentes dans le monde JavaScript, j'ai tout de suite opté pour la méthodologie du Design System. </p>
 <p>L'idée est simple : plutôt que de travailler sur des pages entières, on va travailler sur les différents composants de nos pages. Ces composants sont développés indépendamment les uns des autres avec une collaboration forte entre un designer et un développeur. Le design system centralise ensuite toutes les règles et propriétés du projet (couleurs, espacements, typographies, etc.) ainsi que les composants sous leurs différents états.</p>
 <p>Cet article n'étant pas destiné à rentrer dans les détails de la méthodologie en elle-même, je vous redirige vers cet excellent talk où Cécile Freyd-Foucault et Florent Berthelot l'expliquent point par point : <a href="https://www.youtube.com/watch?v=jXcO7Qu1Gjs">Designers, développeurs, créons la différence !</a></p>
 <p>Ce qu'il faut retenir pour la suite de cet article, c'est qu'on essaye de centraliser au maximum les règles et composants graphiques de notre site pour l'exposer dans un endroit facilement accessible.</p>
@@ -523,4 +619,4 @@ h2 {
 <p>Les design system c'est bien. Permettant d'harmoniser l'apparence visuelle de votre site, ils ont surtout de nombreux avantages lors du développement d'un site internet : ils facilitent la création de nouvelles pages, rendent plus productive la collaboration développeur / designer et permettent de détecter plus rapidement des régressions dans les composants de votre site.</p>
 <p>En Elm, c'est très pratique. Comme tout est pur dans ce langage, sortir un composant pour le rendre réutilisable est à peu de choses près aussi simple qu'un copier / coller. Et une fois ces composants créés, les grands atouts du langages interviennent également : ils sont faciles à refactorer et simples à faire évoluer puisque le compilateur sera là pour assurer vos arrières.</p>
 <p>Cette première expérience de design system en Elm a été pour moi extrêmement positive ! Ce n'était ni mon premier projet Elm, ni mon premier design system, mais la combinaison des deux s'est révélée extrêmement productive. Si cet article a réussi à vous convaincre, c'est à vous de jouer maintenant !</p>
-</div></div><a href="/blog">&lt; Other articles</a></div></div></body></html>
+</div></div></div><a class="backLink" href="/blog"><svg version="1.1" class="octicon arrowLeft" width="30" height="30" viewBox="0 0 10 16"><polygon points="6 3 0 8 6 13 6 10 10 10 10 6 6 6" fill-rule="evenodd" fill="black"></polygon></svg>Other articles</a></div></div></div></body></html>

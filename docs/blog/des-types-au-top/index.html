@@ -147,15 +147,6 @@ a {
 }
 
 
-.markdown p {
-  white-space: pre-wrap;
-  line-height: 2rem;
-}
-
-code {
-  font-size: 0.98rem;
-}
-
 pre code {
   max-width: 100%;
   overflow-y: auto;
@@ -181,7 +172,6 @@ body {
 
 /* Workaround for hljs */
 
-
 pre code {
   display: block;
   overflow-x: auto;
@@ -189,11 +179,6 @@ pre code {
   background: #282a36;
   color: #f8f8f2;
   white-space: pre-wrap;
-}
-
-blockquote  {
-  border-left: 5px solid rgba(5, 117, 230, 0.8);
-  padding-left: 10px;
 }
 
 figure > figcaption {
@@ -243,7 +228,118 @@ h2 {
     .opaquePanel {
         width:100%;
     }
-}</style><div class="opaquePanel"><a href="/blog">&lt; Other articles</a><img src="images/author/jordane.jpeg" alt="Jordane Grenat" class="author">October 10th, 2019<h1>Des types au top</h1><img src="images/article-covers/types.jpg" alt="Article cover photo" class="coverPhoto"><div><div><h2 id="le-commencement">Le commencement</h2>
+}</style><div class="article"><style>.article {
+    margin-top:20px;
+}
+
+.article  .article-header {
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:2vh;
+}
+
+.article  .authorCard {
+    display:flex;
+    align-items:center;
+    flex-grow:1;
+    justify-content:flex-end;
+}
+
+.article  .authorCard-name {
+    text-align:right;
+    font-size:1.5rem;
+    margin-bottom:1vh;
+}
+
+.article  .authorCard-biography {
+    text-align:right;
+    font-size:1rem;
+    color:rgba(0, 0, 0, 0.7);
+}
+
+.article  .authorCard-picture {
+    width:5rem;
+    border-radius:50%;
+    margin-left:0.9vw;
+}
+
+.article  .backLink {
+    display:inline-flex;
+    align-items:center;
+    padding:5px;
+}
+
+.article  .backLink:hover {
+    background-color:#64b4fa;
+}
+
+.article  .article-title {
+    margin-bottom:2vh;
+}
+
+.article  .article-publicationDate {
+    display:block;
+    font-size:0.95rem;
+    color:rgba(0, 0, 0, 0.8);
+    text-align:center;
+    margin-bottom:3vh;
+}
+
+.article  .article-coverPhoto {
+    width:calc(100% + 6vw);
+    margin:0 -3vw 2vh;
+}
+
+.article  .markdown {
+    margin-bottom:5vh;
+}
+
+.article  .markdown  h2 {
+    font-size:2.5rem;
+    font-weight:900;
+    text-align:left;
+    margin:4vh 0 2vh;
+}
+
+.article  .markdown  h3 {
+    font-size:1.8rem;
+    font-weight:600;
+    text-align:left;
+    margin:3vh 0 1vh;
+    color:rgba(0, 0, 0, 0.8);
+}
+
+.article  .markdown  p {
+    margin:2.5vh 0;
+    line-height:1.7rem;
+    white-space:pre-wrap;
+}
+
+.article  .markdown  p > code {
+    background-color:rgba(225, 225, 255, 0.7);
+    padding:1px 3px;
+    font-size:0.7em;
+}
+
+.article  .markdown  blockquote {
+    border-left:5px solid rgba(5, 117, 230, 0.8);
+    background-color:rgba(5, 117, 230, 0.1);
+    padding:0.01vh 1vw;
+    margin-left:0.5vw;
+    margin-right:0.5vw;
+}
+
+.article  .markdown  ul {
+    list-style-type:disc;
+    padding-left:1rem;
+    margin-left:2vh;
+}
+
+.article  .markdown  ul > li + li {
+    margin-top:2vh;
+}</style><div class="opaquePanel"><div class="article-header"><a class="backLink" href="/blog"><svg version="1.1" class="octicon arrowLeft" width="30" height="30" viewBox="0 0 10 16"><polygon points="6 3 0 8 6 13 6 10 10 10 10 6 6 6" fill-rule="evenodd" fill="black"></polygon></svg>Other articles</a><aside class="authorCard"><div><div class="authorCard-name">Jordane Grenat</div><p class="authorCard-biography">Web developer and software craftsman</p></div><img src="images/author/jordane.jpeg" alt="Jordane Grenat" class="authorCard-picture"></aside></div><h1 class="article-title">Des types au top</h1><time class="article-publicationDate" datetime="2019-10-10">October 10th, 2019</time><img src="images/article-covers/types.jpg" alt="Article cover photo" class="article-coverPhoto"><div class="markdown"><div><div><h2 id="le-commencement">Le commencement</h2>
 <p>Ayant débuté avec PHP et JavaScript, j'ai longtemps cru que les types se limitaient en programmation à ce que j'en voyais alors : une donnée peut être un <code>number</code>, une <code>string</code>, un <code>bool</code>, une <code>list</code> ou  un <code>object</code>. Toute donnée dans mes programmes était une composition de ces différents éléments.</p>
 <p>Par exemple, la représentation d'un dix de coeur dans un jeu de cartes pouvait être :</p>
 <pre><code class="lang-javascript"><span class="hljs-keyword">const</span> tenOfHeart = { <span class="hljs-attr">value</span>: <span class="hljs-number">10</span>, <span class="hljs-attr">color</span>: <span class="hljs-string">'hearts'</span> };
@@ -445,4 +541,4 @@ orderProduct(book, WITH_GIFT_WRAP);
 </blockquote>
 <p>Et mon dernier conseil est sans doute le plus important : essayez de rendre possible uniquement les valeurs que votre métier accepte ; éliminez grâce aux types le maximum d'états impossibles. En ce sens, je vous recommande cet excellent talk de Richard Feldman (en anglais) : <a href="https://www.youtube.com/watch?v=IcgmSRJHu_8">Making impossible states impossible</a>.</p>
 <p><strong><a href="/blog/des-types-au-top-2">Cet article possède une seconde partie, cliquez ici pour lire la suite.</a></strong></p>
-</div></div><a href="/blog">&lt; Other articles</a></div></div></body></html>
+</div></div></div><a class="backLink" href="/blog"><svg version="1.1" class="octicon arrowLeft" width="30" height="30" viewBox="0 0 10 16"><polygon points="6 3 0 8 6 13 6 10 10 10 10 6 6 6" fill-rule="evenodd" fill="black"></polygon></svg>Other articles</a></div></div></div></body></html>
