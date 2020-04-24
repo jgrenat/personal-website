@@ -1,21 +1,20 @@
 module Main exposing (main)
 
+import Article
 import Color
 import Css exposing (height, pct)
-import Data.Author as Author
 import Date
 import Head
 import Head.Seo as Seo
 import Home
 import Html as Unstyled
-import Html.Styled exposing (Html, a, div, fromUnstyled, h1, img, text, toUnstyled)
-import Html.Styled.Attributes exposing (alt, class, css, href, src)
+import Html.Styled exposing (Html, div, fromUnstyled, toUnstyled)
+import Html.Styled.Attributes exposing (css)
 import Index
 import Markdown exposing (defaultOptions)
 import Metadata exposing (Metadata)
 import Pages exposing (images, pages)
 import Pages.Document
-import Pages.ImagePath as ImagePath exposing (ImagePath)
 import Pages.Manifest as Manifest
 import Pages.Manifest.Category
 import Pages.PagePath exposing (PagePath)
@@ -140,32 +139,13 @@ pageView siteMetadata page viewForPage =
 
         Metadata.Article metadata ->
             { title = metadata.title
-            , body =
-                [ a [ href "/blog" ] [ text "< Other articles" ]
-                , Author.view [ class "author" ] metadata.author
-                , publishedDateView metadata
-                , h1 [] [ text metadata.title ]
-                , articleImageView metadata.image
-                , viewForPage
-                , a [ href "/blog" ] [ text "< Other articles" ]
-                ]
-                    |> opaquePanel
+            , body = Article.view metadata viewForPage
             }
 
         Metadata.BlogIndex ->
             { title = "Blog | Jordane Grenat"
             , body = Index.view siteMetadata
             }
-
-
-articleImageView : ImagePath Pages.PathKey -> Html msg
-articleImageView articleImage =
-    img [ src (ImagePath.toString articleImage), alt "Article cover photo", class "coverPhoto" ] []
-
-
-opaquePanel : List (Html Msg) -> Html Msg
-opaquePanel content =
-    div [ class "opaquePanel" ] content
 
 
 siteName : String
@@ -260,9 +240,3 @@ canonicalSiteUrl =
 siteTagline : String
 siteTagline =
     "Personal website of Jordane Grenat, web developer and software craftsman"
-
-
-publishedDateView metadata =
-    metadata.published
-        |> Date.format "MMMM ddd, yyyy"
-        |> text
