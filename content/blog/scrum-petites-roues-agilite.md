@@ -4,7 +4,7 @@
   "author": "Jordane Grenat",
   "title": "Scrum, les petites roues de l'agilité",
   "description": "Réflexions personnelles autour du framework agile Scrum et la façon dont il est utilisé / devrait être utilisé aujourd'hui.",
-  "image": "/images/article-covers/post-it.png",
+  "image": "images/article-covers/post-it.png",
   "published": "2019-10-22",
 }
 ---
@@ -58,4 +58,3 @@ L'agilité nécessite quelques prérequis, le premier étant que l'équipe est e
 Le plus important est donc d'éduquer sur les valeurs de l'agilité, les problèmes que cela résout et les raisons qui peuvent justifier son adoption. Scrum est un framework pour démarrer l'agilité, mais l'essence même de cette philosophie, c'est d'être fortement adapté au contexte de l'équipe. Un ensemble de règles fixes ne peut donc convenir à toutes les équipes.
 
 Scrum, c'est les petites roues de l'agilité.
- 

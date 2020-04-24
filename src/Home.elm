@@ -1,94 +1,117 @@
-module Home exposing (..)
+module Home exposing (view)
 
-import Element exposing (..)
-import Element.Background as Background
-import Element.Border as Border exposing (shadow)
-import Element.Font as Font exposing (center, justify)
-import Element.Region as Region
-import Html exposing (Html)
+import Css exposing (Style, alignItems, auto, backgroundColor, borderRadius, boxShadow5, center, column, displayFlex, flexDirection, flexGrow, flexWrap, fontSize, height, hex, int, justifyContent, margin, margin3, marginBottom, marginTop, maxWidth, minWidth, padding2, padding4, pct, px, rem, rgba, vh, vw, width, wrap, zero)
+import Css.Global as Css exposing (Snippet, global)
+import Html.Styled exposing (Html, a, div, fromUnstyled, h1, img, main_, p, text, ul)
+import Html.Styled.Attributes exposing (alt, attribute, class, href, src)
 import Octicons
-import Theme
 
 
 view : Html msg
 view =
-    layout [ Font.family Theme.standardFonts, height fill ] <|
-        el
-            [ width fill, height fill, center ]
-            (mainPanel <|
-                wrappedRow [ width fill ]
-                    [ picturePart, biographyPart ]
-            )
+    div [ class "home" ]
+        [ global [ styles ]
+        , mainPanel [ picturePart, biographyPart ]
+        ]
 
 
-picturePart : Element msg
+picturePart : Html msg
 picturePart =
-    el
-        [ height fill
-        , width (fillPortion 2 |> minimum 200 |> maximum 500)
-        , paddingXY (Theme.spaceScale 3) (Theme.spaceScale 1)
+    div [ class "picturePart" ]
+        [ img [ src "./images/author/jordane.jpeg", alt "Picture of Jordane Grenat" ] []
         ]
-    <|
-        image
-            [ width fill
-            , Border.rounded 10000
-            , clip
-            , centerY
-            ]
-            { src = "./images/author/jordane.jpeg", description = "Portrait of Jordane Grenat" }
 
 
-biographyPart : Element msg
+biographyPart : Html msg
 biographyPart =
-    el
-        [ height fill
-        , paddingXY 20 20
-        , width fill
-        , justify
+    div [ class "biographyPart" ]
+        [ h1 [] [ text "Jordane Grenat" ]
+        , p [] [ text "Jordane is a developer at Viseo and loves discoveries and everything that seems unusual, which is often in conflict with the pragmatism required for clients' projects." ]
+        , p [] [ text "He then satisfies his passion with never-finished personal projects and by going to conferences to meet other novelty lovers. For example: Elm, F#, new-JS-hyped-framework, ..." ]
+        , p [] [ text "He spends the rest of his spare time declining cookies on the websites he visits." ]
+        , ul [ class "categories", attribute "role" "nav" ]
+            [ iconLink "Articles" "/blog" (Octicons.file octiconOptions |> fromUnstyled)
+            , iconLink "Twitter" "https://twitter.com/JoGrenat" (Octicons.markTwitter octiconOptions |> fromUnstyled)
+            , iconLink "Github" "https://github.com/jgrenat" (Octicons.markGithub octiconOptions |> fromUnstyled)
+            , iconLink "Videos" "https://www.youtube.com/channel/UCROJRWWGrrTmgGF1Wo9OX5w" (Octicons.deviceCameraVideo octiconOptions |> fromUnstyled)
+            ]
         ]
-    <|
-        column
-            [ spacing (Theme.spaceScale 4)
-            , centerY
-            , width fill
-            , Region.mainContent
-            ]
-            [ el [ Font.size (Theme.textScale 5), Font.family Theme.titleFonts, center, width fill, Region.heading 1 ] (text "Jordane Grenat")
-            , paragraph [] [ text "Jordane is a developer at Viseo and loves discoveries and everything that seems unusual, which is often in conflict with the pragmatism required for clients' projects." ]
-            , paragraph [] [ text "He then satisfies his passion with never-finished personal projects and by going to conferences to meet other novelty lovers. For example: Elm, F#, new-JS-hyped-framework, ..." ]
-            , paragraph [] [ text "He spends the rest of his spare time declining cookies on the websites he visits." ]
-            , row [ centerX, spacing (Theme.spaceScale 5), Region.navigation ]
-                [ iconLink "Articles" "/blog" (Octicons.file octiconOptions)
-                , iconLink "Twitter" "https://twitter.com/JoGrenat" (Octicons.markTwitter octiconOptions)
-                , iconLink "Github" "https://github.com/jgrenat" (Octicons.markGithub octiconOptions)
-                ]
-            ]
 
 
-iconLink : String -> String -> Html msg -> Element msg
+iconLink : String -> String -> Html msg -> Html msg
 iconLink label url icon =
-    el [] <|
-        link [ mouseOver [ Background.color Theme.activeLinkColor ], focused [ Border.glow Theme.activeLinkColor 2 ] ]
-            { url = url
-            , label =
-                column [ centerX, spacing (Theme.spaceScale 1), paddingXY (Theme.spaceScale 1) (Theme.spaceScale 1) ]
-                    [ el [ centerX ] <| html icon
-                    , text label
-                    ]
-            }
+    a [ class "iconLink", href url ] [ icon, text label ]
 
 
-mainPanel : Element msg -> Element msg
-mainPanel element =
-    el
-        [ centerX
-        , centerY
-        , width (maximum 1000 fill)
-        , Background.color Theme.primaryBackgroundColor
-        , shadow { offset = ( 0, 1 ), size = 1, blur = 5, color = Theme.shadowColor }
-        ]
-        element
+mainPanel : List (Html msg) -> Html msg
+mainPanel content =
+    main_ [ class "mainPanel" ] content
 
 
 octiconOptions =
-    Octicons.defaultOptions |> Octicons.width 50 |> Octicons.height 50 |> Octicons.margin "auto"
+    Octicons.defaultOptions |> Octicons.width 60 |> Octicons.height 60 |> Octicons.margin "auto"
+
+
+styles : Snippet
+styles =
+    Css.class "home"
+        [ displayFlex
+        , alignItems center
+        , height (pct 100)
+        , Css.descendants
+            [ Css.class "mainPanel"
+                [ backgroundColor (rgba 255 255 255 0.95)
+                , maxWidth (px 1200)
+                , minWidth (px 250)
+                , width (pct 100)
+                , margin auto
+                , displayFlex
+                , flexWrap wrap
+                , boxShadow5 zero (px 1) (px 5) (px 1) (rgba 0 0 0 0.4)
+                , alignItems center
+                ]
+            , Css.class "picturePart"
+                [ width (pct 50)
+                , minWidth (px 200)
+                , margin auto
+                , Css.children [ Css.img [ width (pct 100), borderRadius (pct 50) ] ]
+                , padding2 (vh 2) (vw 1)
+                ]
+            , Css.class "biographyPart"
+                [ width (pct 50)
+                , minWidth (px 250)
+                , flexGrow (int 1)
+                , padding4 (vh 4) (vw 2) (vh 4) (vw 2)
+                , Css.children [ Css.img [ width (pct 100) ] ]
+                , Css.children
+                    [ Css.p
+                        [ fontSize (rem 1.4)
+                        , Css.adjacentSiblings
+                            [ Css.p
+                                [ marginTop (vh 1.5) ]
+                            ]
+                        ]
+                    , Css.class "categories"
+                        [ displayFlex
+                        , flexWrap wrap
+                        , marginTop (vh 3)
+                        , marginBottom (vh 1)
+                        , justifyContent center
+                        , Css.descendants
+                            [ Css.class "iconLink"
+                                [ displayFlex
+                                , flexDirection column
+                                , alignItems center
+                                , margin3 (px 20) (px 15) zero
+                                , padding2 (px 5) (px 5)
+                                , borderRadius (px 5)
+                                , Css.hover
+                                    [ backgroundColor (hex "64b4fa")
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ]
+                ]
+            ]
+        ]

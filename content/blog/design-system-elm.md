@@ -4,7 +4,7 @@
   "author": "Jordane Grenat",
   "title": "Un design system en Elm",
   "description": "La méthodologie du design system apporte beaucoup au développement front-end. Sans surprise, Elm s'est révélé particulièrement adapté à l'implémentation de cette méthodologie !",
-  "image": "/images/article-covers/legos.png",
+  "image": "images/article-covers/legos.png",
   "published": "2019-12-10",
 }
 ---

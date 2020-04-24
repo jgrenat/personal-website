@@ -1,8 +1,5 @@
 module Theme exposing (activeLinkColor, opaquePanelBackgroundColor, primaryBackgroundColor, primaryColor, secondaryColor, shadowColor, spaceScale, standardFonts, textScale, titleFonts)
 
-import Element exposing (Color, modular)
-import Element.Font as Font exposing (Font)
-
 
 primaryColor : Color
 primaryColor =

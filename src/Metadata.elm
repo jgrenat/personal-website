@@ -12,7 +12,6 @@ type Metadata
     = Home PageMetadata
     | Page PageMetadata
     | Article ArticleMetadata
-    | Author Data.Author.Author
     | BlogIndex
 
 
@@ -45,13 +44,6 @@ decoder =
 
                     "blog-index" ->
                         Decode.succeed BlogIndex
-
-                    "author" ->
-                        Decode.map3 Data.Author.Author
-                            (Decode.field "name" Decode.string)
-                            (Decode.field "avatar" imageDecoder)
-                            (Decode.field "bio" Decode.string)
-                            |> Decode.map Author
 
                     "blog" ->
                         Decode.map6 ArticleMetadata

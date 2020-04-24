@@ -1,7 +1,7 @@
-module Data.Author exposing (Author, all, decoder, view)
+module Data.Author exposing (Author, all, decoder, jordane, view)
 
-import Element exposing (Element)
-import Html.Attributes as Attr
+import Html.Styled exposing (Attribute, Html, img)
+import Html.Styled.Attributes exposing (alt, src)
 import Json.Decode as Decode exposing (Decoder)
 import List.Extra
 import Pages
@@ -15,11 +15,19 @@ type alias Author =
     }
 
 
+jordane : Author
+jordane =
+    { name = "Jordane Grenat"
+    , avatar = Pages.images.author.jordane
+    , bio = "Web developer and software craftsman"
+    }
+
+
 all : List Author
 all =
     [ { name = "Jordane Grenat"
       , avatar = Pages.images.author.jordane
-      , bio = "Developer and software craftsman at Viseo"
+      , bio = "Web developer and software craftsman"
       }
     ]
 
@@ -38,11 +46,6 @@ decoder =
             )
 
 
-view : List (Element.Attribute msg) -> Author -> Element msg
+view : List (Attribute msg) -> Author -> Html msg
 view attributes author =
-    Element.image
-        (Element.width (Element.px 70)
-            :: Element.htmlAttribute (Attr.class "avatar")
-            :: attributes
-        )
-        { src = ImagePath.toString author.avatar, description = author.name }
+    img ([ src (ImagePath.toString author.avatar), alt author.name ] ++ attributes) []

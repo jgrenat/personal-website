@@ -4,7 +4,7 @@
   "author": "Jordane Grenat",
   "title": "Des types au top",
   "description": "En programmation, les types sont bien plus puissants que ce que peuvent nous laisser croire les types primitifs. Venez découvrir avec moi les super pouvoirs des types !",
-  "image": "/images/article-covers/types.jpg",
+  "image": "images/article-covers/types.jpg",
   "published": "2019-10-10",
 }
 ---

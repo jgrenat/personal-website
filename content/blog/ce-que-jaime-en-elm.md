@@ -4,7 +4,7 @@
   "author": "Jordane Grenat",
   "title": "Ce que j'aime en Elm",
   "description": "Elm est un langage de programmation front-end compilant en JavaScript permettant de réaliser des interfaces et des applications web. Dans cet article, j'expose les forces qui rendent ce langage addictif et surtout très productif.",
-  "image": "/images/article-covers/elm-tree.jpg",
+  "image": "images/article-covers/elm-tree.jpg",
   "published": "2019-09-26",
 }
 ---

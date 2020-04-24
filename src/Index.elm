@@ -1,130 +1,139 @@
 module Index exposing (view)
 
-import Data.Author
+import Css exposing (absolute, alignItems, backgroundColor, block, borderRadius, bottom, center, color, display, displayFlex, fontSize, hex, justifyContent, left, marginBottom, marginRight, marginTop, padding, pct, position, px, relative, rem, rgba, right, textAlign, textDecoration, top, underline, vh, vw, width)
+import Css.Global as Css exposing (Snippet, global)
+import Data.Author as Author exposing (jordane)
 import Date
-import Element exposing (Element)
-import Element.Background
-import Element.Border
-import Element.Font
-import Html.Attributes exposing (class)
+import Html.Styled exposing (Html, a, div, fromUnstyled, h1, h2, main_, p, text, time)
+import Html.Styled.Attributes exposing (class, classList, datetime, href)
 import Metadata exposing (Metadata)
+import Octicons
 import Pages
 import Pages.PagePath as PagePath exposing (PagePath)
-import Theme
 
 
-view :
-    List ( PagePath Pages.PathKey, Metadata )
-    -> Element msg
-view posts =
-    Element.column [ Element.spacing 20, Element.width Element.fill ]
-        (posts
-            |> List.filterMap
-                (\( path, metadata ) ->
-                    case metadata of
-                        Metadata.Home _ ->
-                            Nothing
-
-                        Metadata.Page _ ->
-                            Nothing
-
-                        Metadata.Author _ ->
-                            Nothing
-
-                        Metadata.Article meta ->
-                            if meta.draft then
-                                Nothing
-
-                            else
-                                Just ( path, meta )
-
-                        Metadata.BlogIndex ->
-                            Nothing
-                )
+view : List ( PagePath Pages.PathKey, Metadata ) -> Html msg
+view articles =
+    main_ [ class "blog" ]
+        [ global [ styles ]
+        , backLink BackLinkTop
+        , h1 [ class "blog-title" ] [ Author.view [ class "author-portrait" ] jordane, text "Blog" ]
+        , getPublishedArticles articles
             |> List.sortWith (\( _, metadata1 ) ( _, metadata2 ) -> Date.compare metadata2.published metadata1.published)
-            |> List.map postSummary
-            |> (::) (Element.link [ Element.htmlAttribute (class "backLink") ] { url = "/", label = Element.text "< Home" })
+            |> List.map viewArticleSummary
+            |> div [ class "articlesList" ]
+        , backLink BackLinkBottom
+        ]
+
+
+octiconOptions =
+    Octicons.defaultOptions |> Octicons.width 30 |> Octicons.height 30
+
+
+type BackLinkType
+    = BackLinkTop
+    | BackLinkBottom
+
+
+backLink : BackLinkType -> Html msg
+backLink type_ =
+    a
+        [ class "backLink"
+        , classList [ ( "backLink--top", type_ == BackLinkTop ), ( "backLink--bottom", type_ == BackLinkBottom ) ]
+        , href "/"
+        ]
+        [ Octicons.arrowLeft octiconOptions |> fromUnstyled
+        , text "Home"
+        ]
+
+
+getPublishedArticles : List ( PagePath Pages.PathKey, Metadata ) -> List ( PagePath Pages.PathKey, Metadata.ArticleMetadata )
+getPublishedArticles posts =
+    List.filterMap
+        (\( path, metadata ) ->
+            case metadata of
+                Metadata.Home _ ->
+                    Nothing
+
+                Metadata.Page _ ->
+                    Nothing
+
+                Metadata.Article meta ->
+                    if meta.draft then
+                        Nothing
+
+                    else
+                        Just ( path, meta )
+
+                Metadata.BlogIndex ->
+                    Nothing
         )
+        posts
 
 
-postSummary :
-    ( PagePath Pages.PathKey, Metadata.ArticleMetadata )
-    -> Element msg
-postSummary ( postPath, post ) =
-    articleIndex postPath post
-
-
-linkToPost : PagePath Pages.PathKey -> Element msg -> Element msg
-linkToPost postPath content =
-    Element.link
-        [ Element.width Element.fill
-        , Element.padding 40
+viewArticleSummary : ( PagePath Pages.PathKey, Metadata.ArticleMetadata ) -> Html msg
+viewArticleSummary ( articlePath, article ) =
+    a [ href (PagePath.toString articlePath), class "article opaquePanel" ]
+        [ h2 [ class "article-title" ] [ text article.title ]
+        , time [ class "article-publicationDate", datetime (Date.toIsoString article.published) ]
+            [ text (article.published |> Date.format "MMMM ddd, yyyy")
+            ]
+        , p [] [ text article.description ]
+        , div [ class "article-fakeLink" ] [ text "Continue reading >>" ]
         ]
-        { url = PagePath.toString postPath, label = content }
 
 
-title : String -> Element msg
-title text =
-    [ Element.text text ]
-        |> Element.paragraph
-            [ Element.Font.size 36
-            , Element.Font.center
-            , Element.Font.family [ Element.Font.typeface "Raleway" ]
-            , Element.Font.semiBold
-            , Element.padding 16
-            ]
-
-
-articleIndex : PagePath Pages.PathKey -> Metadata.ArticleMetadata -> Element msg
-articleIndex postPath metadata =
-    Element.el
-        [ Element.centerX
-        , Element.width (Element.maximum 800 Element.fill)
-        , Element.spacing 10
-        , Element.Border.width 1
-        , Element.Border.color (Element.rgba255 0 0 0 0.1)
-        , Element.mouseOver
-            [ Element.Border.color (Element.rgba255 0 0 0 1)
-            ]
-        , Element.Background.color Theme.primaryBackgroundColor
-        ]
-        (linkToPost postPath (postPreview metadata))
-
-
-readMoreLink =
-    Element.text "Continue reading >>"
-        |> Element.el
-            [ Element.centerX
-            , Element.Font.size 18
-            , Element.alpha 0.6
-            , Element.mouseOver [ Element.alpha 1 ]
-            , Element.Font.underline
-            , Element.Font.center
-            ]
-
-
-postPreview : Metadata.ArticleMetadata -> Element msg
-postPreview post =
-    Element.textColumn
-        [ Element.centerX
-        , Element.width Element.fill
-        , Element.spacing 30
-        , Element.Font.size 18
-        ]
-        [ title post.title
-        , Element.row [ Element.spacing 10, Element.centerX ]
-            [ Data.Author.view [ Element.width (Element.px 40) ] post.author
-            , Element.text post.author.name
-            , Element.text "•"
-            , Element.text (post.published |> Date.format "MMMM ddd, yyyy")
-            ]
-        , post.description
-            |> Element.text
-            |> List.singleton
-            |> Element.paragraph
-                [ Element.Font.size 22
-                , Element.Font.center
-                , Element.Font.family [ Element.Font.typeface "Raleway" ]
+styles : Snippet
+styles =
+    Css.class "blog"
+        [ marginTop (px 20)
+        , position relative
+        , Css.descendants
+            [ Css.class "backLink"
+                [ displayFlex
+                , alignItems center
+                , position absolute
+                , left (vw 2)
+                , padding (px 5)
+                , Css.hover
+                    [ backgroundColor (hex "64b4fa")
+                    ]
+                , Css.withClass "backLink--top"
+                    [ top (vh 1.5)
+                    ]
+                , Css.withClass "backLink--bottom"
+                    [ bottom (vh 1.5)
+                    ]
                 ]
-        , readMoreLink
+            , Css.class "blog-title"
+                [ displayFlex
+                , alignItems center
+                , justifyContent center
+                ]
+            , Css.class "author-portrait"
+                [ width (rem 3)
+                , borderRadius (pct 50)
+                , marginRight (vw 1)
+                ]
+            , Css.class "article"
+                [ Css.hover
+                    [ backgroundColor (rgba 240 240 250 0.7)
+                    , Css.descendants
+                        [ Css.class "article-fakeLink"
+                            [ textDecoration underline ]
+                        ]
+                    ]
+                ]
+            , Css.class "article-publicationDate"
+                [ display block
+                , fontSize (rem 0.95)
+                , color (rgba 0 0 0 0.8)
+                , textAlign center
+                , marginBottom (vh 5)
+                ]
+            , Css.class "article-fakeLink"
+                [ marginTop (vh 4)
+                , textAlign right
+                ]
+            ]
         ]
