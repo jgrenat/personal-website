@@ -204,8 +204,8 @@ head metadata =
                 { canonicalUrlOverride = Nothing
                 , siteName = siteName
                 , image =
-                    { url = images.favicon
-                    , alt = "logo"
+                    { url = images.previewHomePage
+                    , alt = "Jordane Grenat – Personal website"
                     , dimensions = Nothing
                     , mimeType = Nothing
                     }
