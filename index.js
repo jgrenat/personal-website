@@ -8,8 +8,6 @@ import bash from "highlight.js/lib/languages/bash.js";
 import haskell from "highlight.js/lib/languages/haskell.js";
 import idris from "highlight.js/lib/languages/ocaml.js";
 import "highlight.js/styles/dracula.css";
-hljs.registerLanguage('elm', elm);
-hljs.registerLanguage('rust', rust);
 import "./style.css";
 
 // @ts-ignore
@@ -25,6 +23,16 @@ hljs.registerLanguage('idris', idris);
 
 const { Elm } = require("./src/Main.elm");
 const pagesInit = require("elm-pages");
+
+
+// Load Plausible (analytics)
+const scriptTag = document.createElement('script');
+scriptTag.type = 'text/javascript';
+scriptTag.async = true;
+scriptTag.src = 'https://plausible.io/js/plausible.js';
+scriptTag.defer = true;
+scriptTag['data-domain'] = 'grenat.eu';
+window.document.body.appendChild(scriptTag);
 
 pagesInit({
   mainElmModule: Elm.Main
