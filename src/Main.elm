@@ -166,8 +166,8 @@ head metadata =
                 { canonicalUrlOverride = Nothing
                 , siteName = siteName
                 , image =
-                    { url = images.favicon
-                    , alt = "logo"
+                    { url = images.previewHomePage
+                    , alt = "Jordane Grenat – Personal website"
                     , dimensions = Nothing
                     , mimeType = Nothing
                     }
@@ -205,7 +205,7 @@ head metadata =
                 , siteName = siteName
                 , image =
                     { url = images.previewHomePage
-                    , alt = "Jordane Grenat – Personal website"
+                    , alt = "Blog | Jordane Grenat"
                     , dimensions = Nothing
                     , mimeType = Nothing
                     }
@@ -220,8 +220,8 @@ head metadata =
                 { canonicalUrlOverride = Nothing
                 , siteName = siteName
                 , image =
-                    { url = images.favicon
-                    , alt = "logo"
+                    { url = images.previewHomePage
+                    , alt = "Jordane Grenat – Personal website"
                     , dimensions = Nothing
                     , mimeType = Nothing
                     }
