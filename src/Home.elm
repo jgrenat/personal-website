@@ -29,7 +29,7 @@ biographyPart =
         , p [] [ text "Jordane is a developer at Viseo and loves discoveries and everything that seems unusual, which is often in conflict with the pragmatism required for clients' projects." ]
         , p [] [ text "He then satisfies his passion with never-finished personal projects and by going to conferences to meet other novelty lovers. For example: Elm, F#, new-JS-hyped-framework, ..." ]
         , p [] [ text "He spends the rest of his spare time declining cookies on the websites he visits." ]
-        , ul [ class "categories", attribute "role" "nav" ]
+        , ul [ class "categories", attribute "role" "navigation" ]
             [ iconLink "Articles" "/blog" (Octicons.file octiconOptions |> fromUnstyled)
             , iconLink "Twitter" "https://twitter.com/JoGrenat" (Octicons.markTwitter octiconOptions |> fromUnstyled)
             , iconLink "Github" "https://github.com/jgrenat" (Octicons.markGithub octiconOptions |> fromUnstyled)
