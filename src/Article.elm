@@ -1,6 +1,6 @@
 module Article exposing (..)
 
-import Css exposing (alignItems, backgroundColor, block, borderLeft3, borderRadius, calc, center, color, disc, display, displayFlex, em, flexEnd, flexGrow, flexWrap, fontSize, fontStyle, fontWeight, hex, inlineFlex, int, italic, justifyContent, left, lineHeight, listStyleType, margin2, margin3, margin4, marginBottom, marginLeft, marginRight, marginTop, padding, padding2, paddingLeft, pct, plus, preWrap, px, rem, rgb, rgba, right, solid, spaceBetween, textAlign, vh, vw, whiteSpace, width, wrap, zero)
+import Css exposing (alignItems, backgroundColor, block, borderLeft3, borderRadius, calc, center, color, disc, display, displayFlex, em, flexEnd, flexGrow, flexWrap, fontSize, fontStyle, fontWeight, hex, inlineFlex, int, italic, justify, justifyContent, left, lineHeight, listStyleType, margin2, margin3, margin4, marginBottom, marginLeft, marginRight, marginTop, padding, padding2, paddingLeft, pct, plus, preWrap, px, rem, rgb, rgba, right, solid, spaceBetween, textAlign, vh, vw, whiteSpace, width, wrap, zero)
 import Css.Global as Css exposing (Snippet, global)
 import Data.Author as Author exposing (Author)
 import Date
@@ -139,6 +139,7 @@ styles =
                         [ margin2 (vh 2.5) zero
                         , lineHeight (rem 1.7)
                         , whiteSpace preWrap
+                        , textAlign justify
                         , Css.children
                             [ Css.code
                                 [ backgroundColor (rgba 225 225 255 0.7)

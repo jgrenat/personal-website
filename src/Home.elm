@@ -3,7 +3,7 @@ module Home exposing (view)
 import Css exposing (Style, alignItems, auto, backgroundColor, borderRadius, boxShadow5, center, column, displayFlex, flexDirection, flexGrow, flexWrap, fontSize, height, hex, int, justifyContent, margin, margin3, marginBottom, marginTop, maxWidth, minWidth, padding2, padding4, pct, px, rem, rgba, vh, vw, width, wrap, zero)
 import Css.Global as Css exposing (Snippet, global)
 import Html.Styled exposing (Html, a, div, fromUnstyled, h1, img, main_, p, text, ul)
-import Html.Styled.Attributes exposing (alt, attribute, class, href, src)
+import Html.Styled.Attributes exposing (alt, attribute, class, classList, href, rel, src)
 import Octicons
 
 
@@ -30,17 +30,30 @@ biographyPart =
         , p [] [ text "He then satisfies his passion with never-finished personal projects and by going to conferences to meet other novelty lovers. For example: Elm, F#, new-JS-hyped-framework, ..." ]
         , p [] [ text "He spends the rest of his spare time declining cookies on the websites he visits." ]
         , ul [ class "categories", attribute "role" "navigation" ]
-            [ iconLink "Articles" "/blog" (Octicons.file octiconOptions |> fromUnstyled)
-            , iconLink "Twitter" "https://twitter.com/JoGrenat" (Octicons.markTwitter octiconOptions |> fromUnstyled)
-            , iconLink "Github" "https://github.com/jgrenat" (Octicons.markGithub octiconOptions |> fromUnstyled)
-            , iconLink "Videos" "https://www.youtube.com/channel/UCROJRWWGrrTmgGF1Wo9OX5w" (Octicons.deviceCameraVideo octiconOptions |> fromUnstyled)
+            [ iconLink Internal "Articles" "/blog" (Octicons.file octiconOptions |> fromUnstyled)
+            , iconLink External "Twitter" "https://twitter.com/JoGrenat" (Octicons.markTwitter octiconOptions |> fromUnstyled)
+            , iconLink External "Github" "https://github.com/jgrenat" (Octicons.markGithub octiconOptions |> fromUnstyled)
+            , iconLink External "Videos" "https://www.youtube.com/channel/UCROJRWWGrrTmgGF1Wo9OX5w" (Octicons.deviceCameraVideo octiconOptions |> fromUnstyled)
             ]
         ]
 
 
-iconLink : String -> String -> Html msg -> Html msg
-iconLink label url icon =
-    a [ class "iconLink", href url ] [ icon, text label ]
+type LinkType
+    = Internal
+    | External
+
+
+iconLink : LinkType -> String -> String -> Html msg -> Html msg
+iconLink linkType label url icon =
+    let
+        relAttribute =
+            if linkType == Internal then
+                classList []
+
+            else
+                rel "noopener"
+    in
+    a [ class "iconLink", href url, relAttribute ] [ icon, text label ]
 
 
 mainPanel : List (Html msg) -> Html msg

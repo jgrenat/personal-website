@@ -18,7 +18,7 @@ styles =
         ]
     , Css.body
         [ height (pct 100)
-        , fontSize (calc (px 16) plus (vw 0.3))
+        , fontSize (calc (px 16) plus (vw 0.2))
         , fontFamilies [ "Noto Sans", "sans-serif" ]
         ]
     , Css.h1
