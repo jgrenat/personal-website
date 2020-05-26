@@ -1,6 +1,6 @@
 module Home exposing (view)
 
-import Css exposing (Style, alignItems, auto, backgroundColor, borderRadius, boxShadow5, center, column, displayFlex, flexDirection, flexGrow, flexWrap, fontSize, height, hex, int, justifyContent, margin, margin3, marginBottom, marginTop, maxWidth, minWidth, padding2, padding4, pct, px, rem, rgba, vh, vw, width, wrap, zero)
+import Css exposing (Style, alignItems, auto, backgroundColor, borderRadius, boxShadow5, center, column, displayFlex, flexDirection, flexGrow, flexWrap, fontSize, height, hex, int, justify, justifyContent, lineHeight, margin, margin3, marginBottom, marginTop, maxWidth, minWidth, padding2, padding4, pct, px, rem, rgba, textAlign, vh, vw, width, wrap, zero)
 import Css.Global as Css exposing (Snippet, global)
 import Html.Styled exposing (Html, a, div, fromUnstyled, h1, img, main_, p, text, ul)
 import Html.Styled.Attributes exposing (alt, attribute, class, classList, href, rel, src)
@@ -99,9 +99,11 @@ styles =
                 , Css.children
                     [ Css.p
                         [ fontSize (rem 1.4)
+                        , lineHeight (rem 1.8)
+                        , textAlign justify
                         , Css.adjacentSiblings
                             [ Css.p
-                                [ marginTop (vh 1.5) ]
+                                [ marginTop (vh 3) ]
                             ]
                         ]
                     , Css.class "categories"

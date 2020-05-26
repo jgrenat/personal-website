@@ -1,6 +1,6 @@
 module Index exposing (view)
 
-import Css exposing (absolute, alignItems, backgroundColor, block, borderRadius, bottom, center, color, display, displayFlex, fontSize, hex, justifyContent, left, marginBottom, marginRight, marginTop, padding, pct, position, px, relative, rem, rgba, right, textAlign, textDecoration, top, underline, vh, vw, width)
+import Css exposing (absolute, alignItems, backgroundColor, block, borderRadius, bottom, center, color, display, displayFlex, fontSize, hex, justifyContent, left, lineHeight, marginBottom, marginRight, marginTop, padding, pct, position, px, relative, rem, rgba, right, textAlign, textDecoration, top, underline, vh, vw, width)
 import Css.Global as Css exposing (Snippet, global)
 import Data.Author as Author exposing (jordane)
 import Date
@@ -78,7 +78,7 @@ viewArticleSummary ( articlePath, article ) =
         , time [ class "article-publicationDate", datetime (Date.toIsoString article.published) ]
             [ text (article.published |> Date.format "MMMM ddd, yyyy")
             ]
-        , p [] [ text article.description ]
+        , p [ class "article-description" ] [ text article.description ]
         , div [ class "article-fakeLink" ] [ text "Continue reading >>" ]
         ]
 
@@ -124,12 +124,15 @@ styles =
                         ]
                     ]
                 ]
+            , Css.class "article-description"
+                [ lineHeight (rem 2)
+                ]
             , Css.class "article-publicationDate"
                 [ display block
                 , fontSize (rem 0.95)
                 , color (rgba 0 0 0 0.8)
                 , textAlign center
-                , marginBottom (vh 5)
+                , marginBottom (vh 4)
                 ]
             , Css.class "article-fakeLink"
                 [ marginTop (vh 4)

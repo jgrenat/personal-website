@@ -19,7 +19,7 @@ Jusqu'à maintenant, on a réussi à créer des types avec un nombre précis de 
 
 ```java
 public enum Value {  
- ACE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING;  
+  ACE, TWO, THREE, FOUR, FIVE, SIX, SEVEN, EIGHT, NINE, TEN, JACK, QUEEN, KING;  
 }
 ```
 
@@ -27,7 +27,7 @@ De même, nous connaissons le type `bool` qui possède une cardinalité de 2 et 
 
 ```java
 public enum Bool {  
- TRUE, FALSE; 
+  TRUE, FALSE; 
 }
 ```
 
@@ -35,7 +35,7 @@ Allons plus loin, et créons un type de cardinalité 1 :
 
 ```java
 public enum Unit {  
- UNIT; 
+  UNIT; 
 }
 ```
 
