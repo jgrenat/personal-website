@@ -74,7 +74,7 @@ So where does all of this lead us? I'm not sure and I certainly don't have any a
 
 These days, in the context of the COVID-19, we're talking a lot about the *world of tomorrow*. Being quite lucky compared to other people, I was able to reduce my working time a few months ago and I will continue to do so. 
 
-But as a whole, I feel like we have not really improved in decades. I fear that the *world of tomorrow* will be the same as the *world of yesterday*, [a world where this amazing website conveys an unspeakable truth](https://mkorostoff.github.io/1-pixel-wealth/). 
+But as a whole, I feel like we have not really improved in decades. I fear that the *world of tomorrow* will be the same as the *world of yesterday*, **[a world where this amazing website conveys an unspeakable truth](https://mkorostoff.github.io/1-pixel-wealth/)**. 
 
 > This is the current state of my reflections, and I'd be very interested in hearing yours. [Let's talk?](https://twitter.com/JoGrenat)
 

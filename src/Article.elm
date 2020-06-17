@@ -1,7 +1,7 @@
 module Article exposing (..)
 
 import Css exposing (alignItems, backgroundColor, block, borderLeft3, borderRadius, calc, center, color, disc, display, displayFlex, em, flexEnd, flexGrow, flexWrap, fontSize, fontStyle, fontWeight, hex, inlineFlex, int, italic, justify, justifyContent, left, lineHeight, listStyleType, margin2, margin3, margin4, marginBottom, marginLeft, marginRight, marginTop, none, padding, padding2, paddingLeft, pct, plus, preWrap, px, rem, rgb, rgba, right, solid, spaceBetween, textAlign, textDecoration, underline, vh, vw, whiteSpace, width, wrap, zero)
-import Css.Global as Css exposing (Snippet, global)
+import Css.Global as Global exposing (Snippet, global)
 import Data.Author as Author exposing (Author)
 import Date
 import Html.Styled exposing (Html, a, aside, div, figcaption, figure, fromUnstyled, h1, h2, img, p, text, time)
@@ -79,38 +79,38 @@ backLink =
 
 styles : Snippet
 styles =
-    Css.class "article"
+    Global.class "article"
         [ marginTop (px 20)
-        , Css.descendants
-            [ Css.class "article-header"
+        , Global.descendants
+            [ Global.class "article-header"
                 [ displayFlex
                 , flexWrap wrap
                 , justifyContent spaceBetween
                 , alignItems center
                 , marginBottom (vh 2)
                 ]
-            , Css.class "authorCard"
+            , Global.class "authorCard"
                 [ displayFlex
                 , alignItems center
                 , flexGrow (int 1)
                 , justifyContent flexEnd
                 ]
-            , Css.class "authorCard-name"
+            , Global.class "authorCard-name"
                 [ textAlign right
                 , fontSize (rem 1.5)
                 , marginBottom (vh 1)
                 ]
-            , Css.class "authorCard-biography"
+            , Global.class "authorCard-biography"
                 [ textAlign right
                 , fontSize (rem 1)
                 , color (rgba 0 0 0 0.7)
                 ]
-            , Css.class "authorCard-picture"
+            , Global.class "authorCard-picture"
                 [ width (rem 5)
                 , borderRadius (pct 50)
                 , marginLeft (vw 0.9)
                 ]
-            , Css.class "backLink"
+            , Global.class "backLink"
                 [ display inlineFlex
                 , alignItems center
                 , padding (px 5)
@@ -118,86 +118,94 @@ styles =
                     [ backgroundColor (hex "64b4fa")
                     ]
                 ]
-            , Css.class "article-title"
+            , Global.class "article-title"
                 [ marginBottom (vh 2) ]
-            , Css.class "article-publicationDate"
+            , Global.class "article-publicationDate"
                 [ display block
                 , fontSize (rem 0.95)
                 , textAlign center
                 , marginBottom (vh 3)
                 ]
-            , Css.class "article-coverPhoto"
+            , Global.class "article-coverPhoto"
                 [ width (calc (pct 100) plus (vw 6))
                 , margin3 zero (vw -3) (vh 3)
-                , Css.children
-                    [ Css.img [ width (pct 100) ]
+                , Global.children
+                    [ Global.img [ width (pct 100) ]
                     ]
                 ]
-            , Css.class "article-coverPhoto-legend"
+            , Global.class "article-coverPhoto-legend"
                 [ fontSize (rem 0.9)
                 , color (rgba 0 0 0 0.7)
                 , textAlign center
-                , Css.children
-                    [ Css.a
+                , Global.children
+                    [ Global.a
                         [ textDecoration underline
                         , Css.hover [ color (rgb 0 0 0) ]
                         ]
                     ]
                 ]
-            , Css.class "markdown"
+            , Global.class "markdown"
                 [ marginBottom (vh 5)
-                , Css.descendants
-                    [ Css.h2
+                , Global.descendants
+                    [ Global.h2
                         [ fontSize (rem 2.5)
                         , fontWeight (int 900)
                         , textAlign left
                         , margin3 (vh 4) zero (vh 2)
                         ]
-                    , Css.h3
+                    , Global.h3
                         [ fontSize (rem 1.8)
                         , fontWeight (int 600)
                         , textAlign left
                         , margin3 (vh 3) zero (vh 1)
                         , color (rgba 0 0 0 0.8)
                         ]
-                    , Css.p
+                    , Global.p
                         [ margin2 (vh 2.5) zero
                         , lineHeight (rem 1.7)
                         , whiteSpace preWrap
                         , textAlign justify
-                        , Css.children
-                            [ Css.code
+                        , color (rgba 0 0 0 0.8)
+                        , Global.children
+                            [ Global.code
                                 [ backgroundColor (rgba 225 225 255 0.7)
                                 , padding2 (px 1) (px 3)
                                 , fontSize (em 0.7)
                                 ]
                             ]
                         ]
-                    , Css.blockquote
+                    , Global.blockquote
                         [ borderLeft3 (px 5) solid (rgba 5 117 230 0.8)
                         , backgroundColor (rgba 5 117 230 0.1)
                         , padding2 (vh 0.01) (vw 1)
                         , marginLeft (vw 0.5)
                         , marginRight (vw 0.5)
                         ]
-                    , Css.a
+                    , Global.strong
+                        [ fontWeight (int 900)
+                        , color (rgb 0 0 0)
+                        ]
+                    , Global.em
+                        [ fontStyle italic
+                        ]
+                    , Global.a
                         [ textDecoration underline
                         , Css.hover [ textDecoration none ]
                         ]
-                    , Css.class "thanks"
+                    , Global.class "thanks"
                         [ marginTop (vw 2)
                         , fontStyle italic
                         , fontSize (em 0.8)
                         , textAlign right
                         ]
-                    , Css.ul
+                    , Global.ul
                         [ listStyleType disc
                         , paddingLeft (rem 1)
                         , marginLeft (vh 2)
-                        , Css.children
-                            [ Css.li
-                                [ Css.adjacentSiblings
-                                    [ Css.li
+                        , Global.children
+                            [ Global.li
+                                [ Global.adjacentSiblings
+                                    [ Global.li
                                         [ marginTop (vh 2)
                                         ]
                                     ]
