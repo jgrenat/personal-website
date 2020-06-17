@@ -1,12 +1,12 @@
 module Article exposing (..)
 
-import Css exposing (alignItems, backgroundColor, block, borderLeft3, borderRadius, calc, center, color, disc, display, displayFlex, em, flexEnd, flexGrow, flexWrap, fontSize, fontStyle, fontWeight, hex, inlineFlex, int, italic, justify, justifyContent, left, lineHeight, listStyleType, margin2, margin3, margin4, marginBottom, marginLeft, marginRight, marginTop, padding, padding2, paddingLeft, pct, plus, preWrap, px, rem, rgb, rgba, right, solid, spaceBetween, textAlign, vh, vw, whiteSpace, width, wrap, zero)
+import Css exposing (alignItems, backgroundColor, block, borderLeft3, borderRadius, calc, center, color, disc, display, displayFlex, em, flexEnd, flexGrow, flexWrap, fontSize, fontStyle, fontWeight, hex, inlineFlex, int, italic, justify, justifyContent, left, lineHeight, listStyleType, margin2, margin3, margin4, marginBottom, marginLeft, marginRight, marginTop, none, padding, padding2, paddingLeft, pct, plus, preWrap, px, rem, rgb, rgba, right, solid, spaceBetween, textAlign, textDecoration, underline, vh, vw, whiteSpace, width, wrap, zero)
 import Css.Global as Css exposing (Snippet, global)
 import Data.Author as Author exposing (Author)
 import Date
-import Html.Styled exposing (Html, a, aside, div, fromUnstyled, h1, h2, img, p, text, time)
+import Html.Styled exposing (Html, a, aside, div, figcaption, figure, fromUnstyled, h1, h2, img, p, text, time)
 import Html.Styled.Attributes exposing (alt, class, datetime, href, src)
-import Metadata exposing (ArticleMetadata)
+import Metadata exposing (ArticleMetadata, ImageSource)
 import Octicons
 import Pages
 import Pages.ImagePath as ImagePath exposing (ImagePath)
@@ -23,7 +23,7 @@ view article articleView =
                 ]
             , h1 [ class "article-title" ] [ text article.title ]
             , publishedDateView article
-            , articleImageView article.image
+            , articleImageView article.image article.imageSource
             , div [ class "markdown" ] [ articleView ]
             , backLink
             ]
@@ -48,9 +48,21 @@ publishedDateView article =
         ]
 
 
-articleImageView : ImagePath Pages.PathKey -> Html msg
-articleImageView articleImage =
-    img [ src (ImagePath.toString articleImage), alt "Article cover photo", class "article-coverPhoto" ] []
+articleImageView : ImagePath Pages.PathKey -> Maybe ImageSource -> Html msg
+articleImageView articleImage imageSource =
+    figure [ class "article-coverPhoto" ]
+        [ img [ src (ImagePath.toString articleImage), alt "Article cover photo" ] []
+        , case imageSource of
+            Nothing ->
+                text ""
+
+            Just source ->
+                figcaption [ class "article-coverPhoto-legend" ]
+                    [ text source.authorName
+                    , text " "
+                    , a [ href source.licenseLink ] [ text source.licenseName ]
+                    ]
+        ]
 
 
 octiconOptions =
@@ -111,13 +123,26 @@ styles =
             , Css.class "article-publicationDate"
                 [ display block
                 , fontSize (rem 0.95)
-                , color (rgba 0 0 0 0.8)
                 , textAlign center
                 , marginBottom (vh 3)
                 ]
             , Css.class "article-coverPhoto"
                 [ width (calc (pct 100) plus (vw 6))
-                , margin3 zero (vw -3) (vh 2)
+                , margin3 zero (vw -3) (vh 3)
+                , Css.children
+                    [ Css.img [ width (pct 100) ]
+                    ]
+                ]
+            , Css.class "article-coverPhoto-legend"
+                [ fontSize (rem 0.9)
+                , color (rgba 0 0 0 0.7)
+                , textAlign center
+                , Css.children
+                    [ Css.a
+                        [ textDecoration underline
+                        , Css.hover [ color (rgb 0 0 0) ]
+                        ]
+                    ]
                 ]
             , Css.class "markdown"
                 [ marginBottom (vh 5)
@@ -154,6 +179,16 @@ styles =
                         , padding2 (vh 0.01) (vw 1)
                         , marginLeft (vw 0.5)
                         , marginRight (vw 0.5)
+                        ]
+                    , Css.a
+                        [ textDecoration underline
+                        , Css.hover [ textDecoration none ]
+                        ]
+                    , Css.class "thanks"
+                        [ marginTop (vw 2)
+                        , fontStyle italic
+                        , fontSize (em 0.8)
+                        , textAlign right
                         ]
                     , Css.ul
                         [ listStyleType disc

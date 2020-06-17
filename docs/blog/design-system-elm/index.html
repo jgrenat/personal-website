@@ -277,14 +277,31 @@ h2 {
 .article  .article-publicationDate {
     display:block;
     font-size:0.95rem;
-    color:rgba(0, 0, 0, 0.8);
     text-align:center;
     margin-bottom:3vh;
 }
 
 .article  .article-coverPhoto {
     width:calc(100% + 6vw);
-    margin:0 -3vw 2vh;
+    margin:0 -3vw 3vh;
+}
+
+.article  .article-coverPhoto > img {
+    width:100%;
+}
+
+.article  .article-coverPhoto-legend {
+    font-size:0.9rem;
+    color:rgba(0, 0, 0, 0.7);
+    text-align:center;
+}
+
+.article  .article-coverPhoto-legend > a {
+    text-decoration:underline;
+}
+
+.article  .article-coverPhoto-legend > a:hover {
+    color:rgb(0, 0, 0);
 }
 
 .article  .markdown {
@@ -327,6 +344,21 @@ h2 {
     margin-right:0.5vw;
 }
 
+.article  .markdown  a {
+    text-decoration:underline;
+}
+
+.article  .markdown  a:hover {
+    text-decoration:none;
+}
+
+.article  .markdown  .thanks {
+    margin-top:2vw;
+    font-style:italic;
+    font-size:0.8em;
+    text-align:right;
+}
+
 .article  .markdown  ul {
     list-style-type:disc;
     padding-left:1rem;
@@ -335,7 +367,7 @@ h2 {
 
 .article  .markdown  ul > li + li {
     margin-top:2vh;
-}</style><div class="opaquePanel"><div class="article-header"><a class="backLink" href="/blog"><svg version="1.1" class="octicon arrowLeft" width="30" height="30" viewBox="0 0 10 16"><polygon points="6 3 0 8 6 13 6 10 10 10 10 6 6 6" fill-rule="evenodd" fill="black"></polygon></svg>Other articles</a><aside class="authorCard"><div><div class="authorCard-name">Jordane Grenat</div><p class="authorCard-biography">Web developer and software craftsman</p></div><img src="images/author/jordane.jpeg" alt="Jordane Grenat" class="authorCard-picture"></aside></div><h1 class="article-title">Un design system en Elm</h1><time class="article-publicationDate" datetime="2019-12-10">December 10th, 2019</time><img src="images/article-covers/legos.png" alt="Article cover photo" class="article-coverPhoto"><div class="markdown"><div><div><p>Dans ma boîte, nous avons récemment démarré notre premier projet Elm pour un client. Je ne l'avais jusqu'à présent utilisé que pour des projets personnels ou des projets internes. Collaborant avec un graphiste et fort de mes expériences précédentes dans le monde JavaScript, j'ai tout de suite opté pour la méthodologie du Design System. </p>
+}</style><div class="opaquePanel"><div class="article-header"><a class="backLink" href="/blog"><svg version="1.1" class="octicon arrowLeft" width="30" height="30" viewBox="0 0 10 16"><polygon points="6 3 0 8 6 13 6 10 10 10 10 6 6 6" fill-rule="evenodd" fill="black"></polygon></svg>Other articles</a><aside class="authorCard"><div><div class="authorCard-name">Jordane Grenat</div><p class="authorCard-biography">Web developer and software craftsman</p></div><img src="images/author/jordane.jpeg" alt="Jordane Grenat" class="authorCard-picture"></aside></div><h1 class="article-title">Un design system en Elm</h1><time class="article-publicationDate" datetime="2019-12-10">December 10th, 2019</time><figure class="article-coverPhoto"><img src="images/article-covers/legos.png" alt="Article cover photo"></figure><div class="markdown"><div><div><p>Dans ma boîte, nous avons récemment démarré notre premier projet Elm pour un client. Je ne l'avais jusqu'à présent utilisé que pour des projets personnels ou des projets internes. Collaborant avec un graphiste et fort de mes expériences précédentes dans le monde JavaScript, j'ai tout de suite opté pour la méthodologie du Design System. </p>
 <p>L'idée est simple : plutôt que de travailler sur des pages entières, on va travailler sur les différents composants de nos pages. Ces composants sont développés indépendamment les uns des autres avec une collaboration forte entre un designer et un développeur. Le design system centralise ensuite toutes les règles et propriétés du projet (couleurs, espacements, typographies, etc.) ainsi que les composants sous leurs différents états.</p>
 <p>Cet article n'étant pas destiné à rentrer dans les détails de la méthodologie en elle-même, je vous redirige vers cet excellent talk où Cécile Freyd-Foucault et Florent Berthelot l'expliquent point par point : <a href="https://www.youtube.com/watch?v=jXcO7Qu1Gjs">Designers, développeurs, créons la différence !</a></p>
 <p>Ce qu'il faut retenir pour la suite de cet article, c'est qu'on essaye de centraliser au maximum les règles et composants graphiques de notre site pour l'exposer dans un endroit facilement accessible.</p>

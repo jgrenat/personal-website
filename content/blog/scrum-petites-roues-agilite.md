@@ -21,7 +21,7 @@ Ce long paragraphe (pour lequel je m'excuse) peut être résumé par ce schéma 
 <figure>  
     <img src="/images/scrum-framework.png" alt="Schéma du framework Scrum" style="width: 750px; max-width: 100%;">    
     <figcaption>  
-    Schéma du Dr Ian Mitchell, distribué sous license <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.en">Creative Commons Attribution-Share Alike 4.0 International</a>   
+    Schéma du Dr Ian Mitchell, distribué sous licence <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.en">Creative Commons Attribution-Share Alike 4.0 International</a>   
     </figcaption>  
 </figure>
 

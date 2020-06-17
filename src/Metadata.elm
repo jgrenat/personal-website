@@ -1,4 +1,4 @@
-module Metadata exposing (ArticleMetadata, Metadata(..), PageMetadata, decoder)
+module Metadata exposing (ArticleMetadata, ImageSource, Metadata(..), PageMetadata, decoder)
 
 import Data.Author
 import Date exposing (Date)
@@ -21,7 +21,15 @@ type alias ArticleMetadata =
     , published : Date
     , author : Data.Author.Author
     , image : ImagePath Pages.PathKey
+    , imageSource : Maybe ImageSource
     , draft : Bool
+    }
+
+
+type alias ImageSource =
+    { authorName : String
+    , licenseName : String
+    , licenseLink : String
     }
 
 
@@ -46,7 +54,7 @@ decoder =
                         Decode.succeed BlogIndex
 
                     "blog" ->
-                        Decode.map6 ArticleMetadata
+                        Decode.map7 ArticleMetadata
                             (Decode.field "title" Decode.string)
                             (Decode.field "description" Decode.string)
                             (Decode.field "published"
@@ -64,6 +72,7 @@ decoder =
                             )
                             (Decode.field "author" Data.Author.decoder)
                             (Decode.field "image" imageDecoder)
+                            (Decode.maybe imageSourceDecoder)
                             (Decode.field "draft" Decode.bool
                                 |> Decode.maybe
                                 |> Decode.map (Maybe.withDefault False)
@@ -87,6 +96,14 @@ imageDecoder =
                     Just imagePath ->
                         Decode.succeed imagePath
             )
+
+
+imageSourceDecoder : Decoder ImageSource
+imageSourceDecoder =
+    Decode.map3 ImageSource
+        (Decode.field "imageAuthorName" Decode.string)
+        (Decode.field "imageLicenseName" Decode.string)
+        (Decode.field "imageLicenseLink" Decode.string)
 
 
 findMatchingImage : String -> Maybe (ImagePath Pages.PathKey)

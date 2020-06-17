@@ -277,14 +277,31 @@ h2 {
 .article  .article-publicationDate {
     display:block;
     font-size:0.95rem;
-    color:rgba(0, 0, 0, 0.8);
     text-align:center;
     margin-bottom:3vh;
 }
 
 .article  .article-coverPhoto {
     width:calc(100% + 6vw);
-    margin:0 -3vw 2vh;
+    margin:0 -3vw 3vh;
+}
+
+.article  .article-coverPhoto > img {
+    width:100%;
+}
+
+.article  .article-coverPhoto-legend {
+    font-size:0.9rem;
+    color:rgba(0, 0, 0, 0.7);
+    text-align:center;
+}
+
+.article  .article-coverPhoto-legend > a {
+    text-decoration:underline;
+}
+
+.article  .article-coverPhoto-legend > a:hover {
+    color:rgb(0, 0, 0);
 }
 
 .article  .markdown {
@@ -327,6 +344,21 @@ h2 {
     margin-right:0.5vw;
 }
 
+.article  .markdown  a {
+    text-decoration:underline;
+}
+
+.article  .markdown  a:hover {
+    text-decoration:none;
+}
+
+.article  .markdown  .thanks {
+    margin-top:2vw;
+    font-style:italic;
+    font-size:0.8em;
+    text-align:right;
+}
+
 .article  .markdown  ul {
     list-style-type:disc;
     padding-left:1rem;
@@ -335,7 +367,7 @@ h2 {
 
 .article  .markdown  ul > li + li {
     margin-top:2vh;
-}</style><div class="opaquePanel"><div class="article-header"><a class="backLink" href="/blog"><svg version="1.1" class="octicon arrowLeft" width="30" height="30" viewBox="0 0 10 16"><polygon points="6 3 0 8 6 13 6 10 10 10 10 6 6 6" fill-rule="evenodd" fill="black"></polygon></svg>Other articles</a><aside class="authorCard"><div><div class="authorCard-name">Jordane Grenat</div><p class="authorCard-biography">Web developer and software craftsman</p></div><img src="images/author/jordane.jpeg" alt="Jordane Grenat" class="authorCard-picture"></aside></div><h1 class="article-title">Ce que j'aime en Elm</h1><time class="article-publicationDate" datetime="2019-09-26">September 26th, 2019</time><img src="images/article-covers/elm-tree.jpg" alt="Article cover photo" class="article-coverPhoto"><div class="markdown"><div><div><p>L'arrivée en 2012 de Elm sur la scène des langages de programmation s'est faite en toute discrétion. Ce langage dédié aux interfaces et applications web et compilant en JavaScript trouve progressivement ses utilisateurs, sans pourtant être autant médiatisé que les alternatives JavaScript telles que React, AngularJS et Vue.js (qui ont bien souvent la puissance marketing d'un GAFAM derrière eux).</p>
+}</style><div class="opaquePanel"><div class="article-header"><a class="backLink" href="/blog"><svg version="1.1" class="octicon arrowLeft" width="30" height="30" viewBox="0 0 10 16"><polygon points="6 3 0 8 6 13 6 10 10 10 10 6 6 6" fill-rule="evenodd" fill="black"></polygon></svg>Other articles</a><aside class="authorCard"><div><div class="authorCard-name">Jordane Grenat</div><p class="authorCard-biography">Web developer and software craftsman</p></div><img src="images/author/jordane.jpeg" alt="Jordane Grenat" class="authorCard-picture"></aside></div><h1 class="article-title">Ce que j'aime en Elm</h1><time class="article-publicationDate" datetime="2019-09-26">September 26th, 2019</time><figure class="article-coverPhoto"><img src="images/article-covers/elm-tree.jpg" alt="Article cover photo"></figure><div class="markdown"><div><div><p>L'arrivée en 2012 de Elm sur la scène des langages de programmation s'est faite en toute discrétion. Ce langage dédié aux interfaces et applications web et compilant en JavaScript trouve progressivement ses utilisateurs, sans pourtant être autant médiatisé que les alternatives JavaScript telles que React, AngularJS et Vue.js (qui ont bien souvent la puissance marketing d'un GAFAM derrière eux).</p>
 <p>Développeur JavaScript depuis de nombreuses années lorsque j'ai découvert Elm, j'ai immédiatement été séduit par le langage mais également par son écosystème. Je vais essayer dans cet article de vous partager certains de ces points.</p>
 <p><strong>TL;DR :</strong> Parcourez les titres des différentes parties 😉</p>
 <div style="text-align: center"><br>    <img src="/images/elm-logo.svg" alt="Logo Elm" style="width: 250px; max-width: 100%;"><br></div>

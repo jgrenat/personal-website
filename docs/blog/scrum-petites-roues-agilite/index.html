@@ -277,14 +277,31 @@ h2 {
 .article  .article-publicationDate {
     display:block;
     font-size:0.95rem;
-    color:rgba(0, 0, 0, 0.8);
     text-align:center;
     margin-bottom:3vh;
 }
 
 .article  .article-coverPhoto {
     width:calc(100% + 6vw);
-    margin:0 -3vw 2vh;
+    margin:0 -3vw 3vh;
+}
+
+.article  .article-coverPhoto > img {
+    width:100%;
+}
+
+.article  .article-coverPhoto-legend {
+    font-size:0.9rem;
+    color:rgba(0, 0, 0, 0.7);
+    text-align:center;
+}
+
+.article  .article-coverPhoto-legend > a {
+    text-decoration:underline;
+}
+
+.article  .article-coverPhoto-legend > a:hover {
+    color:rgb(0, 0, 0);
 }
 
 .article  .markdown {
@@ -327,6 +344,21 @@ h2 {
     margin-right:0.5vw;
 }
 
+.article  .markdown  a {
+    text-decoration:underline;
+}
+
+.article  .markdown  a:hover {
+    text-decoration:none;
+}
+
+.article  .markdown  .thanks {
+    margin-top:2vw;
+    font-style:italic;
+    font-size:0.8em;
+    text-align:right;
+}
+
 .article  .markdown  ul {
     list-style-type:disc;
     padding-left:1rem;
@@ -335,13 +367,13 @@ h2 {
 
 .article  .markdown  ul > li + li {
     margin-top:2vh;
-}</style><div class="opaquePanel"><div class="article-header"><a class="backLink" href="/blog"><svg version="1.1" class="octicon arrowLeft" width="30" height="30" viewBox="0 0 10 16"><polygon points="6 3 0 8 6 13 6 10 10 10 10 6 6 6" fill-rule="evenodd" fill="black"></polygon></svg>Other articles</a><aside class="authorCard"><div><div class="authorCard-name">Jordane Grenat</div><p class="authorCard-biography">Web developer and software craftsman</p></div><img src="images/author/jordane.jpeg" alt="Jordane Grenat" class="authorCard-picture"></aside></div><h1 class="article-title">Scrum, les petites roues de l'agilité</h1><time class="article-publicationDate" datetime="2019-10-22">October 22nd, 2019</time><img src="images/article-covers/post-it.png" alt="Article cover photo" class="article-coverPhoto"><div class="markdown"><div><div><blockquote>
+}</style><div class="opaquePanel"><div class="article-header"><a class="backLink" href="/blog"><svg version="1.1" class="octicon arrowLeft" width="30" height="30" viewBox="0 0 10 16"><polygon points="6 3 0 8 6 13 6 10 10 10 10 6 6 6" fill-rule="evenodd" fill="black"></polygon></svg>Other articles</a><aside class="authorCard"><div><div class="authorCard-name">Jordane Grenat</div><p class="authorCard-biography">Web developer and software craftsman</p></div><img src="images/author/jordane.jpeg" alt="Jordane Grenat" class="authorCard-picture"></aside></div><h1 class="article-title">Scrum, les petites roues de l'agilité</h1><time class="article-publicationDate" datetime="2019-10-22">October 22nd, 2019</time><figure class="article-coverPhoto"><img src="images/article-covers/post-it.png" alt="Article cover photo"></figure><div class="markdown"><div><div><blockquote>
 <p>Ce qui va suivre est ma vision personnelle du framework agile Scrum. Je ne revendique en aucun cas l'universalité de cette vision :)</p>
 </blockquote>
 <p>Développeur depuis quelques années, j'ai été dès mon premier stage sensibilisé aux méthodologies agiles. Et comme beaucoup, j'ai commencé en appliquant la méthode Scrum. Il faut savoir que dans ma société – comme dans beaucoup d'autres – il n'est pas rare de croiser des gens pour qui l'agilité, c'est forcément du Scrum.</p>
 <p>La promesse initiale de ce framework est simple : on cherche à délivrer rapidement de la valeur, en découpant le backlog en petit packages sur lesquels on va se concentrer durant un sprint. Un sprint est un découpage temporel d'une durée variable selon les projets – de mon côté c'est très souvent deux semaines. Il commence par un <em>Sprint Planning</em>, une réunion pendant laquelle l'équipe prévoit ce qu'elle est capable de réaliser pendant le sprint. Puis il s'achève avec une <em>Sprint Review</em>, une réunion pendant laquelle on revient sur le travail réalisé, ainsi qu'une <em>Sprint Retrospective</em>, une réunion pendant laquelle on cherche à améliorer le fonctionnement de l'équipe en tirant les leçons du sprint écoulé. Tous les matins pendant le sprint, l'équipe se réunit pour une réunion très courte nommée <em>Daily Scrum</em> pendant laquelle chacun partage son avancement, ce sur quoi il prévoit de bosser dans la journée et les éventuelles difficultés rencontrées. </p>
 <p>Ce long paragraphe (pour lequel je m'excuse) peut être résumé par ce schéma :</p>
-<figure><br>    <img src="/images/scrum-framework.png" alt="Schéma du framework Scrum" style="width: 750px; max-width: 100%;"><br>    <figcaption><br>    Schéma du Dr Ian Mitchell, distribué sous license <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.en">Creative Commons Attribution-Share Alike 4.0 International</a><br>    </figcaption><br></figure>
+<figure><br>    <img src="/images/scrum-framework.png" alt="Schéma du framework Scrum" style="width: 750px; max-width: 100%;"><br>    <figcaption><br>    Schéma du Dr Ian Mitchell, distribué sous licence <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.en">Creative Commons Attribution-Share Alike 4.0 International</a><br>    </figcaption><br></figure>
 
 <p>Ces quatre réunions que j'ai citées sont aussi appelées <strong>cérémonies</strong> ou <strong>rituels</strong> du Scrum. Et pour chacune d'elle, vous pourrez trouver des règles très précises (bien que fluctuantes selon les sources) sur comment les <strong>structurer</strong> au mieux. </p>
 <p>Et je ne sais pas pour vous, mais tout cela me semble personnellement très rigide : c'est un cadre de travail normalisé avec des règles très précises à suivre pour l'équipe. Des rôles sont également identifiés avec chacun des responsabilités définies. A mon sens, cela s'est toujours opposé à la première valeur de l'agilité :</p>
