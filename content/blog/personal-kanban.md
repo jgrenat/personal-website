@@ -9,7 +9,7 @@
 }
 ---
 
-A few years ago, I've had the chance to attend [a presentation from Eric Siber](https://eric.siber.fr/conferences/#personalkanbandepuislestranches) (FR) about personal kanban which led me to try it myself with great success. Today, it's my turn to share my experience with this tool.
+A few years ago, I've had the chance to attend [a presentation from Eric Siber 🇫🇷](https://eric.siber.fr/conferences/#personalkanbandepuislestranches) (a former mentor at Viseo) about personal kanban which led me to try it myself with great success. Today, it's my turn to share my experience with this tool.
 
 ## What is it?
 
