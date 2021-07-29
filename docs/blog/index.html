@@ -211,7 +211,7 @@ h2 {
 
 .opaquePanel {
     display:block;
-    background-color:rgba(255, 255, 255, 0.95);
+    background-color:rgba(255, 255, 255, 0.99);
     padding:5vh 3vw;
     max-width:900px;
     width:95%;
@@ -228,11 +228,12 @@ h2 {
     position:relative;
 }
 
+.blog  .articlesList {
+    padding-bottom:2vh;
+}
+
 .blog  .backLink {
-    display:flex;
     align-items:center;
-    position:absolute;
-    left:2vw;
     padding:5px;
 }
 
@@ -241,11 +242,25 @@ h2 {
 }
 
 .blog  .backLink.backLink--top {
+    display:flex;
+    align-items:center;
     top:1.5vh;
+    position:absolute;
+    left:2vw;
 }
 
 .blog  .backLink.backLink--bottom {
-    bottom:1.5vh;
+    display:inline-flex;
+    margin:auto;
+    margin-bottom:2vh;
+}
+
+.blog  .backLink.backLink--bottom:hover {
+    background-color:rgb(255, 255, 255);
+}
+
+.blog  .backLink-container {
+    text-align:center;
 }
 
 .blog  .blog-title {
@@ -260,8 +275,13 @@ h2 {
     margin-right:1vw;
 }
 
+.blog  .article {
+    transition:transform 200ms  ;
+}
+
 .blog  .article:hover {
-    background-color:rgba(240, 240, 250, 0.7);
+    box-shadow:0 1px 5px 3px rgba(0, 0, 0, 0.4);
+    transform:scale(1.02);
 }
 
 .blog  .article:hover  .article-fakeLink {
@@ -283,4 +303,4 @@ h2 {
 .blog  .article-fakeLink {
     margin-top:4vh;
     text-align:right;
-}</style><a class="backLink backLink--top" href="/"><svg version="1.1" class="octicon arrowLeft" width="30" height="30" viewBox="0 0 10 16"><polygon points="6 3 0 8 6 13 6 10 10 10 10 6 6 6" fill-rule="evenodd" fill="black"></polygon></svg>Home</a><h1 class="blog-title"><img src="images/author/jordane.jpeg" alt="Jordane Grenat" class="author-portrait">Blog</h1><div class="articlesList"><a href="blog/personal-kanban" class="article opaquePanel"><h2 class="article-title">Personal Kanban</h2><time class="article-publicationDate" datetime="2020-07-29">July 29th, 2020</time><p class="article-description">A few years ago, I've had the chance to attend a presentation about personal kanban which led me to try it myself with great success. Today, it's my turn to introduce and share my experience with this tool.</p><div class="article-fakeLink">Continue reading &gt;&gt;</div></a><a href="blog/time-money-life" class="article opaquePanel"><h2 class="article-title">Time is money. Which one do you value the most?</h2><time class="article-publicationDate" datetime="2020-06-17">June 17th, 2020</time><p class="article-description">These days, I've thought a lot about the relationship between time and money and their interconnection to life. This is a non-technical article focused on this subject that I find really difficult to talk about.</p><div class="article-fakeLink">Continue reading &gt;&gt;</div></a><a href="blog/des-types-au-top-2" class="article opaquePanel"><h2 class="article-title">Des types au top (2)</h2><time class="article-publicationDate" datetime="2020-02-11">February 11th, 2020</time><p class="article-description">Après ce premier article sur les types, découvrons maintenant les possibilités plus avancées d'un système de types : du type unitaire aux dependents types, tout en passant par les phantom types, voyons ensemble leurs avantages !</p><div class="article-fakeLink">Continue reading &gt;&gt;</div></a><a href="blog/design-system-elm" class="article opaquePanel"><h2 class="article-title">Un design system en Elm</h2><time class="article-publicationDate" datetime="2019-12-10">December 10th, 2019</time><p class="article-description">La méthodologie du design system apporte beaucoup au développement front-end. Sans surprise, Elm s'est révélé particulièrement adapté à l'implémentation de cette méthodologie !</p><div class="article-fakeLink">Continue reading &gt;&gt;</div></a><a href="blog/scrum-petites-roues-agilite" class="article opaquePanel"><h2 class="article-title">Scrum, les petites roues de l'agilité</h2><time class="article-publicationDate" datetime="2019-10-22">October 22nd, 2019</time><p class="article-description">Réflexions personnelles autour du framework agile Scrum et la façon dont il est utilisé / devrait être utilisé aujourd'hui.</p><div class="article-fakeLink">Continue reading &gt;&gt;</div></a><a href="blog/des-types-au-top" class="article opaquePanel"><h2 class="article-title">Des types au top</h2><time class="article-publicationDate" datetime="2019-10-10">October 10th, 2019</time><p class="article-description">En programmation, les types sont bien plus puissants que ce que peuvent nous laisser croire les types primitifs. Venez découvrir avec moi les super pouvoirs des types !</p><div class="article-fakeLink">Continue reading &gt;&gt;</div></a><a href="blog/ce-que-jaime-en-elm" class="article opaquePanel"><h2 class="article-title">Ce que j'aime en Elm</h2><time class="article-publicationDate" datetime="2019-09-26">September 26th, 2019</time><p class="article-description">Elm est un langage de programmation front-end compilant en JavaScript permettant de réaliser des interfaces et des applications web. Dans cet article, j'expose les forces qui rendent ce langage addictif et surtout très productif.</p><div class="article-fakeLink">Continue reading &gt;&gt;</div></a></div><a class="backLink backLink--bottom" href="/"><svg version="1.1" class="octicon arrowLeft" width="30" height="30" viewBox="0 0 10 16"><polygon points="6 3 0 8 6 13 6 10 10 10 10 6 6 6" fill-rule="evenodd" fill="black"></polygon></svg>Home</a></main></div></body></html>
+}</style><a class="backLink backLink--top" href="/"><svg version="1.1" class="octicon arrowLeft" width="30" height="30" viewBox="0 0 10 16"><polygon points="6 3 0 8 6 13 6 10 10 10 10 6 6 6" fill-rule="evenodd" fill="black"></polygon></svg>Home</a><h1 class="blog-title"><img src="images/author/jordane.jpeg" alt="Jordane Grenat" class="author-portrait">Blog</h1><div class="articlesList"><a href="blog/frontend-us-readiness" class="article opaquePanel"><h2 class="article-title">Your Frontend User Stories are not Ready!</h2><time class="article-publicationDate" datetime="2021-07-30">July 30th, 2021</time><p class="article-description">The web platform provides many ways to interact with each element. That's why it's so hard to include everything that is needed in your frontend user stories. This article gathers some commonly forgotten elements.</p><div class="article-fakeLink">Continue reading &gt;&gt;</div></a><a href="blog/personal-kanban" class="article opaquePanel"><h2 class="article-title">Personal Kanban</h2><time class="article-publicationDate" datetime="2020-07-29">July 29th, 2020</time><p class="article-description">A few years ago, I've had the chance to attend a presentation about personal kanban which led me to try it myself with great success. Today, it's my turn to introduce and share my experience with this tool.</p><div class="article-fakeLink">Continue reading &gt;&gt;</div></a><a href="blog/time-money-life" class="article opaquePanel"><h2 class="article-title">Time is money. Which one do you value the most?</h2><time class="article-publicationDate" datetime="2020-06-17">June 17th, 2020</time><p class="article-description">These days, I've thought a lot about the relationship between time and money and their interconnection to life. This is a non-technical article focused on this subject that I find really difficult to talk about.</p><div class="article-fakeLink">Continue reading &gt;&gt;</div></a><a href="blog/des-types-au-top-2" class="article opaquePanel"><h2 class="article-title">Des types au top (2)</h2><time class="article-publicationDate" datetime="2020-02-11">February 11th, 2020</time><p class="article-description">Après ce premier article sur les types, découvrons maintenant les possibilités plus avancées d'un système de types : du type unitaire aux dependents types, tout en passant par les phantom types, voyons ensemble leurs avantages !</p><div class="article-fakeLink">Continue reading &gt;&gt;</div></a><a href="blog/design-system-elm" class="article opaquePanel"><h2 class="article-title">Un design system en Elm</h2><time class="article-publicationDate" datetime="2019-12-10">December 10th, 2019</time><p class="article-description">La méthodologie du design system apporte beaucoup au développement front-end. Sans surprise, Elm s'est révélé particulièrement adapté à l'implémentation de cette méthodologie !</p><div class="article-fakeLink">Continue reading &gt;&gt;</div></a><a href="blog/promises-vs-observables" class="article opaquePanel"><h2 class="article-title">Promises vs Observables</h2><time class="article-publicationDate" datetime="2019-10-22">October 22nd, 2019</time><p class="article-description">Réflexions personnelles autour du framework agile Scrum et la façon dont il est utilisé / devrait être utilisé aujourd'hui.</p><div class="article-fakeLink">Continue reading &gt;&gt;</div></a><a href="blog/scrum-petites-roues-agilite" class="article opaquePanel"><h2 class="article-title">Scrum, les petites roues de l'agilité</h2><time class="article-publicationDate" datetime="2019-10-22">October 22nd, 2019</time><p class="article-description">Réflexions personnelles autour du framework agile Scrum et la façon dont il est utilisé / devrait être utilisé aujourd'hui.</p><div class="article-fakeLink">Continue reading &gt;&gt;</div></a><a href="blog/des-types-au-top" class="article opaquePanel"><h2 class="article-title">Des types au top</h2><time class="article-publicationDate" datetime="2019-10-10">October 10th, 2019</time><p class="article-description">En programmation, les types sont bien plus puissants que ce que peuvent nous laisser croire les types primitifs. Venez découvrir avec moi les super pouvoirs des types !</p><div class="article-fakeLink">Continue reading &gt;&gt;</div></a><a href="blog/ce-que-jaime-en-elm" class="article opaquePanel"><h2 class="article-title">Ce que j'aime en Elm</h2><time class="article-publicationDate" datetime="2019-09-26">September 26th, 2019</time><p class="article-description">Elm est un langage de programmation front-end compilant en JavaScript permettant de réaliser des interfaces et des applications web. Dans cet article, j'expose les forces qui rendent ce langage addictif et surtout très productif.</p><div class="article-fakeLink">Continue reading &gt;&gt;</div></a></div><div class="backLink-container"><a class="backLink backLink--bottom" href="/"><svg version="1.1" class="octicon arrowLeft" width="30" height="30" viewBox="0 0 10 16"><polygon points="6 3 0 8 6 13 6 10 10 10 10 6 6 6" fill-rule="evenodd" fill="black"></polygon></svg>Home</a></div></main></div></body></html>

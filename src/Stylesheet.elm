@@ -36,7 +36,7 @@ styles =
         ]
     , Css.class "opaquePanel"
         [ display block
-        , backgroundColor (rgba 255 255 255 0.95)
+        , backgroundColor (rgba 255 255 255 0.99)
         , padding2 (vh 5) (vw 3)
         , maxWidth (px 900)
         , width (pct 95)

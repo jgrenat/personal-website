@@ -16,6 +16,7 @@ hljs.registerLanguage('elm', elm);
 hljs.registerLanguage('rust', rust);
 hljs.registerLanguage('typescript', typescript);
 hljs.registerLanguage('javascript', javascript);
+hljs.registerLanguage('js', javascript);
 hljs.registerLanguage('bash', bash);
 hljs.registerLanguage('java', java);
 hljs.registerLanguage('haskell', haskell);

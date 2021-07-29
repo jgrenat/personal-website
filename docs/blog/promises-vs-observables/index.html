@@ -1,0 +1,450 @@
+<!DOCTYPE html><html lang="en"><head><link rel="preload" href="content.json" as="fetch" crossorigin=""><base href="../../"><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><script>if ("serviceWorker" in navigator) {
+        window.addEventListener("load", () => {
+          navigator.serviceWorker.register("service-worker.js");
+        });
+      } else {
+        console.log("No service worker registered.");
+      }</script><link rel="shortcut icon" href="assets/favicon.ico"><link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png"><link rel="icon" type="image/png" sizes="48x48" href="assets/favicon-48x48.png"><link rel="manifest" href="assets/manifest.json"><meta name="mobile-web-app-capable" content="yes"><meta name="theme-color" content="#ffffff"><meta name="application-name" content="Jordane Grenat | Personal Website"><link rel="apple-touch-icon" sizes="57x57" href="assets/apple-touch-icon-57x57.png"><link rel="apple-touch-icon" sizes="60x60" href="assets/apple-touch-icon-60x60.png"><link rel="apple-touch-icon" sizes="72x72" href="assets/apple-touch-icon-72x72.png"><link rel="apple-touch-icon" sizes="76x76" href="assets/apple-touch-icon-76x76.png"><link rel="apple-touch-icon" sizes="114x114" href="assets/apple-touch-icon-114x114.png"><link rel="apple-touch-icon" sizes="120x120" href="assets/apple-touch-icon-120x120.png"><link rel="apple-touch-icon" sizes="144x144" href="assets/apple-touch-icon-144x144.png"><link rel="apple-touch-icon" sizes="152x152" href="assets/apple-touch-icon-152x152.png"><link rel="apple-touch-icon" sizes="167x167" href="assets/apple-touch-icon-167x167.png"><link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon-180x180.png"><link rel="apple-touch-icon" sizes="1024x1024" href="assets/apple-touch-icon-1024x1024.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"><meta name="apple-mobile-web-app-title" content="Jordane Grenat | Personal Website"><script defer="defer" src="main.js"></script><link rel="preload" href="main.js" as="script"><style>/*
+
+Dracula Theme v1.2.0
+
+https://github.com/zenorocha/dracula-theme
+
+Copyright 2015, All rights reserved
+
+Code licensed under the MIT license
+http://zenorocha.mit-license.org
+
+@author Éverton Ribeiro <nuxlli@gmail.com>
+@author Zeno Rocha <hi@zenorocha.com>
+
+*/
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: #282a36;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal,
+.hljs-section,
+.hljs-link {
+  color: #8be9fd;
+}
+
+.hljs-function .hljs-keyword {
+  color: #ff79c6;
+}
+
+.hljs,
+.hljs-subst {
+  color: #f8f8f2;
+}
+
+.hljs-string,
+.hljs-title,
+.hljs-name,
+.hljs-type,
+.hljs-attribute,
+.hljs-symbol,
+.hljs-bullet,
+.hljs-addition,
+.hljs-variable,
+.hljs-template-tag,
+.hljs-template-variable {
+  color: #f1fa8c;
+}
+
+.hljs-comment,
+.hljs-quote,
+.hljs-deletion,
+.hljs-meta {
+  color: #6272a4;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal,
+.hljs-title,
+.hljs-section,
+.hljs-doctag,
+.hljs-type,
+.hljs-name,
+.hljs-strong {
+  font-weight: bold;
+}
+
+.hljs-emphasis {
+  font-style: italic;
+}
+</style><style>@import url(https://fonts.googleapis.com/css?family=Rubik|Noto+Sans&display=swap);</style><style>/***** CSS Reset *******/
+
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+li {
+  line-height: 1.9rem;
+}
+
+body {
+  /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#f5f5f5+0,ffffff+50,64b4fa+51,64b4fa+100 */
+  background: #f5f5f5; /* Old browsers */
+  background: -moz-linear-gradient(-45deg, #f5f5f5 0%, #ffffff 50%, #64b4fa 50%, #64b4fa 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(-45deg, #f5f5f5 0%, #ffffff 50%, #64b4fa 50%, #64b4fa 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 50%, #64b4fa 50%, #64b4fa 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f5f5f5', endColorstr='#64b4fa', GradientType=1); /* IE6-9 fallback on horizontal gradient */
+  background-attachment: fixed;
+}
+
+
+/* Workaround for hljs */
+
+pre code {
+  max-width: 100%;
+  font-size: 0.95rem;
+  line-height: 1.4rem;
+  display: block;
+  overflow-x: auto;
+  overflow-y: auto;
+  padding: 0.5em;
+  background: #282a36;
+  color: #f8f8f2;
+  white-space: pre-wrap;
+}
+
+figure > figcaption {
+  font-size: 0.8rem;
+  line-height: normal;
+  font-style: italic;
+  text-align: center;
+}
+</style><title>Promises vs Observables</title><meta name="generator" content="elm-pages v1.3.0"><link rel="canonical" href="https://www.grenat.eu/blog/promises-vs-observables"><meta name="description" content="Réflexions personnelles autour du framework agile Scrum et la façon dont il est utilisé / devrait être utilisé aujourd'hui."><meta property="og:image" content="https://www.grenat.eu/images/article-covers/post-it.png"><meta property="og:image:secure_url" content="https://www.grenat.eu/images/article-covers/post-it.png"><meta property="og:image:alt" content="Réflexions personnelles autour du framework agile Scrum et la façon dont il est utilisé / devrait être utilisé aujourd'hui."><meta property="og:title" content="Promises vs Observables"><meta property="og:url" content="https://www.grenat.eu/blog/promises-vs-observables"><meta property="og:description" content="Réflexions personnelles autour du framework agile Scrum et la façon dont il est utilisé / devrait être utilisé aujourd'hui."><meta property="og:site_name" content="Jordane Grenat | Personal Website"><meta property="twitter:card" content="summary_large_image"><meta property="twitter:title" content="Promises vs Observables"><meta property="twitter:description" content="Réflexions personnelles autour du framework agile Scrum et la façon dont il est utilisé / devrait être utilisé aujourd'hui."><meta property="twitter:image" content="https://www.grenat.eu/images/article-covers/post-it.png"><meta property="twitter:image:alt" content="Réflexions personnelles autour du framework agile Scrum et la façon dont il est utilisé / devrait être utilisé aujourd'hui."><meta property="og:type" content="article"><meta property="article:published_time" content="2019-10-22"></head><body><div data-url="http://localhost:8000/blog/promises-vs-observables" display="none"></div><div class="_21dae779"><style>._21dae779 {
+    height:100%;
+}</style><style>html {
+    height:100%;
+}
+
+body {
+    height:100%;
+    font-size:calc(16px + 0.2vw);
+    font-family:Noto Sans, sans-serif;
+}
+
+h1 {
+    font-family:Rubik, serif;
+    font-size:calc(1.6rem + 2vw);
+    text-align:center;
+    margin-bottom:5vh;
+    margin-top:1vw;
+}
+
+h2 {
+    font-size:calc(1.2rem + 1vw);
+    text-align:center;
+    margin-bottom:3vh;
+    font-weight:900;
+}
+
+.opaquePanel {
+    display:block;
+    background-color:rgba(255, 255, 255, 0.99);
+    padding:5vh 3vw;
+    max-width:900px;
+    width:95%;
+    margin:3vh auto;
+    box-shadow:0 1px 5px 1px rgba(0, 0, 0, 0.4);
+}
+
+@media only screen and (max-width: 500px) {
+    .opaquePanel {
+        width:100%;
+    }
+}</style><div class="article"><style>.article {
+    margin-top:20px;
+}
+
+.article  .article-header {
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:2vh;
+}
+
+.article  .authorCard {
+    display:flex;
+    align-items:center;
+    flex-grow:1;
+    justify-content:flex-end;
+}
+
+.article  .authorCard-name {
+    text-align:right;
+    font-size:1.5rem;
+    margin-bottom:1vh;
+}
+
+.article  .authorCard-biography {
+    text-align:right;
+    font-size:1rem;
+    color:rgba(0, 0, 0, 0.7);
+}
+
+.article  .authorCard-picture {
+    width:5rem;
+    border-radius:50%;
+    margin-left:0.9vw;
+}
+
+.article  .backLink {
+    display:inline-flex;
+    align-items:center;
+    padding:5px;
+}
+
+.article  .backLink:hover {
+    background-color:#64b4fa;
+}
+
+.article  .article-title {
+    margin-bottom:2vh;
+}
+
+.article  .article-publicationDate {
+    display:block;
+    font-size:0.95rem;
+    text-align:center;
+    margin-bottom:3vh;
+}
+
+.article  .article-coverPhoto {
+    width:calc(100% + 6vw);
+    margin:0 -3vw 3vh;
+}
+
+.article  .article-coverPhoto > img {
+    width:100%;
+}
+
+.article  .article-coverPhoto-legend {
+    font-size:0.9rem;
+    color:rgba(0, 0, 0, 0.7);
+    text-align:center;
+}
+
+.article  .article-coverPhoto-legend > a {
+    text-decoration:underline;
+}
+
+.article  .article-coverPhoto-legend > a:hover {
+    color:rgb(0, 0, 0);
+}
+
+.article  .markdown {
+    margin-bottom:5vh;
+}
+
+.article  .markdown  h2 {
+    font-size:2.5rem;
+    font-weight:900;
+    text-align:left;
+    margin:4vh 0 2vh;
+}
+
+.article  .markdown  h3 {
+    font-size:1.8rem;
+    font-weight:600;
+    text-align:left;
+    margin:3vh 0 1vh;
+    color:rgba(0, 0, 0, 0.8);
+}
+
+.article  .markdown  p {
+    margin:2.5vh 0;
+    line-height:1.7rem;
+    white-space:pre-wrap;
+    text-align:justify;
+    color:rgba(0, 0, 0, 0.8);
+}
+
+.article  .markdown  p > code {
+    background-color:rgba(225, 225, 255, 0.7);
+    padding:1px 3px;
+    font-size:0.7em;
+}
+
+.article  .markdown  blockquote {
+    border-left:5px solid rgba(5, 117, 230, 0.8);
+    background-color:rgba(5, 117, 230, 0.1);
+    padding:0.01vh 1vw;
+    margin-left:0.5vw;
+    margin-right:0.5vw;
+}
+
+.article  .markdown  strong {
+    font-weight:900;
+    color:rgb(0, 0, 0);
+}
+
+.article  .markdown  em {
+    font-style:italic;
+}
+
+.article  .markdown  a {
+    text-decoration:underline;
+}
+
+.article  .markdown  a:hover {
+    text-decoration:none;
+}
+
+.article  .markdown  .thanks {
+    margin-top:2vw;
+    font-style:italic;
+    font-size:0.8em;
+    text-align:right;
+}
+
+.article  .markdown  ul {
+    list-style-type:disc;
+    padding-left:1rem;
+    margin-left:2vh;
+}
+
+.article  .markdown  ul > li + li {
+    margin-top:2vh;
+}</style><div class="opaquePanel"><div class="article-header"><a class="backLink" href="/blog"><svg version="1.1" class="octicon arrowLeft" width="30" height="30" viewBox="0 0 10 16"><polygon points="6 3 0 8 6 13 6 10 10 10 10 6 6 6" fill-rule="evenodd" fill="black"></polygon></svg>Other articles</a><aside class="authorCard"><div><div class="authorCard-name">Jordane Grenat</div><p class="authorCard-biography">Web developer and software craftsman</p></div><img src="images/author/jordane.jpeg" alt="Jordane Grenat" class="authorCard-picture"></aside></div><h1 class="article-title">Promises vs Observables</h1><time class="article-publicationDate" datetime="2019-10-22">October 22nd, 2019</time><figure class="article-coverPhoto"><img src="images/article-covers/post-it.png" alt="Article cover photo"></figure><div class="markdown"><div><div><p>JavaScript loves having many ways to do the same thing. And asynchronous operations being at the heart of the language, it's not surprising to have more than four different ways of dealing with it!</p>
+<p>The first and simplest one is callbacks. But if you're old enough in the profession to have encountered <em>callback hell</em>, you know that this solution brings many problems to the table if you're not cautious.</p>
+<pre><code class="lang-javascript">getLoggedInUser(<span class="hljs-function">(<span class="hljs-params">err, user</span>) =&gt;</span> {
+  <span class="hljs-keyword">if</span> (err) {
+    displayError();
+    <span class="hljs-keyword">return</span>;
+  }
+  getMoviesForUser(user, (err, userMovies) =&gt; {
+    <span class="hljs-keyword">if</span> (err) {
+      displayError();
+      <span class="hljs-keyword">return</span>;
+    }
+    getMovieDetails(userMovies[<span class="hljs-number">0</span>], (err, movieDetails) =&gt; {
+      <span class="hljs-keyword">if</span> (err) {
+        displayError();
+        <span class="hljs-keyword">return</span>;
+      }
+      displayMovie(movieDetails);
+    });
+  });
+})
+</code></pre>
+<p>We can see that dependent asynchronous calls can quickly get to a high level of nesting in your code. You can extract things into functions to avoid that but it rely on the team being cautious. Also, it's the developer duty to think about handling the potential errors, nothing can prevent her/him from using the <code>user</code> variable without testing first that there was no error. As anything that needs a special attention, be sure that it will fail one day!</p>
+<p>So we've found two <em>better</em> ways of dealing with asynchronous operations in JavaScript: promises and observables. But what are their differences and when should you use each?</p>
+<h2 id="promises">Promises</h2>
+<p>A promise is kind of a box representing an asynchronous operation. It can have three states: pending (the operation is not done yet), resolved with success (the operation was successful and the <em>box</em> contains the result) and resolved with an error (the operation failed and the promise contains an error object).</p>
+<div style="text-align: center"><br>    <img src="/images/promises.png" alt="Diagram of a promise's state: the \" pending\"="" state="" can="" transition="" to="" the="" \"success\"="" or="" \"error\"="" state"="" style="max-width: 100%;"><br></div>
+
+<p>Here is a sample of code creating a promise:</p>
+<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">createUser</span>(<span class="hljs-params">user</span>) </span>{
+    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
+        doCreateUser(user, (err, result) =&gt; {
+            <span class="hljs-keyword">if</span>(err) {
+                reject(err);
+            } <span class="hljs-keyword">else</span> {
+                resolve(result);
+            }
+        });
+    });
+}
+</code></pre>
+<p>Here, we're only wrapping a call using callback into a function that returns a promise. Then the user can use our function:</p>
+<pre><code class="lang-js">createUser(user)
+  .then(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> display(result))
+  .catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> displayError());
+</code></pre>
+<p>As soon as we're calling the <code>createUser()</code> function, the <code>doCreateUser()</code> function will be called.</p>
+<pre><code class="lang-js"><span class="hljs-keyword">const</span> promise = createUser(user);
+</code></pre>
+<p>That means that in this example of code, even if we don't use the returned promise (by calling <code>then</code> or <code>catch</code>), the <code>doCreateUser()</code> function will be called and perform its action. <strong>Promises are not <em>lazy</em>.</strong></p>
+<p>Another thing you need to know: promises can only be resolved once. Let's see what that means:</p>
+<pre><code class="lang-js"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">doSomething</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve, reject</span>) =&gt;</span> {
+    resolve(<span class="hljs-number">1</span>);
+    resolve(<span class="hljs-number">2</span>);
+    reject(<span class="hljs-number">3</span>);
+  });
+}
+
+doSomething().then(onSuccess, onFailure);
+</code></pre>
+<p>Here, even if we try to resolve the promise a few more times (two times with success, one time with an error), the promise will only be resolved once with the success value <code>1</code>. As a consequence, <code>onSuccess</code> will be called once and exactly once with the value <code>1</code>. And <code>onFailure</code> will never be called.</p>
+<p>This is an important guarantee: <strong>your handler can <em>at most</em> be called once.</strong> "At most" because you have no guarantee that your promise will ever be resolved, maybe it will forever stay in the <em>pending</em> state.</p>
+<p>A last thing that seems important to notice is that promises are part of the ECMAScript specification since ES2015: it is part of the JavaScript standard library.</p>
+<h2 id="observables">Observables</h2>
+<p>More than being boxes, observables are rather a pipe inside of which values are sent over the time. An observable can produce multiple values and not just one like promises. It can have several states: not started, started, on error or completed. When an observable is started, it can emit events at any moment. But as soon as the observable is completed or there is an error, the observable won't emit any event anymore.</p>
+<div style="text-align: center"><br>    <img src="/images/observables.png" alt="Diagram of an observable states as described above" style="max-width: 100%;"><br></div>
+
+<p>Observables are not part of the ECMAScript specification for now. <a href="https://github.com/tc39/proposal-observable">There is a proposal</a> that hasn't moved much the last years and is stuck at stage 1. So when we're talking about observables in JavaScript, we are mainly talking about the JavaScript implementation of the <a href="http://reactivex.io/">Reactive Extensions</a>, available under the name <a href="https://rxjs.dev/">RxJS</a>. For example, Angular uses RxJS a lot since its version 2.</p>
+<p>RxJS is based on observable streams but adds a layer of operators to handle those streams. These many operators are really useful to transform the data but can be confusing at first and are not part of the initial Observable paradigm. I'd need a whole article only to describe them, so let's focus on the observables themselves.</p>
+</div></div></div><a class="backLink" href="/blog"><svg version="1.1" class="octicon arrowLeft" width="30" height="30" viewBox="0 0 10 16"><polygon points="6 3 0 8 6 13 6 10 10 10 10 6 6 6" fill-rule="evenodd" fill="black"></polygon></svg>Other articles</a></div></div></div></body></html>

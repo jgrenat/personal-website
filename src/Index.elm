@@ -1,7 +1,9 @@
 module Index exposing (view)
 
-import Css exposing (absolute, alignItems, backgroundColor, block, borderRadius, bottom, center, color, display, displayFlex, fontSize, hex, justifyContent, left, lineHeight, marginBottom, marginRight, marginTop, padding, pct, position, px, relative, rem, rgba, right, textAlign, textDecoration, top, underline, vh, vw, width)
+import Color exposing (white)
+import Css exposing (absolute, alignItems, auto, backgroundColor, block, borderRadius, bottom, boxShadow5, center, color, display, displayFlex, fontSize, hex, inlineBlock, inlineFlex, justifyContent, left, lineHeight, margin, marginBottom, marginRight, marginTop, padding, paddingBottom, pct, position, px, relative, rem, rgb, rgba, right, scale, textAlign, textDecoration, top, transform, underline, vh, vw, width, zero)
 import Css.Global as Css exposing (Snippet, global)
+import Css.Transitions as Transitions exposing (transition)
 import Data.Author as Author exposing (jordane)
 import Date
 import Html.Styled exposing (Html, a, div, fromUnstyled, h1, h2, main_, p, text, time)
@@ -22,7 +24,7 @@ view articles =
             |> List.sortWith (\( _, metadata1 ) ( _, metadata2 ) -> Date.compare metadata2.published metadata1.published)
             |> List.map viewArticleSummary
             |> div [ class "articlesList" ]
-        , backLink BackLinkBottom
+        , div [ class "backLink-container" ] [ backLink BackLinkBottom ]
         ]
 
 
@@ -89,21 +91,33 @@ styles =
         [ marginTop (px 20)
         , position relative
         , Css.descendants
-            [ Css.class "backLink"
-                [ displayFlex
-                , alignItems center
-                , position absolute
-                , left (vw 2)
+            [ Css.class "articlesList"
+                [ paddingBottom (vh 2)
+                ]
+            , Css.class "backLink"
+                [ alignItems center
                 , padding (px 5)
                 , Css.hover
                     [ backgroundColor (hex "64b4fa")
                     ]
                 , Css.withClass "backLink--top"
-                    [ top (vh 1.5)
+                    [ displayFlex
+                    , alignItems center
+                    , top (vh 1.5)
+                    , position absolute
+                    , left (vw 2)
                     ]
                 , Css.withClass "backLink--bottom"
-                    [ bottom (vh 1.5)
+                    [ display inlineFlex
+                    , margin auto
+                    , marginBottom (vh 2)
+                    , Css.hover
+                        [ backgroundColor (rgb 255 255 255)
+                        ]
                     ]
+                ]
+            , Css.class "backLink-container"
+                [ textAlign center
                 ]
             , Css.class "blog-title"
                 [ displayFlex
@@ -116,8 +130,10 @@ styles =
                 , marginRight (vw 1)
                 ]
             , Css.class "article"
-                [ Css.hover
-                    [ backgroundColor (rgba 240 240 250 0.7)
+                [ transition [ Transitions.transform 200 ]
+                , Css.hover
+                    [ boxShadow5 zero (px 1) (px 5) (px 3) (rgba 0 0 0 0.4)
+                    , transform (scale 1.02)
                     , Css.descendants
                         [ Css.class "article-fakeLink"
                             [ textDecoration underline ]
