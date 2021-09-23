@@ -6,6 +6,7 @@
   },
   "devDependencies": {
     "@dillonkearns/elm-graphql": "^4.2.2",
+    "elm": "^0.19.1-5",
     "elm-optimize-level-2": "^0.1.5",
     "elm-pages": "^2.1.9",
     "elm-review": "^2.6.0",
