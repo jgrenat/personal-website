@@ -133,10 +133,6 @@ view :
     -> View msg
     -> { body : Html msg, title : String }
 view sharedData page model toMsg pageView =
-    let
-        _ =
-            Debug.log "videos" sharedData.lastYoutubeVideos
-    in
     { body =
         main_ [ class "container" ] pageView.body
             |> toUnstyled

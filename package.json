@@ -6,12 +6,12 @@
   },
   "devDependencies": {
     "@dillonkearns/elm-graphql": "^4.2.2",
-    "elm-pages": "^2.1.4",
-    "elm-review": "^2.5.5",
-    "rollup": "^2.56.2",
+    "elm-optimize-level-2": "^0.1.5",
+    "elm-pages": "^2.1.9",
+    "elm-review": "^2.6.0",
+    "rollup": "^2.57.0",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-resolve": "^5.2.0"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
