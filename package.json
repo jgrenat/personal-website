@@ -1,0 +1,17 @@
+{
+  "name": "elm-pages-app",
+  "scripts": {
+    "start": "elm-pages dev",
+    "build": "elm-pages build"
+  },
+  "devDependencies": {
+    "@dillonkearns/elm-graphql": "^4.2.2",
+    "elm-pages": "^2.1.4",
+    "elm-review": "^2.5.5",
+    "rollup": "^2.56.2",
+    "rollup-plugin-commonjs": "^10.1.0",
+    "rollup-plugin-node-resolve": "^5.2.0"
+  },
+  "dependencies": {
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "y",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "datocms-client": "^3.4.13",
+    "datocms-html-to-structured-text": "^1.2.0",
+    "datocms-structured-text-utils": "^1.2.0",
+    "mdast-util-to-hast": "^11.2.0",
+    "remark-parse": "^10.0.0",
+    "unified": "^10.1.0",
+    "unist-util-inspect": "^7.0.0",
+    "unist-utils-core": "^1.0.5"
+  }
+}
