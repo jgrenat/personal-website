@@ -14,6 +14,9 @@ import idris from "highlight.js/lib/languages/ocaml.js";
 export default {
   load: async function (elmLoaded) {
     const app = await elmLoaded;
+    app.ports.highlightCode.subscribe(() => {
+      setTimeout(() => hljs.highlightAll(), 100);
+    });
   },
   flags: function () {
     return "You can decode this in Shared.elm using Json.Decode.string!";
@@ -40,7 +43,6 @@ stylesheetTag.rel = 'stylesheet';
 stylesheetTag.href = 'https://cdn.skypack.dev/-/highlight.js@v11.2.0-K5rmnVDpjYZTNzS4QEU2/dist=es2020,mode=raw/styles/dark.css';
 window.document.head.appendChild(stylesheetTag);
 
-console.log("here", hljs)
 hljs.registerLanguage('elm', elm);
 hljs.registerLanguage('rust', rust);
 hljs.registerLanguage('typescript', typescript);
@@ -50,7 +52,7 @@ hljs.registerLanguage('bash', bash);
 hljs.registerLanguage('java', java);
 hljs.registerLanguage('haskell', haskell);
 hljs.registerLanguage('idris', idris);
-setTimeout(() => hljs.highlightAll(), 1000);
+
 
 // Load Plausible (analytics)
 const scriptTag = document.createElement('script');

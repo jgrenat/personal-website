@@ -32,7 +32,7 @@ jobs:
         with:
           build_dir: ./dist
           # Write the given domain name to the CNAME file
-          fqdn: grenat.eu
+          fqdn: www.grenat.eu
           jekyll: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

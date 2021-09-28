@@ -30,6 +30,7 @@ import Json.Decode as Decode
 import Page exposing (Page, StaticPayload)
 import Pages.PageUrl exposing (PageUrl)
 import Pages.Url
+import Ports
 import Route exposing (Route(..))
 import ScalarCodecs exposing (StructuredTextField(..))
 import Shared
@@ -68,7 +69,12 @@ page =
         , routes = routes
         , data = data
         }
-        |> Page.buildNoState { view = view }
+        |> Page.buildWithLocalState
+            { view = view
+            , init = \_ _ _ -> ( (), Ports.highlightCode () )
+            , update = \_ _ _ _ _ _ -> ( (), Cmd.none )
+            , subscriptions = \_ _ _ _ -> Sub.none
+            }
 
 
 articleRoutesSelection : SelectionSet String ArticleRecord
@@ -239,9 +245,10 @@ head static =
 view :
     Maybe PageUrl
     -> Shared.Model
+    -> ()
     -> StaticPayload Data RouteParams
     -> View Msg
-view maybeUrl sharedModel static =
+view maybeUrl sharedModel () static =
     { title = static.data.article.name ++ " - " ++ static.sharedData.websiteName
     , body =
         [ global styles
