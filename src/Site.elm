@@ -21,6 +21,7 @@ import SiteConfig exposing (SiteConfig)
 
 type alias Data =
     { siteName : String
+    , description : String
     , twitterAccount : String
     , favicons : List MetaTagAttributes
     }
@@ -29,7 +30,7 @@ type alias Data =
 config : SiteConfig Data
 config =
     { data = data
-    , canonicalUrl = "https://elm-pages.com"
+    , canonicalUrl = "https://www.grenat.eu"
     , manifest = manifest
     , head = head
     }
@@ -43,7 +44,7 @@ data =
     , MetaTagAttributesContent ( 192, 192 ) "image/png" "icon" "https://www.datocms-assets.com/53557/1629202623-favicon.png?h=192&w=192"
     ]
         |> List.map MetaTagAttributes
-        |> Data "Jordane Grenat" "@JoGrenat"
+        |> Data "Jordane Grenat" "Développeur web passionné, sensible à la qualité du code. Je partage dans ce blog mes découvertes et mes réflexions." "@JoGrenat"
         |> DataSource.succeed
 
 
@@ -67,7 +68,7 @@ manifest : Data -> Manifest.Config
 manifest static =
     Manifest.init
         { name = static.siteName
-        , description = "Description"
+        , description = static.description
         , startUrl = Route.Index |> Route.toPath
         , icons = List.map toManifestIcon static.favicons
         }

@@ -1,18 +1,22 @@
 {
   "name": "elm-pages-app",
   "scripts": {
-    "start": "elm-pages dev",
-    "build": "elm-pages build"
+    "start": "rollup -c ./rollup.config.js && elm-pages dev",
+    "build": "rollup -c ./rollup.config.js && elm-pages build"
   },
   "devDependencies": {
     "@dillonkearns/elm-graphql": "^4.2.2",
+    "@rollup/plugin-commonjs": "^20.0.0",
     "elm": "^0.19.1-5",
     "elm-optimize-level-2": "^0.1.5",
     "elm-pages": "^2.1.9",
     "elm-review": "^2.6.0",
     "rollup": "^2.57.0",
+    "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-commonjs": "^10.1.0",
     "rollup-plugin-node-resolve": "^5.2.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "highlight.js": "^11.2.0"
+  }
 }

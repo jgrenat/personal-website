@@ -4,3 +4,4 @@ dist/
 .elm-pages/
 functions/render/elm-pages-cli.js
 .idea
+public/index.js
