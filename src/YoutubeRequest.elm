@@ -21,7 +21,7 @@ getLastVideos =
     Http.request
         (Secrets.succeed
             (\youtubeApiKey ->
-                { url = "https://content-youtube.googleapis.com/youtube/v3/search?type=video&channelId=UCROJRWWGrrTmgGF1Wo9OX5w&key=" ++ youtubeApiKey
+                { url = "https://content-youtube.googleapis.com/youtube/v3/search?type=video&order=date&channelId=UCROJRWWGrrTmgGF1Wo9OX5w&key=" ++ youtubeApiKey
                 , method = "GET"
                 , headers = []
                 , body = Http.emptyBody
@@ -35,6 +35,7 @@ getLastVideos =
                 List.map fetchOembedData videoIds
                     |> DataSource.combine
             )
+        |> DataSource.map (List.take 3)
 
 
 fetchOembedData : String -> DataSource Video

@@ -5,6 +5,7 @@ import Css.Global as Global exposing (Snippet, global)
 import Css.Transitions as Transition exposing (transition)
 import CssHelper exposing (onMobile)
 import DataSource exposing (DataSource)
+import Datocms.Enum.ArticleModelOrderBy exposing (ArticleModelOrderBy(..))
 import Datocms.Enum.ImgixParamsFit exposing (ImgixParamsFit(..))
 import Datocms.InputObject exposing (buildImgixParams)
 import Datocms.Object exposing (ArticleRecord, FileField, HomePageRecord, Site)
@@ -13,7 +14,7 @@ import Datocms.Object.FileField as FileField
 import Datocms.Object.GlobalSeoField as GlobalSeoField
 import Datocms.Object.HomePageRecord as HomePageRecord
 import Datocms.Object.Site as Site
-import Datocms.Query as Query
+import Datocms.Query as Query exposing (AllArticlesOptionalArguments)
 import Datocms.Scalar exposing (FloatType(..))
 import Datocms.ScalarCodecs exposing (DateTime)
 import Graphql.OptionalArgument exposing (OptionalArgument(..))
@@ -22,7 +23,7 @@ import GraphqlRequest exposing (staticGraphqlRequest)
 import Head
 import Head.Seo as Seo
 import Html.Styled exposing (Html, a, aside, div, h1, h2, img, li, p, text, ul)
-import Html.Styled.Attributes exposing (alt, class, href, src)
+import Html.Styled.Attributes exposing (alt, class, href, src, target)
 import HtmlHelper exposing (link)
 import Page exposing (Page, StaticPayload)
 import Pages.PageUrl exposing (PageUrl)
@@ -30,6 +31,7 @@ import Pages.Url
 import Route exposing (Route(..))
 import Shared
 import View exposing (View)
+import YoutubeRequest exposing (Video)
 
 
 type alias Model =
@@ -62,7 +64,10 @@ data =
         (Query.homePage identity homePageSelection
             |> SelectionSet.nonNullOrFail
         )
-        (Query.allArticles identity articleRoutesSelection)
+        (Query.allArticles
+            (\options -> { options | orderBy = Present [ Just FirstPublishedAt_DESC_ ] })
+            articleRoutesSelection
+        )
         data2
         |> staticGraphqlRequest
 
@@ -72,7 +77,7 @@ articleRoutesSelection =
     SelectionSet.map4 ArticleLink
         (ArticleRecord.name identity |> SelectionSet.nonNullOrFail)
         (ArticleRecord.slug identity |> SelectionSet.nonNullOrFail)
-        (ArticleRecord.publishedAt_ |> SelectionSet.nonNullOrFail)
+        (ArticleRecord.firstPublishedAt_ |> SelectionSet.nonNullOrFail)
         (ArticleRecord.description identity |> SelectionSet.nonNullOrFail)
 
 
@@ -183,17 +188,7 @@ view maybeUrl sharedModel static =
             ]
         , h2 [ class "section-title" ] [ text static.data.lastVideosTitle ]
         , ul [ class "last-videos" ]
-            (List.map
-                (\video ->
-                    li [ class "video" ]
-                        [ a [ href ("https://www.youtube.com/watch/?v=" ++ video.code) ]
-                            [ img [ src video.url, alt "" ] []
-                            , p [] [ text video.title ]
-                            ]
-                        ]
-                )
-                static.sharedData.lastYoutubeVideos
-            )
+            (List.map viewVideo static.sharedData.lastYoutubeVideos)
         , h2 [ class "section-title" ] [ text static.data.lastArticlesTitle ]
         , List.map viewArticleLink static.data.articles |> ul []
         ]
@@ -205,6 +200,16 @@ viewArticleLink articleLink =
     li [ class "article-item" ]
         [ h2 [] [ link (Blog__Slug_ { slug = articleLink.slug }) [ class "article-link" ] [ text articleLink.name ] ]
         , div [ class "article-description" ] [ text articleLink.description ]
+        ]
+
+
+viewVideo : Video -> Html msg
+viewVideo video =
+    li [ class "video" ]
+        [ a [ href ("https://www.youtube.com/watch/?v=" ++ video.code), target "_blank" ]
+            [ img [ src video.url, alt "" ] []
+            , p [] [ text video.title ]
+            ]
         ]
 
 

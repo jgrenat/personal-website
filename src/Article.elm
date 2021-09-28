@@ -1,34 +1,12 @@
-module Article exposing (Article, ArticleBlock(..), Banner, Content, ImageContentRaw, ImageSize(..))
+module Article exposing (Article, Banner)
 
-import ScalarCodecs exposing (StructuredTextField)
+import StructuredText exposing (StructuredText)
+import StructuredTextHelper exposing (StructuredTextBlock)
 
 
 type alias Article =
-    { name : String, banner : Banner, content : Content }
-
-
-type alias Content =
-    { content : StructuredTextField
-    , blocks : List ArticleBlock
-    }
+    { name : String, banner : Banner, content : StructuredText StructuredTextBlock }
 
 
 type alias Banner =
     { src : String }
-
-
-type ArticleBlock
-    = ImageContent ImageContentRaw
-
-
-type alias ImageContentRaw =
-    { id : String
-    , url : String
-    , alt : Maybe String
-    , size : ImageSize
-    }
-
-
-type ImageSize
-    = Normal
-    | FullWidth

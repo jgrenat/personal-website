@@ -47,7 +47,7 @@ type alias JsonField =
 
 
 type StructuredTextField
-    = StructuredTextField Value
+    = StructuredTextField Decode.Value
 
 
 type MetaTagAttributes
@@ -76,7 +76,7 @@ codecs =
         , codecIntType = defaultCodecs.codecIntType
         , codecItemId = defaultCodecs.codecItemId
         , codecJsonField =
-            { encoder = \(StructuredTextField rawValue) -> rawValue
+            { encoder = \_ -> Encode.string "test"
             , decoder = Decode.value |> Decode.map StructuredTextField
             }
         , codecMetaTagAttributes =

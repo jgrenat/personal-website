@@ -1,7 +1,7 @@
 module Page.Blog.Slug_ exposing (Data, Model, Msg, page)
 
-import Article exposing (Article, Content)
-import Css exposing (absolute, alignItems, auto, backgroundColor, borderLeft, borderLeft3, borderTop3, center, color, disc, displayFlex, em, fontSize, fontStyle, fontWeight, height, int, italic, justify, justifyContent, left, lineHeight, listStyleType, margin, margin2, margin3, marginBottom, marginLeft, marginTop, maxWidth, none, overflowY, padding2, paddingLeft, paddingTop, pct, position, preWrap, px, relative, rem, rgb, rgba, right, scale, scroll, solid, spaceBetween, textAlign, textDecoration, top, transform, underline, vh, vw, whiteSpace, width, zero)
+import Article exposing (Article)
+import Css exposing (absolute, alignItems, auto, backgroundColor, borderLeft, borderLeft3, borderTop3, center, color, disc, displayFlex, em, fontSize, fontStyle, fontWeight, height, int, italic, justify, justifyContent, left, lineHeight, listStyleType, margin, margin2, margin3, marginBottom, marginLeft, marginRight, marginTop, maxWidth, none, overflowY, padding2, paddingLeft, paddingTop, pct, position, preWrap, px, relative, rem, rgb, rgba, right, scale, scroll, solid, spaceBetween, textAlign, textDecoration, top, transform, underline, vh, vw, whiteSpace, width, zero)
 import Css.Global as Global exposing (Snippet, global)
 import Css.Transitions as Transition exposing (transition)
 import CssHelper exposing (onMobile)
@@ -9,26 +9,33 @@ import DataSource exposing (DataSource)
 import Datocms.Enum.ImgixParamsFit exposing (ImgixParamsFit(..))
 import Datocms.Enum.SiteLocale as SiteLocale
 import Datocms.InputObject exposing (ArticleModelFilter, buildArticleModelFilter, buildImgixParams, buildSlugFilter)
-import Datocms.Object exposing (ArticleModelContentField, ArticleRecord)
+import Datocms.Object exposing (ArticleModelContentField, ArticleRecord, FileField, HomePageRecord, ImageContentRecord)
 import Datocms.Object.ArticleModelContentField as ArticleModelContentField
 import Datocms.Object.ArticleRecord as ArticleRecord
 import Datocms.Object.FileField as FileField
+import Datocms.Object.HomePageRecord as HomePageRecord
+import Datocms.Object.ImageContentRecord as ImageContentRecord
 import Datocms.Query as Query
-import Datocms.Scalar exposing (IntType(..))
+import Datocms.Scalar exposing (BooleanType(..), FloatType(..), IntType(..), ItemId(..))
+import Graphql.Operation exposing (RootQuery)
 import Graphql.OptionalArgument exposing (OptionalArgument(..))
 import Graphql.SelectionSet as SelectionSet exposing (SelectionSet)
 import GraphqlRequest exposing (staticGraphqlRequest)
 import Head
 import Head.Seo as Seo
-import Html.Styled exposing (a, div, h1, img, section, text)
+import Html.Styled exposing (a, aside, div, h1, img, p, section, text)
 import Html.Styled.Attributes exposing (class, href, src)
 import HtmlHelper exposing (link)
+import Json.Decode as Decode
 import Page exposing (Page, StaticPayload)
 import Pages.PageUrl exposing (PageUrl)
 import Pages.Url
 import Route exposing (Route(..))
+import ScalarCodecs exposing (StructuredTextField(..))
 import Shared
-import StructuredText exposing (structuredText)
+import StructuredText exposing (StructuredText)
+import StructuredText.Decode
+import StructuredTextHelper exposing (ImageSize(..), StructuredTextBlock(..), structuredText)
 import View exposing (View)
 
 
@@ -42,6 +49,16 @@ type alias Msg =
 
 type alias RouteParams =
     { slug : String }
+
+
+type alias Data =
+    { author : Author
+    , article : Article
+    }
+
+
+type alias Author =
+    { picture : String, description : String }
 
 
 page : Page RouteParams Data
@@ -67,12 +84,45 @@ routes =
         |> DataSource.map (List.map RouteParams)
 
 
-data : RouteParams -> DataSource Article
+data : RouteParams -> DataSource Data
 data routeParams =
-    Query.article (\args -> { args | filter = Present (articleFilters routeParams.slug) })
+    SelectionSet.map2 Data authorSelection (articleQuery routeParams.slug)
+        |> staticGraphqlRequest
+
+
+articleQuery : String -> SelectionSet Article RootQuery
+articleQuery slug =
+    Query.article (\args -> { args | filter = Present (articleFilters slug) })
         articleSelection
         |> SelectionSet.nonNullOrFail
-        |> staticGraphqlRequest
+
+
+authorSelection : SelectionSet Author RootQuery
+authorSelection =
+    SelectionSet.map2 Author
+        (HomePageRecord.picture pictureSelection |> SelectionSet.nonNullOrFail)
+        (HomePageRecord.introductionText identity |> SelectionSet.nonNullOrFail)
+        |> Query.homePage identity
+        |> SelectionSet.nonNullOrFail
+
+
+pictureSelection : SelectionSet String FileField
+pictureSelection =
+    FileField.url
+        (\params -> { params | imgixParams = Present authorImgixParams })
+
+
+authorImgixParams : Datocms.InputObject.ImgixParams
+authorImgixParams =
+    buildImgixParams
+        (\params ->
+            { params
+                | w = Present (FloatType "80")
+                , h = Present (FloatType "80")
+                , mask = Present "ellipse"
+                , fit = Present Crop
+            }
+        )
 
 
 articleFilters : String -> ArticleModelFilter
@@ -118,9 +168,52 @@ imgixParams =
         )
 
 
-contentSelection : SelectionSet Content ArticleModelContentField
+decodeStructuredTextField : StructuredTextField -> List ( StructuredText.ItemId, StructuredTextBlock ) -> List ( StructuredText.ItemId, StructuredTextBlock ) -> Result String (StructuredText StructuredTextBlock)
+decodeStructuredTextField (StructuredTextField value) blockItems linkItems =
+    Decode.decodeValue (StructuredText.Decode.decoder (blockItems ++ linkItems)) value
+        |> Result.mapError (\error -> "Cannot decode structured text document:" ++ Decode.errorToString error)
+
+
+contentSelection : SelectionSet (StructuredText StructuredTextBlock) ArticleModelContentField
 contentSelection =
-    SelectionSet.map (\value -> Content value []) ArticleModelContentField.value
+    SelectionSet.map3 decodeStructuredTextField
+        ArticleModelContentField.value
+        (ArticleModelContentField.blocks articleBlockSelection)
+        (ArticleModelContentField.links articleLinkSelection)
+        |> SelectionSet.mapOrFail identity
+
+
+articleBlockSelection : SelectionSet ( StructuredText.ItemId, StructuredTextBlock ) ImageContentRecord
+articleBlockSelection =
+    SelectionSet.map2 Tuple.pair
+        (ImageContentRecord.id |> SelectionSet.map (\(ItemId id) -> StructuredText.itemId id))
+        (SelectionSet.map3 StructuredTextHelper.ImageContentRaw
+            (ImageContentRecord.image (FileField.url identity) |> SelectionSet.nonNullOrFail)
+            (ImageContentRecord.image (FileField.alt identity) |> SelectionSet.nonNullOrFail)
+            (ImageContentRecord.fullWidth
+                |> SelectionSet.nonNullOrFail
+                |> SelectionSet.map
+                    (\(BooleanType isFullWidth) ->
+                        if isFullWidth == "true" then
+                            FullWidth
+
+                        else
+                            Normal
+                    )
+            )
+            |> SelectionSet.map ImageContent
+        )
+
+
+articleLinkSelection : SelectionSet ( StructuredText.ItemId, StructuredTextBlock ) ArticleRecord
+articleLinkSelection =
+    SelectionSet.map2 Tuple.pair
+        (ArticleRecord.id |> SelectionSet.map (\(ItemId id) -> StructuredText.itemId id))
+        (SelectionSet.map2 StructuredTextHelper.ArticleLinkRaw
+            (ArticleRecord.name identity |> SelectionSet.nonNullOrFail)
+            (ArticleRecord.slug identity |> SelectionSet.nonNullOrFail)
+            |> SelectionSet.map ArticleLink
+        )
 
 
 head :
@@ -143,17 +236,13 @@ head static =
         |> Seo.website
 
 
-type alias Data =
-    Article
-
-
 view :
     Maybe PageUrl
     -> Shared.Model
     -> StaticPayload Data RouteParams
     -> View Msg
 view maybeUrl sharedModel static =
-    { title = static.data.name ++ " - " ++ static.sharedData.websiteName
+    { title = static.data.article.name ++ " - " ++ static.sharedData.websiteName
     , body =
         [ global styles
         , div [ class "site-title" ]
@@ -163,9 +252,13 @@ view maybeUrl sharedModel static =
                 ]
             ]
         , section [ class "article" ]
-            [ h1 [ class "article-title" ] [ text static.data.name ]
-            , div [ class "article-banner" ] [ img [ src static.data.banner.src ] [] ]
-            , structuredText [ class "article-content" ] static.data.content.content static.data.content.blocks
+            [ h1 [ class "article-title" ] [ text static.data.article.name ]
+            , div [ class "article-banner" ] [ img [ src static.data.article.banner.src ] [] ]
+            , structuredText [ class "article-content" ] static.data.article.content
+            ]
+        , aside [ class "author-card" ]
+            [ img [ class "author-picture", src static.data.author.picture ] []
+            , p [ class "author-description" ] [ text static.data.author.description ]
             ]
         ]
     }
@@ -321,6 +414,21 @@ styles =
                         , fontSize (em 0.85)
                         ]
                     ]
+                ]
+            ]
+        ]
+    , Global.class "author-card"
+        [ displayFlex
+        , alignItems center
+        , marginTop (rem 2.5)
+        , Global.children
+            [ Global.class "author-picture"
+                [ marginRight (rem 1)
+                ]
+            , Global.class "author-description"
+                [ textAlign justify
+                , fontSize (rem 1)
+                , lineHeight (rem 1.5)
                 ]
             ]
         ]
