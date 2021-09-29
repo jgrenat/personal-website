@@ -266,7 +266,7 @@ styles =
         , Global.descendants
             [ Global.class "article-link"
                 [ fontSize (rem 1.5)
-                , color (rgb 82 122 234)
+                , color (rgb 40 161 78)
                 , paddingBottom (rem 0.5)
                 , display block
                 , Css.visited

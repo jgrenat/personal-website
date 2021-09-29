@@ -6,6 +6,7 @@ import Css.Global as Global exposing (Snippet, global)
 import Css.Transitions as Transition exposing (transition)
 import CssHelper exposing (onMobile)
 import DataSource exposing (DataSource)
+import Datocms.Enum.ImgixParamsCrop exposing (ImgixParamsCrop(..))
 import Datocms.Enum.ImgixParamsFit exposing (ImgixParamsFit(..))
 import Datocms.Enum.SiteLocale as SiteLocale
 import Datocms.InputObject exposing (ArticleModelFilter, buildArticleModelFilter, buildImgixParams, buildSlugFilter)
@@ -128,6 +129,7 @@ authorImgixParams =
                 , h = Present (FloatType "80")
                 , mask = Present "ellipse"
                 , fit = Present Crop
+                , crop = Present [ Focalpoint, Faces, Entropy ]
             }
         )
 
@@ -170,8 +172,10 @@ imgixParams =
         (\params ->
             { params
                 | maxW = Present (IntType "800")
-                , maxH = Present (IntType "200")
-                , fit = Present Fill
+                , maxH = Present (IntType "250")
+                , fit = Present Crop
+
+                --, crop = Present [ Focalpoint, Faces, Entropy ]
             }
         )
 
@@ -310,7 +314,7 @@ styles =
                 ]
             , Global.class "article-banner"
                 [ width (pct 100)
-                , paddingTop (pct (200 / 800 * 100))
+                , paddingTop (pct (250 / 800 * 100))
                 , position relative
                 , Global.descendants
                     [ Global.img
@@ -370,7 +374,7 @@ styles =
                         , backgroundColor (rgba 5 117 230 0.1)
                         , padding2 (vh 0.01) (vw 1)
                         , maxWidth (px 650)
-                        , margin auto
+                        , margin2 (rem 2.5) auto
                         , Global.children
                             [ Global.p
                                 [ Css.firstChild [ marginTop (rem 1) ]
