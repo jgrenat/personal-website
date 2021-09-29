@@ -5,7 +5,11 @@ import StructuredTextHelper exposing (StructuredTextBlock)
 
 
 type alias Article =
-    { name : String, banner : Banner, content : StructuredText StructuredTextBlock }
+    { name : String
+    , banner : Banner
+    , content : StructuredText StructuredTextBlock
+    , description : String
+    }
 
 
 type alias Banner =

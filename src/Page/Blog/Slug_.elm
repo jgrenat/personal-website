@@ -144,7 +144,7 @@ articleFilters slug =
 
 articleSelection : SelectionSet Article ArticleRecord
 articleSelection =
-    SelectionSet.map3 Article
+    SelectionSet.map4 Article
         (ArticleRecord.name (\args -> { args | locale = Present SiteLocale.Fr }) |> SelectionSet.nonNullOrFail)
         (ArticleRecord.banner bannerSelection
             |> SelectionSet.nonNullOrFail
@@ -156,6 +156,7 @@ articleSelection =
             contentSelection
             |> SelectionSet.nonNullOrFail
         )
+        (ArticleRecord.description identity |> SelectionSet.nonNullOrFail)
 
 
 bannerSelection : SelectionSet Article.Banner Datocms.Object.FileField
@@ -231,14 +232,14 @@ head static =
         { canonicalUrlOverride = Nothing
         , siteName = static.sharedData.websiteName
         , image =
-            { url = Pages.Url.external "TODO"
-            , alt = "elm-pages logo"
+            { url = Pages.Url.external static.data.article.banner.src
+            , alt = static.data.article.name
             , dimensions = Nothing
             , mimeType = Nothing
             }
-        , description = "TODO"
+        , description = static.data.article.description
         , locale = Nothing
-        , title = "TODO title" -- metadata.title -- TODO
+        , title = static.data.article.name
         }
         |> Seo.website
 
