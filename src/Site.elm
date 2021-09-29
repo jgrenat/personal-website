@@ -44,7 +44,7 @@ data =
     , MetaTagAttributesContent ( 192, 192 ) "image/png" "icon" "https://www.datocms-assets.com/53557/1629202623-favicon.png?h=192&w=192"
     ]
         |> List.map MetaTagAttributes
-        |> Data "Jordane Grenat" "Développeur web passionné, sensible à la qualité du code. Je partage dans ce blog mes découvertes et mes réflexions." "@JoGrenat"
+        |> Data "Le Blog de JoGrenat" "Développeur web passionné, sensible à la qualité du code. Je partage dans ce blog mes découvertes et mes réflexions." "@JoGrenat"
         |> DataSource.succeed
 
 

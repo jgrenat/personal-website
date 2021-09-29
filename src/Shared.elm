@@ -2,10 +2,18 @@ module Shared exposing (Data, Model, Msg(..), SharedMsg(..), template)
 
 import Browser.Navigation
 import DataSource
-import Datocms.Object exposing (WebsiteConfigurationRecord)
+import Datocms.Enum.ImgixParamsFit exposing (ImgixParamsFit(..))
+import Datocms.InputObject exposing (ImgixParams, buildImgixParams)
+import Datocms.Object exposing (Site(..), WebsiteConfigurationRecord)
 import Datocms.Object.FileField as FileField
+import Datocms.Object.GlobalSeoField as GlobalSeoField
+import Datocms.Object.SeoField as SeoField
+import Datocms.Object.Site as Site
 import Datocms.Object.WebsiteConfigurationRecord as WebsiteConfigurationRecord
 import Datocms.Query as Query
+import Datocms.Scalar exposing (FloatType(..), IntType(..))
+import Graphql.Operation exposing (RootQuery)
+import Graphql.OptionalArgument exposing (OptionalArgument(..))
 import Graphql.SelectionSet as SelectionSet exposing (SelectionSet)
 import GraphqlRequest as YoutubeRequest exposing (staticGraphqlRequest)
 import Html exposing (Html)
@@ -52,6 +60,7 @@ type alias Data =
     , youtubeChannelId : String
     , lastYoutubeVideos : List Video
     , twitterIconLink : String
+    , sitePreviewUrl : String
     }
 
 
@@ -106,12 +115,39 @@ subscriptions _ _ =
 
 data : DataSource.DataSource Data
 data =
-    DataSource.map2 (\{ websiteName, youtubeChannelId, twitterIconLink } lastYoutubeVideos -> Data websiteName youtubeChannelId lastYoutubeVideos twitterIconLink)
-        (Query.websiteConfiguration identity configurationSelection
-            |> SelectionSet.nonNullOrFail
+    DataSource.map2 (\( { websiteName, youtubeChannelId, twitterIconLink }, sitePreviewUrl ) lastYoutubeVideos -> Data websiteName youtubeChannelId lastYoutubeVideos twitterIconLink sitePreviewUrl)
+        (SelectionSet.map2 Tuple.pair
+            (Query.websiteConfiguration identity configurationSelection
+                |> SelectionSet.nonNullOrFail
+            )
+            siteImageQuery
             |> staticGraphqlRequest
         )
         YoutubeRequest.getLastVideos
+
+
+siteImageQuery : SelectionSet String RootQuery
+siteImageQuery =
+    FileField.url (\params -> { params | imgixParams = Present siteImageImgixParams })
+        |> SeoField.image
+        |> SelectionSet.nonNullOrFail
+        |> GlobalSeoField.fallbackSeo
+        |> SelectionSet.nonNullOrFail
+        |> Site.globalSeo identity
+        |> SelectionSet.nonNullOrFail
+        |> Query.site_ identity
+
+
+siteImageImgixParams : ImgixParams
+siteImageImgixParams =
+    buildImgixParams
+        (\params ->
+            { params
+                | maxW = Present (IntType "300")
+                , maxH = Present (IntType "150")
+                , fit = Present Fill
+            }
+        )
 
 
 configurationSelection : SelectionSet ConfigurationData WebsiteConfigurationRecord

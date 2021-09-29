@@ -141,12 +141,12 @@ head static =
         { canonicalUrlOverride = Nothing
         , siteName = static.sharedData.websiteName
         , image =
-            { url = Pages.Url.external static.data.picture.url
-            , alt = "Jordane Grenat"
+            { url = Pages.Url.external static.sharedData.sitePreviewUrl
+            , alt = static.sharedData.websiteName
             , dimensions = Nothing
             , mimeType = Nothing
             }
-        , description = "TODO"
+        , description = static.data.introduction
         , locale = Nothing
         , title = static.sharedData.websiteName
         }

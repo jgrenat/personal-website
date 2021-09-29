@@ -49,7 +49,8 @@ type alias Msg =
 
 
 type alias RouteParams =
-    { slug : String }
+    { slug : String
+    }
 
 
 type alias Data =
