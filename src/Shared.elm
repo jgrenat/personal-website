@@ -1,7 +1,7 @@
 module Shared exposing (Data, Model, Msg(..), SharedMsg(..), template)
 
 import Browser.Navigation
-import Css exposing (margin2, paddingBottom, paddingTop, rem, right, textAlign, zero)
+import Css exposing (firstChild, fontSize, lastChild, margin2, marginBottom, marginTop, paddingBottom, paddingTop, rem, right, textAlign, zero)
 import Css.Global as Global exposing (Snippet, global)
 import DataSource
 import Datocms.Enum.ImgixParamsFit exposing (ImgixParamsFit(..))
@@ -19,6 +19,7 @@ import Graphql.OptionalArgument exposing (OptionalArgument(..))
 import Graphql.SelectionSet as SelectionSet exposing (SelectionSet)
 import GraphqlRequest as YoutubeRequest exposing (staticGraphqlRequest)
 import Html exposing (Html)
+import Html.Attributes as Html
 import Html.Styled exposing (div, footer, fromUnstyled, main_, text, toUnstyled)
 import Html.Styled.Attributes exposing (class)
 import Markdown.Block as Markdown
@@ -191,13 +192,12 @@ view sharedData page model toMsg pageView =
         div []
             [ global styles
             , main_ [ class "container" ] pageView.body
-            , footer [ class "container" ]
-                [ div [ class "footerContent" ]
-                    [ Markdown.render Markdown.defaultHtmlRenderer sharedData.footerContent
-                        |> Result.map (Html.div [])
-                        |> Result.map fromUnstyled
-                        |> Result.withDefault (text "")
-                    ]
+            , footer [ class "container footer" ]
+                [ Html.div [ Html.class "footerContent" ]
+                    (Markdown.render Markdown.defaultHtmlRenderer sharedData.footerContent
+                        |> Result.withDefault [ Html.text "" ]
+                    )
+                    |> fromUnstyled
                 ]
             ]
             |> toUnstyled
@@ -210,10 +210,17 @@ styles =
     [ Global.class "footer"
         [ paddingTop zero
         , paddingBottom zero
+        , fontSize (rem 1)
         ]
     , Global.class "footerContent"
         ([ Global.descendants
             [ Global.p [ textAlign right ]
+            ]
+         , Global.children
+            [ Global.everything
+                [ firstChild [ marginTop zero ]
+                , lastChild [ marginBottom zero ]
+                ]
             ]
          , margin2 (rem 1) zero
          ]
