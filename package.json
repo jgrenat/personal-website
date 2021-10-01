@@ -2,7 +2,8 @@
   "name": "elm-pages-app",
   "scripts": {
     "start": "rollup -c ./rollup.config.js && elm-pages dev",
-    "build": "rollup -c ./rollup.config.js && elm-pages build"
+    "build": "rollup -c ./rollup.config.js && elm-pages build",
+    "generate-graphql": "npx elm-graphql https://graphql.datocms.com/ --base Datocms --output src --header 'Authorization: Bearer $DATOCMS_TOKEN' --scalar-codecs ScalarCodecs"
   },
   "devDependencies": {
     "@dillonkearns/elm-graphql": "^4.2.2",

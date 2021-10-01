@@ -9,6 +9,7 @@
         "direct": {
             "danyx23/elm-mimetype": "4.0.1",
             "dillonkearns/elm-graphql": "5.0.6",
+            "dillonkearns/elm-markdown": "7.0.0",
             "dillonkearns/elm-pages": "8.0.2",
             "dillonkearns/elm-rss": "2.0.2",
             "elm/browser": "1.0.2",

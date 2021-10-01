@@ -38,7 +38,7 @@ import Shared
 import StructuredText exposing (StructuredText)
 import StructuredText.Decode
 import StructuredTextHelper exposing (ImageSize(..), StructuredTextBlock(..), structuredText)
-import View exposing (View)
+import View exposing (View, userContentStyles)
 
 
 type alias Model =
@@ -332,102 +332,7 @@ styles =
                         ]
                     ]
                 ]
-            , Global.class "article-content"
-                [ marginBottom (vh 5)
-                , Global.descendants
-                    [ Global.h2
-                        [ fontSize (rem 2.2)
-                        , fontWeight (int 900)
-                        , textAlign left
-                        , margin3 (rem 3.5) zero (rem 1)
-                        ]
-                    , Global.h3
-                        [ fontSize (rem 1.8)
-                        , fontWeight (int 600)
-                        , textAlign left
-                        , margin3 (vh 3) zero (vh 1)
-                        , color (rgba 0 0 0 0.8)
-                        ]
-                    , Global.h4
-                        [ fontSize (rem 1.2)
-                        , fontWeight (int 200)
-                        , textAlign left
-                        , margin3 (vh 2) zero (vh 1)
-                        , color (rgba 0 0 0 0.6)
-                        ]
-                    , Global.p
-                        [ margin2 (rem 2.5) zero
-                        , lineHeight (rem 2)
-                        , whiteSpace preWrap
-                        , textAlign justify
-                        , color (rgba 0 0 0 0.8)
-                        , Global.children
-                            [ Global.code
-                                [ backgroundColor (rgba 225 225 255 0.7)
-                                , padding2 (px 1) (px 3)
-                                , fontSize (em 0.7)
-                                ]
-                            ]
-                        ]
-                    , Global.blockquote
-                        [ borderLeft3 (px 5) solid (rgba 5 117 230 0.8)
-                        , backgroundColor (rgba 5 117 230 0.1)
-                        , padding2 (vh 0.01) (vw 1)
-                        , maxWidth (px 650)
-                        , margin2 (rem 2.5) auto
-                        , Global.children
-                            [ Global.p
-                                [ Css.firstChild [ marginTop (rem 1) ]
-                                , Css.lastChild [ marginBottom (rem 1) ]
-                                ]
-                            ]
-                        , onMobile
-                            [ borderLeft zero
-                            , borderTop3 (px 5) solid (rgba 5 117 230 0.8)
-                            , padding2 (vh 0.01) (vw 3)
-                            ]
-                        ]
-                    , Global.strong
-                        [ fontWeight (int 900)
-                        , color (rgb 0 0 0)
-                        ]
-                    , Global.em
-                        [ fontStyle italic
-                        ]
-                    , Global.a
-                        [ textDecoration underline
-                        , Css.hover [ textDecoration none ]
-                        ]
-                    , Global.class "thanks"
-                        [ marginTop (vw 2)
-                        , fontStyle italic
-                        , fontSize (em 0.8)
-                        , textAlign right
-                        ]
-                    , Global.ul
-                        [ listStyleType disc
-                        , paddingLeft (rem 1)
-                        , marginLeft (vh 2)
-                        , Global.children
-                            [ Global.li
-                                [ Global.adjacentSiblings
-                                    [ Global.li
-                                        [ marginTop (vh 2)
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ]
-                    , Global.pre
-                        [ maxWidth (pct 100)
-                        , overflowY scroll
-                        ]
-                    , Global.code
-                        [ lineHeight (rem 1.7)
-                        , fontSize (em 0.85)
-                        ]
-                    ]
-                ]
+            , Global.class "article-content" (marginBottom (vh 5) :: userContentStyles)
             ]
         ]
     , Global.class "author-card"

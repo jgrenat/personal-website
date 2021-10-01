@@ -1,6 +1,8 @@
 module Shared exposing (Data, Model, Msg(..), SharedMsg(..), template)
 
 import Browser.Navigation
+import Css exposing (margin2, paddingBottom, paddingTop, rem, right, textAlign, zero)
+import Css.Global as Global exposing (Snippet, global)
 import DataSource
 import Datocms.Enum.ImgixParamsFit exposing (ImgixParamsFit(..))
 import Datocms.InputObject exposing (ImgixParams, buildImgixParams)
@@ -17,14 +19,17 @@ import Graphql.OptionalArgument exposing (OptionalArgument(..))
 import Graphql.SelectionSet as SelectionSet exposing (SelectionSet)
 import GraphqlRequest as YoutubeRequest exposing (staticGraphqlRequest)
 import Html exposing (Html)
-import Html.Styled exposing (main_, toUnstyled)
+import Html.Styled exposing (div, footer, fromUnstyled, main_, text, toUnstyled)
 import Html.Styled.Attributes exposing (class)
+import Markdown.Block as Markdown
+import Markdown.Parser as Markdown
+import Markdown.Renderer as Markdown
 import Pages.Flags
 import Pages.PageUrl exposing (PageUrl)
 import Path exposing (Path)
 import Route exposing (Route)
 import SharedTemplate exposing (SharedTemplate)
-import View exposing (View)
+import View exposing (View, userContentStyles)
 import YoutubeRequest exposing (Video)
 
 
@@ -52,6 +57,7 @@ type alias ConfigurationData =
     { websiteName : String
     , youtubeChannelId : String
     , twitterIconLink : String
+    , footerContent : List Markdown.Block
     }
 
 
@@ -61,6 +67,7 @@ type alias Data =
     , lastYoutubeVideos : List Video
     , twitterIconLink : String
     , sitePreviewUrl : String
+    , footerContent : List Markdown.Block
     }
 
 
@@ -115,7 +122,10 @@ subscriptions _ _ =
 
 data : DataSource.DataSource Data
 data =
-    DataSource.map2 (\( { websiteName, youtubeChannelId, twitterIconLink }, sitePreviewUrl ) lastYoutubeVideos -> Data websiteName youtubeChannelId lastYoutubeVideos twitterIconLink sitePreviewUrl)
+    DataSource.map2
+        (\( { websiteName, youtubeChannelId, twitterIconLink, footerContent }, sitePreviewUrl ) lastYoutubeVideos ->
+            Data websiteName youtubeChannelId lastYoutubeVideos twitterIconLink sitePreviewUrl footerContent
+        )
         (SelectionSet.map2 Tuple.pair
             (Query.websiteConfiguration identity configurationSelection
                 |> SelectionSet.nonNullOrFail
@@ -152,10 +162,18 @@ siteImageImgixParams =
 
 configurationSelection : SelectionSet ConfigurationData WebsiteConfigurationRecord
 configurationSelection =
-    SelectionSet.map3 ConfigurationData
+    SelectionSet.map4 ConfigurationData
         (WebsiteConfigurationRecord.name |> SelectionSet.nonNullOrFail)
         (WebsiteConfigurationRecord.youtubeChannelId |> SelectionSet.nonNullOrFail)
         (WebsiteConfigurationRecord.twitterIcon (FileField.url identity) |> SelectionSet.nonNullOrFail)
+        (WebsiteConfigurationRecord.footerText identity
+            |> SelectionSet.nonNullOrFail
+            |> SelectionSet.mapOrFail
+                (\footerContent ->
+                    Markdown.parse footerContent
+                        |> Result.mapError (\_ -> "Unable to parse footer content markdown")
+                )
+        )
 
 
 view :
@@ -170,7 +188,35 @@ view :
     -> { body : Html msg, title : String }
 view sharedData page model toMsg pageView =
     { body =
-        main_ [ class "container" ] pageView.body
+        div []
+            [ global styles
+            , main_ [ class "container" ] pageView.body
+            , footer [ class "container" ]
+                [ div [ class "footerContent" ]
+                    [ Markdown.render Markdown.defaultHtmlRenderer sharedData.footerContent
+                        |> Result.map (Html.div [])
+                        |> Result.map fromUnstyled
+                        |> Result.withDefault (text "")
+                    ]
+                ]
+            ]
             |> toUnstyled
     , title = pageView.title
     }
+
+
+styles : List Snippet
+styles =
+    [ Global.class "footer"
+        [ paddingTop zero
+        , paddingBottom zero
+        ]
+    , Global.class "footerContent"
+        ([ Global.descendants
+            [ Global.p [ textAlign right ]
+            ]
+         , margin2 (rem 1) zero
+         ]
+            ++ userContentStyles
+        )
+    ]
