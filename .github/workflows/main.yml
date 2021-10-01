@@ -4,8 +4,9 @@ name: CI
 
 on:
   push:
-    branches: [ v2 ]
-
+    branches: [ master ]
+  schedule:
+    - cron:  '10 7 * * *'
   workflow_dispatch:
 
 jobs:
