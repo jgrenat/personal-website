@@ -9,7 +9,6 @@ export default {
       jsnext: true
     })
   ],
-  sourceMap: true,
   output: {
     file: 'public/index.js',
     format: 'es'

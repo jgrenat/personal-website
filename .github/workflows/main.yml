@@ -32,8 +32,18 @@ jobs:
         uses: crazy-max/ghaction-github-pages@v2.1.1
         with:
           build_dir: ./dist
-          # Write the given domain name to the CNAME file
           fqdn: www.grenat.eu
           jekyll: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Warn DatoCMS about successful deployment
+        shell: bash
+        run: |
+          curl -n -X POST https://webhooks.datocms.com/1393a835d9/deploy-results -H 'Content-Type: application/json' -d '{ "status": "success" }'
+
+      - name: Warn DatoCMS about failed deployment
+        shell: bash
+        if: ${{ failure() }}
+        run: |
+          curl -n -X POST https://webhooks.datocms.com/1393a835d9/deploy-results -H 'Content-Type: application/json' -d '{ "status": "error" }'
