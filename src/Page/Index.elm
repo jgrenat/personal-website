@@ -299,12 +299,9 @@ styles =
                     ]
                 , Global.descendants
                     [ Global.a
-                        [ Css.hover
-                            [ Global.descendants
-                                [ Global.img
-                                    [ transform (scale 1.1) ]
-                                ]
-                            ]
+                        [ display block
+                        , transition [ Transition.transform 100 ]
+                        , Css.hover [ transform (scale 1.1) ]
                         ]
                     ]
                 ]
