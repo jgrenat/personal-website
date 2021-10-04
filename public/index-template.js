@@ -9,6 +9,7 @@ import java from "highlight.js/lib/languages/java.js";
 import bash from "highlight.js/lib/languages/bash.js";
 import haskell from "highlight.js/lib/languages/haskell.js";
 import idris from "highlight.js/lib/languages/ocaml.js";
+import markdown from "highlight.js/lib/languages/markdown.js";
 
 /** @type ElmPagesInit */
 export default {
@@ -52,6 +53,7 @@ hljs.registerLanguage('bash', bash);
 hljs.registerLanguage('java', java);
 hljs.registerLanguage('haskell', haskell);
 hljs.registerLanguage('idris', idris);
+hljs.registerLanguage('markdown', idris);
 
 
 // Load Plausible (analytics)

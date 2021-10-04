@@ -122,5 +122,11 @@ userContentStyles =
             [ lineHeight (rem 1.7)
             , fontSize (em 0.85)
             ]
+        , Global.img
+            [ maxWidth (pct 100)
+            , Global.withClass "fullWidth"
+                [ width (pct 100)
+                ]
+            ]
         ]
     ]

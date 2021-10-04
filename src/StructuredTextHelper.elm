@@ -1,7 +1,7 @@
 module StructuredTextHelper exposing (ArticleLinkRaw, ImageContentRaw, ImageSize(..), StructuredTextBlock(..), structuredText)
 
 import Html as Html2 exposing (a, div, img, span, text)
-import Html.Attributes exposing (alt, href, src)
+import Html.Attributes as Html exposing (alt, href, src)
 import Html.Styled as Html exposing (Attribute, Html, fromUnstyled, toUnstyled)
 import HtmlHelper exposing (link)
 import Route exposing (Route(..))
@@ -41,7 +41,16 @@ structuredText attributes structuredTextValue =
                     \item ->
                         case item of
                             ImageContent content ->
-                                img [ src content.url, alt (content.alt |> Maybe.withDefault "") ] []
+                                img
+                                    [ src content.url
+                                    , alt (content.alt |> Maybe.withDefault "")
+                                    , if content.size == FullWidth then
+                                        Html.class "fullWidth"
+
+                                      else
+                                        Html.class ""
+                                    ]
+                                    []
 
                             _ ->
                                 text ""
