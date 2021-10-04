@@ -1,18 +1,18 @@
 module Page.Blog.Slug_ exposing (Data, Model, Msg, page)
 
-import Article exposing (Article)
-import Css exposing (absolute, alignItems, auto, backgroundColor, borderLeft, borderLeft3, borderTop3, center, color, disc, displayFlex, em, fontSize, fontStyle, fontWeight, height, int, italic, justify, justifyContent, left, lineHeight, listStyleType, margin, margin2, margin3, marginBottom, marginLeft, marginRight, marginTop, maxWidth, none, overflowY, padding2, paddingLeft, paddingTop, pct, position, preWrap, px, relative, rem, rgb, rgba, right, scale, scroll, solid, spaceBetween, textAlign, textDecoration, top, transform, underline, vh, vw, whiteSpace, width, zero)
+import Article exposing (Article, Attribution)
+import Css exposing (absolute, alignItems, center, color, displayFlex, fontSize, fontStyle, fontWeight, height, int, italic, justify, justifyContent, left, lineHeight, margin3, marginBottom, marginRight, marginTop, none, paddingTop, pct, position, px, relative, rem, rgba, scale, spaceBetween, textAlign, textDecoration, top, transform, vh, width, zero)
 import Css.Global as Global exposing (Snippet, global)
 import Css.Transitions as Transition exposing (transition)
-import CssHelper exposing (onMobile)
 import DataSource exposing (DataSource)
 import Datocms.Enum.ImgixParamsCrop exposing (ImgixParamsCrop(..))
 import Datocms.Enum.ImgixParamsFit exposing (ImgixParamsFit(..))
 import Datocms.Enum.SiteLocale as SiteLocale
 import Datocms.InputObject exposing (ArticleModelFilter, buildArticleModelFilter, buildImgixParams, buildSlugFilter)
-import Datocms.Object exposing (ArticleModelContentField, ArticleRecord, FileField, HomePageRecord, ImageContentRecord)
+import Datocms.Object exposing (ArticleModelContentField, ArticleRecord, BannerAttributionRecord, FileField, HomePageRecord, ImageContentRecord)
 import Datocms.Object.ArticleModelContentField as ArticleModelContentField
 import Datocms.Object.ArticleRecord as ArticleRecord
+import Datocms.Object.BannerAttributionRecord as BannerAttributionRecord
 import Datocms.Object.FileField as FileField
 import Datocms.Object.HomePageRecord as HomePageRecord
 import Datocms.Object.ImageContentRecord as ImageContentRecord
@@ -24,10 +24,11 @@ import Graphql.SelectionSet as SelectionSet exposing (SelectionSet)
 import GraphqlRequest exposing (staticGraphqlRequest)
 import Head
 import Head.Seo as Seo
-import Html.Styled exposing (a, aside, div, h1, img, p, section, text)
-import Html.Styled.Attributes exposing (class, href, src)
+import Html.Styled exposing (Html, a, aside, div, em, figcaption, figure, h1, img, p, section, text)
+import Html.Styled.Attributes exposing (alt, attribute, class, href, src, target)
 import HtmlHelper exposing (link)
 import Json.Decode as Decode
+import Maybe.Extra as Maybe
 import Page exposing (Page, StaticPayload)
 import Pages.PageUrl exposing (PageUrl)
 import Pages.Url
@@ -35,6 +36,7 @@ import Ports
 import Route exposing (Route(..))
 import ScalarCodecs exposing (StructuredTextField(..))
 import Shared
+import String.Extra as String
 import StructuredText exposing (StructuredText)
 import StructuredText.Decode
 import StructuredTextHelper exposing (ImageSize(..), StructuredTextBlock(..), structuredText)
@@ -146,7 +148,7 @@ articleFilters slug =
 
 articleSelection : SelectionSet Article ArticleRecord
 articleSelection =
-    SelectionSet.map4 Article
+    SelectionSet.map5 Article
         (ArticleRecord.name (\args -> { args | locale = Present SiteLocale.Fr }) |> SelectionSet.nonNullOrFail)
         (ArticleRecord.banner bannerSelection
             |> SelectionSet.nonNullOrFail
@@ -159,6 +161,19 @@ articleSelection =
             |> SelectionSet.nonNullOrFail
         )
         (ArticleRecord.description identity |> SelectionSet.nonNullOrFail)
+        (ArticleRecord.bannerAttribution identity bannerAttributionSelection
+            |> SelectionSet.withDefault []
+            |> SelectionSet.map (List.filterMap identity)
+            |> SelectionSet.map List.head
+        )
+
+
+bannerAttributionSelection : SelectionSet Attribution BannerAttributionRecord
+bannerAttributionSelection =
+    SelectionSet.map3 Attribution
+        (BannerAttributionRecord.author |> SelectionSet.nonNullOrFail)
+        (BannerAttributionRecord.licenseName |> SelectionSet.map (Maybe.filter (not << String.isBlank)))
+        (BannerAttributionRecord.licenseLink |> SelectionSet.map (Maybe.filter (not << String.isBlank)))
 
 
 bannerSelection : SelectionSet Article.Banner Datocms.Object.FileField
@@ -174,8 +189,6 @@ imgixParams =
                 | maxW = Present (IntType "800")
                 , maxH = Present (IntType "250")
                 , fit = Present Crop
-
-                --, crop = Present [ Focalpoint, Faces, Entropy ]
             }
         )
 
@@ -266,7 +279,7 @@ view maybeUrl sharedModel () static =
             ]
         , section [ class "article" ]
             [ h1 [ class "article-title" ] [ text static.data.article.name ]
-            , div [ class "article-banner" ] [ img [ src static.data.article.banner.src ] [] ]
+            , viewBanner static.data.article
             , structuredText [ class "article-content" ] static.data.article.content
             ]
         , aside [ class "author-card" ]
@@ -275,6 +288,46 @@ view maybeUrl sharedModel () static =
             ]
         ]
     }
+
+
+viewBanner : Article -> Html msg
+viewBanner article =
+    figure
+        [ class "article-banner"
+        , attribute "aria-hidden" "true"
+        , (if article.bannerAttribution == Nothing then
+            ""
+
+           else
+            "article-banner--withAttribution"
+          )
+            |> class
+        ]
+        [ img [ src article.banner.src, alt "" ] []
+        , case article.bannerAttribution of
+            Nothing ->
+                text ""
+
+            Just attribution ->
+                figcaption []
+                    ([ text "Image by "
+                     , em [] [ text attribution.author ]
+                     ]
+                        ++ (case ( attribution.licenseName, attribution.licenseLink ) of
+                                ( Nothing, _ ) ->
+                                    []
+
+                                ( Just licenseName, Nothing ) ->
+                                    [ text (" under the " ++ licenseName ++ " license") ]
+
+                                ( Just licenseName, Just licenseLink ) ->
+                                    [ text " under the "
+                                    , a [ href licenseLink, target "_blank" ] [ text licenseName ]
+                                    , text " license"
+                                    ]
+                           )
+                    )
+        ]
 
 
 styles : List Snippet
@@ -320,15 +373,23 @@ styles =
                     [ Global.img
                         [ position absolute, top zero, left zero, width (pct 100), height (pct 100) ]
                     ]
-                ]
-            , Global.class "article-banner-legend"
-                [ fontSize (rem 0.9)
-                , color (rgba 0 0 0 0.7)
-                , textAlign center
-                , Global.children
-                    [ Global.a
-                        [ textDecoration underline
-                        , Css.hover [ color (rgb 0 0 0) ]
+                , Global.withClass "article-banner--withAttribution"
+                    [ marginBottom (rem 4)
+                    , Global.descendants
+                        [ Global.selector "figcaption"
+                            [ position absolute
+                            , top (pct 103)
+                            , left zero
+                            , width (pct 100)
+                            , textAlign center
+                            , fontSize (rem 0.8)
+                            , color (rgba 0 0 0 0.7)
+                            , Global.descendants
+                                [ Global.em
+                                    [ fontStyle italic
+                                    ]
+                                ]
+                            ]
                         ]
                     ]
                 ]

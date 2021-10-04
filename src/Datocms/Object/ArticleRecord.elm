@@ -21,6 +21,31 @@ import Json.Decode as Decode
 import ScalarCodecs
 
 
+type alias AllBannerAttributionLocalesOptionalArguments =
+    { locale : OptionalArgument Datocms.Enum.SiteLocale.SiteLocale }
+
+
+{-|
+
+  - locale - The locale to use to fetch the field's content
+
+-}
+allBannerAttributionLocales_ :
+    (AllBannerAttributionLocalesOptionalArguments -> AllBannerAttributionLocalesOptionalArguments)
+    -> SelectionSet decodesTo Datocms.Object.BannerAttributionRecordListMultiLocaleField
+    -> SelectionSet (Maybe (List (Maybe decodesTo))) Datocms.Object.ArticleRecord
+allBannerAttributionLocales_ fillInOptionals____ object____ =
+    let
+        filledInOptionals____ =
+            fillInOptionals____ { locale = Absent }
+
+        optionalArgs____ =
+            [ Argument.optional "locale" filledInOptionals____.locale (Encode.enum Datocms.Enum.SiteLocale.toString) ]
+                |> List.filterMap Basics.identity
+    in
+    Object.selectionForCompositeField "_allBannerAttributionLocales" optionalArgs____ object____ (Basics.identity >> Decode.nullable >> Decode.list >> Decode.nullable)
+
+
 type alias AllContentLocalesOptionalArguments =
     { locale : OptionalArgument Datocms.Enum.SiteLocale.SiteLocale }
 
@@ -199,6 +224,31 @@ banner :
     -> SelectionSet (Maybe decodesTo) Datocms.Object.ArticleRecord
 banner object____ =
     Object.selectionForCompositeField "banner" [] object____ (Basics.identity >> Decode.nullable)
+
+
+type alias BannerAttributionOptionalArguments =
+    { locale : OptionalArgument Datocms.Enum.SiteLocale.SiteLocale }
+
+
+{-|
+
+  - locale - The locale to use to fetch the field's content
+
+-}
+bannerAttribution :
+    (BannerAttributionOptionalArguments -> BannerAttributionOptionalArguments)
+    -> SelectionSet decodesTo Datocms.Object.BannerAttributionRecord
+    -> SelectionSet (Maybe (List (Maybe decodesTo))) Datocms.Object.ArticleRecord
+bannerAttribution fillInOptionals____ object____ =
+    let
+        filledInOptionals____ =
+            fillInOptionals____ { locale = Absent }
+
+        optionalArgs____ =
+            [ Argument.optional "locale" filledInOptionals____.locale (Encode.enum Datocms.Enum.SiteLocale.toString) ]
+                |> List.filterMap Basics.identity
+    in
+    Object.selectionForCompositeField "bannerAttribution" optionalArgs____ object____ (Basics.identity >> Decode.nullable >> Decode.list >> Decode.nullable)
 
 
 type alias ContentOptionalArguments =

@@ -17,6 +17,14 @@ type ArticleRecord
     = ArticleRecord
 
 
+type BannerAttributionRecord
+    = BannerAttributionRecord
+
+
+type BannerAttributionRecordListMultiLocaleField
+    = BannerAttributionRecordListMultiLocaleField
+
+
 type CollectionMetadata
     = CollectionMetadata
 
