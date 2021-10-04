@@ -65,7 +65,7 @@ oembedDataDecoder =
 codeInHtmlRegex : Regex
 codeInHtmlRegex =
     Maybe.withDefault Regex.never <|
-        Regex.fromString "https://www.youtube.com/embed/([a-zA-Z0-9-]+)\\?feature="
+        Regex.fromString "https://www.youtube.com/embed/([a-zA-Z0-9_-]+)\\?feature="
 
 
 codeDecoder : Decoder String
