@@ -1,11 +1,13 @@
 module Article exposing (Article, Attribution, Banner)
 
+import Datocms.ScalarCodecs exposing (ItemId)
 import StructuredText exposing (StructuredText)
 import StructuredTextHelper exposing (StructuredTextBlock)
 
 
 type alias Article =
-    { name : String
+    { id : ItemId
+    , name : String
     , banner : Banner
     , content : StructuredText StructuredTextBlock
     , description : String

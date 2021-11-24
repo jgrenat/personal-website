@@ -1,6 +1,8 @@
 module Page.Blog.Slug_ exposing (Data, Model, Msg, page)
 
 import Article exposing (Article, Attribution)
+import Browser.Navigation as Navigation
+import Comments exposing (Comment, NewComment)
 import Css exposing (absolute, alignItems, center, color, displayFlex, fontSize, fontStyle, fontWeight, height, int, italic, justify, justifyContent, left, lineHeight, margin3, marginBottom, marginRight, marginTop, none, paddingTop, pct, position, px, relative, rem, rgba, scale, spaceBetween, textAlign, textDecoration, top, transform, vh, width, zero)
 import Css.Global as Global exposing (Snippet, global)
 import Css.Transitions as Transition exposing (transition)
@@ -27,9 +29,10 @@ import Head.Seo as Seo
 import Html.Styled exposing (Html, a, aside, div, em, figcaption, figure, h1, img, p, section, text)
 import Html.Styled.Attributes exposing (alt, attribute, class, href, src, target)
 import HtmlHelper exposing (link)
+import Http
 import Json.Decode as Decode
 import Maybe.Extra as Maybe
-import Page exposing (Page, StaticPayload)
+import Page exposing (Page, PageWithState, StaticPayload)
 import Pages.PageUrl exposing (PageUrl)
 import Pages.Url
 import Ports
@@ -40,15 +43,26 @@ import String.Extra as String
 import StructuredText exposing (StructuredText)
 import StructuredText.Decode
 import StructuredTextHelper exposing (ImageSize(..), StructuredTextBlock(..), structuredText)
+import Supabase
+import Time
 import View exposing (View, userContentStyles)
 
 
 type alias Model =
-    ()
+    { comments : CommentsList, commentForm : Comments.Form }
 
 
-type alias Msg =
-    Never
+type CommentsList
+    = Loading
+    | Loaded (List Comment)
+    | OnError
+
+
+type Msg
+    = CommentsRetrieved (Result Http.Error (List Comment))
+    | SubmitNewComment (Result () NewComment)
+    | CommentCreated (Result Http.Error ())
+    | CommentFormChanged Comments.Form
 
 
 type alias RouteParams =
@@ -66,7 +80,7 @@ type alias Author =
     { picture : String, description : String }
 
 
-page : Page RouteParams Data
+page : PageWithState RouteParams Data Model Msg
 page =
     Page.prerender
         { head = head
@@ -75,10 +89,39 @@ page =
         }
         |> Page.buildWithLocalState
             { view = view
-            , init = \_ _ _ -> ( (), Ports.highlightCode () )
-            , update = \_ _ _ _ _ _ -> ( (), Cmd.none )
+            , init =
+                \_ _ static ->
+                    ( { comments = Loading, commentForm = Comments.emptyForm }
+                    , Cmd.batch [ Ports.highlightCode (), Supabase.retrieveComments CommentsRetrieved static.data.article.id ]
+                    )
+            , update = update
             , subscriptions = \_ _ _ _ -> Sub.none
             }
+
+
+update : PageUrl -> Maybe Navigation.Key -> Shared.Model -> StaticPayload Data RouteParams -> Msg -> Model -> ( Model, Cmd Msg )
+update _ _ _ static msg model =
+    case msg of
+        CommentsRetrieved (Ok comments) ->
+            ( { model | comments = Loaded comments }, Cmd.none )
+
+        CommentsRetrieved (Err _) ->
+            ( { model | comments = OnError }, Cmd.none )
+
+        SubmitNewComment (Ok newComment) ->
+            ( model, Supabase.createComment CommentCreated static.data.article.id newComment )
+
+        SubmitNewComment (Err ()) ->
+            ( model, Cmd.none )
+
+        CommentCreated (Ok _) ->
+            ( { model | commentForm = Comments.emptyForm }, Supabase.retrieveComments CommentsRetrieved static.data.article.id )
+
+        CommentCreated (Err _) ->
+            ( model, Cmd.none )
+
+        CommentFormChanged newForm ->
+            ( { model | commentForm = newForm }, Cmd.none )
 
 
 articleRoutesSelection : SelectionSet String ArticleRecord
@@ -148,7 +191,8 @@ articleFilters slug =
 
 articleSelection : SelectionSet Article ArticleRecord
 articleSelection =
-    SelectionSet.map5 Article
+    SelectionSet.map6 Article
+        ArticleRecord.id
         (ArticleRecord.name (\args -> { args | locale = Present SiteLocale.Fr }) |> SelectionSet.nonNullOrFail)
         (ArticleRecord.banner bannerSelection
             |> SelectionSet.nonNullOrFail
@@ -264,13 +308,13 @@ head static =
 view :
     Maybe PageUrl
     -> Shared.Model
-    -> ()
+    -> Model
     -> StaticPayload Data RouteParams
     -> View Msg
-view maybeUrl sharedModel () static =
+view maybeUrl sharedModel model static =
     { title = static.data.article.name ++ " - " ++ static.sharedData.websiteName
     , body =
-        [ global styles
+        [ global (styles ++ Comments.styles)
         , div [ class "site-title" ]
             [ link Index [ class "site-name" ] [ text static.sharedData.websiteName ]
             , a [ href "https://twitter.com/JoGrenat" ]
@@ -285,6 +329,22 @@ view maybeUrl sharedModel () static =
         , aside [ class "author-card" ]
             [ img [ class "author-picture", src static.data.author.picture ] []
             , p [ class "author-description" ] [ text static.data.author.description ]
+            ]
+        , section [ class "article-comments" ]
+            [ Comments.view (sharedModel.timeZone |> Maybe.withDefault Time.utc)
+                (case model.comments of
+                    Loading ->
+                        []
+
+                    Loaded comments ->
+                        comments
+
+                    OnError ->
+                        []
+                )
+            , div [ class "article-comments-form" ]
+                [ Comments.viewForm SubmitNewComment CommentFormChanged model.commentForm
+                ]
             ]
         ]
     }
@@ -410,5 +470,11 @@ styles =
                 , lineHeight (rem 1.5)
                 ]
             ]
+        ]
+    , Global.class "article-comments"
+        [ marginTop (rem 3)
+        ]
+    , Global.class "article-comments-form"
+        [ marginTop (rem 2)
         ]
     ]

@@ -30,6 +30,8 @@ import Pages.PageUrl exposing (PageUrl)
 import Path exposing (Path)
 import Route exposing (Route)
 import SharedTemplate exposing (SharedTemplate)
+import Task
+import Time
 import View exposing (View, userContentStyles)
 import YoutubeRequest exposing (Video)
 
@@ -73,7 +75,7 @@ type alias Data =
 
 
 type SharedMsg
-    = NoOp
+    = TimeZoneRetrieved Time.Zone
 
 
 type Locale
@@ -83,6 +85,7 @@ type Locale
 
 type alias Model =
     { locale : Locale
+    , timeZone : Maybe Time.Zone
     }
 
 
@@ -101,8 +104,10 @@ init :
             }
     -> ( Model, Cmd Msg )
 init navigationKey flags maybePagePath =
-    ( { locale = French }
-    , Cmd.none
+    ( { locale = French, timeZone = Nothing }
+    , Time.here
+        |> Task.perform TimeZoneRetrieved
+        |> Cmd.map SharedMsg
     )
 
 
@@ -112,8 +117,8 @@ update msg model =
         OnPageChange _ ->
             ( model, Cmd.none )
 
-        SharedMsg _ ->
-            ( model, Cmd.none )
+        SharedMsg (TimeZoneRetrieved zone) ->
+            ( { model | timeZone = Just zone }, Cmd.none )
 
 
 subscriptions : Path -> Model -> Sub Msg
