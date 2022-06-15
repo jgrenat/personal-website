@@ -94,3 +94,7 @@ a {
 a:hover {
   text-decoration: none;
 }
+
+#elm-pages-announcer {
+  max-width: 100%;
+}
